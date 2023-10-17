@@ -20,6 +20,7 @@ Adjusted to:
 
  * 3× 10k resistors,
  * 1× SMA 868MHz antenna,
+ * 1x RN2483 (or RN2903)
 
 ## Setting up
 
