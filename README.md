@@ -1,23 +1,16 @@
 # SAE-KART
 
-KiCad design for an Arduino compatible RN2483 (or RN2903) LoRaWAN shield.
+Simple KiCad design for an Arduino compatible RN2483 (or RN2903) LoRaWA suited for our Project.
 
 Fork of the original [jpmeyers/RN2483shield](https://github.com/jpmeijers/RN2483shield).
 
-![top layout](images/top_rev1.png)
+![top layout]("module lora kicad/images/top_rev1.png")
 ***Top board view***
 
 Adjusted to:
 
- * use the Microchip specified RF trace geometry to maintain R&TTE (CE) and FCC testing compliance for the radio module (datasheet pg. 12),
  * ignore the 433MHz antenna trace (868MHz only),
- * use solder jumper connections for Serial UART connection,
- * normally connected jumpers for default connections:
-   * Serial D3 Tx → Radio Serial Rx,
-   * Serial D2 Rx → Radio Serial Tx,
- * Mosfet level converters on the UART connection to allow 5V→3.3V signal conversion,
- * Breakout of all GPIO pins on the radio (GPIO 0–13),
- * edge mounted SMA connetion for antenna.
+ 
 
 ![bottom layout](images/bottom_rev1.png)
 ***Bottom board view***
