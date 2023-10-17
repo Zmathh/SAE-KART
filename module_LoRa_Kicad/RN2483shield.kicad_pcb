@@ -871,6 +871,8 @@
     )
   )
 
+  (gr_rect (start 214.2 99.6) (end 217.121791 102.487165)
+    (stroke (width 0.1) (type default)) (fill none) (layer "Dwgs.User") (tstamp 24cf7c10-c15c-4d10-97d9-23953d2293aa))
   (gr_poly
     (pts
       (xy 163.96 71.92)
@@ -890,6 +892,24 @@
   )
   (gr_text "RN2483/RN2903" (at 187.358 89.354) (layer "F.SilkS") (tstamp 5839af49-b084-4fde-8a06-0c12daa737e5)
     (effects (font (size 1.5 1.5) (thickness 0.3)))
+  )
+  (dimension (type aligned) (layer "Dwgs.User") (tstamp de38cb50-ff37-44fe-9086-27b53d33de7b)
+    (pts (xy 163.95 102.46) (xy 163.96 71.92))
+    (height -6.430697)
+    (gr_text "30,5400 mm" (at 156.374303 87.187517 89.9812391) (layer "Dwgs.User") (tstamp b0c6566b-249e-4d08-bc7a-46b129f54b98)
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (format (prefix "") (suffix "") (units 3) (units_format 1) (precision 4))
+    (style (thickness 0.1) (arrow_length 1.27) (text_position_mode 0) (extension_height 0.58642) (extension_offset 0.5) keep_text_aligned)
+  )
+  (dimension (type aligned) (layer "Dwgs.User") (tstamp e071a672-39d4-4054-8a74-0931487bbc3a)
+    (pts (xy 217.121791 102.487165) (xy 163.95 102.46))
+    (height -5.813255)
+    (gr_text "53,1718 mm" (at 190.533513 107.136836 -0.02927298389) (layer "Dwgs.User") (tstamp f62cf6ae-2622-4ab7-876a-c13989468d82)
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (format (prefix "") (suffix "") (units 2) (units_format 1) (precision 4))
+    (style (thickness 0.1) (arrow_length 1.27) (text_position_mode 0) (extension_height 0.58642) (extension_offset 0.5) keep_text_aligned)
   )
 
   (segment (start 209.528 84.364) (end 209.528 82.994176) (width 0.5) (layer "F.Cu") (net 1) (tstamp 00a1f749-80ce-4387-9b35-9f727caef12b))
