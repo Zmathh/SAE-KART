@@ -12,7 +12,7 @@ Adjusted to:
  * ignore the 433MHz antenna trace (868MHz only),
  
 
-![bottom layout](images/bottom_rev1.png)
+![bottom layout](module_LoRa_Kicad/images/bottom_rev1.png)
 ***Bottom board view***
 
 ## Required Parts
