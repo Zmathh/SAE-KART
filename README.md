@@ -4,7 +4,7 @@ Simple KiCad design for an Arduino compatible RN2483 (or RN2903) LoRaWA suited f
 
 Fork of the original [jpmeyers/RN2483shield](https://github.com/jpmeijers/RN2483shield).
 
-![top layout]("module lora kicad/images/top_rev1.png")
+![top layout](module_LoRa_Kicad/images/top_rev1.png)
 ***Top board view***
 
 Adjusted to:
