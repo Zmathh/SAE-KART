@@ -30,5 +30,5 @@ Adjusted to:
 ![Schematic](module_LoRa_Kicad/images/Schematic.png)
 ***Schematic***
 
-![PCB](module_LoRa_Kicad/images/PCB.png)*
+![PCB](module_LoRa_Kicad/images/PCB.png)
 ***PCB***
