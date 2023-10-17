@@ -1,0 +1,8 @@
+(sym_lib_table
+  (version 0)
+  (lib (name "RN2483shield-rescue")(type "Legacy")(uri "${KIPRJMOD}/RN2483shield-rescue.lib")(options "")(descr ""))
+  (lib (name "rn2483")(type "Legacy")(uri "${KIPRJMOD}/My_Library/rn2483.lib")(options "")(descr ""))
+  (lib (name "screw_terminal")(type "Legacy")(uri "${KIPRJMOD}/My_Library/screw_terminal.lib")(options "")(descr ""))
+  (lib (name "sma_through")(type "Legacy")(uri "${KIPRJMOD}/My_Library/sma_through.lib")(options "")(descr ""))
+  (lib (name "sma")(type "Legacy")(uri "${KIPRJMOD}/My_Library/sma.lib")(options "")(descr ""))
+)

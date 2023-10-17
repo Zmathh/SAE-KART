@@ -1,0 +1,14 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP ARDUINO_SHIELD
+D Arduino shield footprint (power outputs). Original by nicholasclewis
+K arduino
+F http://www.thingiverse.com/thing:9630
+$ENDCMP
+#
+$CMP Jumper_NC_Small
+D Jumper, normally open
+K jumper link bridge
+$ENDCMP
+#
+#End Doc Library
