@@ -40,7 +40,7 @@ WIP
 
 
 ## Solidworks Case
-![Solidworks](SAE-KART/solidworks/Solidworks_view.png)
+![Solidworks](SAE-KART/solidworks/images/Solidworks_view.png)
 ***Solidworks view***
 
 ## RF Impedance Analyser Results
