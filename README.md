@@ -1,4 +1,7 @@
 # SAE-KART
+![top layout](images/Kart.png)
+***Top board view***
+
 
 Simple KiCad design for an Arduino compatible RN2483 (or RN2903) LoRaWA suited for our Project.
 
@@ -33,3 +36,15 @@ Adjusted to:
 
 ![PCB](module_LoRa_Kicad/images/PCB.png)
 ***PCB***
+
+
+## Solidworks case
+![Solidworks](SAE-KART\solidworks\Solidworks_view.png)
+***Solidworks view***
+
+
+##Final result
+![Final result](SAE-KART\solidworks\final_result)
+***Final result***
+
+
