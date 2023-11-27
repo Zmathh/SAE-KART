@@ -19,7 +19,7 @@ Adjusted to:
  * ignore the 433MHz antenna trace (868MHz only),
  
 
-## Required Parts
+## Required Parts for PCB
 
  * 3× 10k resistors,
  * 1× SMA 868MHz antenna,
@@ -27,9 +27,9 @@ Adjusted to:
 
 ## Setting up
 
+WIP
 
-
-## 
+## Schematic
 
 ![Schematic](module_LoRa_Kicad/images/Schematic.png)
 ***Schematic***
@@ -38,13 +38,21 @@ Adjusted to:
 ***PCB***
 
 
-## Solidworks case
+## Solidworks Case
 ![Solidworks](SAE-KART/solidworks/Solidworks_view.png)
 ***Solidworks view***
 
+## RF Impedance Analyser Results
 
-##Final result
+First Version was a little off the mark because we didn't followed precisely datasheet from the [LoRa module](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/RN2483-Low-Power-Long-Range-LoRa-Technology-Transceiver-Module-DS50002346F.pdf) where P.12
+![Datasheet](SAE-KART/images/Datasheet.png)
+***[Datasheet P.12](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/RN2483-Low-Power-Long-Range-LoRa-Technology-Transceiver-Module-DS50002346F.pdf)***
+
+After 
+
+
+
+## Final result
 ![Final result](SAE-KART/solidworks/images/final_result.png)
 ***Final result***
-
 
