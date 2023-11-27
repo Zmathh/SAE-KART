@@ -28,6 +28,7 @@ Adjusted to:
 ## Setting up
 
 WIP
+-debug possible
 
 ## Schematic
 
@@ -44,15 +45,17 @@ WIP
 
 ## RF Impedance Analyser Results
 
+![First_vers](SAE-KART/images/First_vers.jpg)
 First Version was a little off the mark because we didn't followed precisely datasheet from the [LoRa module](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/RN2483-Low-Power-Long-Range-LoRa-Technology-Transceiver-Module-DS50002346F.pdf) where P.12
 ![Datasheet](SAE-KART/images/Datasheet.png)
 ***[Datasheet P.12](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/RN2483-Low-Power-Long-Range-LoRa-Technology-Transceiver-Module-DS50002346F.pdf)***
 
+![Second_vers](SAE-KART/images/Second_vers.jpg)
 After 
 
 
-
 ## Final result
+
 ![Final result](SAE-KART/solidworks/images/final_result.png)
 ***Final result***
 
