@@ -1,5 +1,5 @@
 # SAE-KART
-![top layout](images/Kart.png)
+![Kart](images/Kart.jpg)
 ***Top board view***
 
 
@@ -39,12 +39,12 @@ Adjusted to:
 
 
 ## Solidworks case
-![Solidworks](SAE-KART\solidworks\Solidworks_view.png)
+![Solidworks](SAE-KART/solidworks/Solidworks_view.png)
 ***Solidworks view***
 
 
 ##Final result
-![Final result](SAE-KART\solidworks\final_result)
+![Final result](SAE-KART/solidworks/final_result)
 ***Final result***
 
 
