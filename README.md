@@ -39,7 +39,7 @@ WIP
 ***PCB***
 
 
-## Solidworks Case
+# Solidworks Case
 ![Solidworks](solidworks/images/Solidworks_view.png)
 ***Solidworks view***
 
@@ -62,4 +62,9 @@ In the end after testing we are getting better results, better signal strenght a
 ![Final result](solidworks/images/final_result.png)
 WIP
 ***Final result***
+# Processing 
+
+Despite the use of an LCD arduino screen, we wanted to add a better gauge interface, more customizable so we tried to use processing.
+A first sketch code has been written, using an raspberry pi with a raspberry 7" screen.
+![Processing interface](images/processing_interface.png)
 
