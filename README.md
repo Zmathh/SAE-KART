@@ -45,6 +45,8 @@ WIP
 
 ## RF Impedance Analyser Results
 
+(R +jX) - Calibrated with 50ohms
+
 ![First_vers](images/First_vers.png)
 The first version was a bit off, because we didn't follow the [LoRa Module Datasheet](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/RN2483-Low-Power-Long-Range-LoRa-Technology-Transceiver-Module-DS50002346F.pdf), where we have application information for better transmission.
 Tiny holes are for [via stitching](https://www.altium.com/documentation/altium-designer/via-stitching-via-shielding-pcb) 
@@ -54,9 +56,7 @@ Tiny holes are for [via stitching](https://www.altium.com/documentation/altium-d
 ***[Datasheet P.12](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/RN2483-Low-Power-Long-Range-LoRa-Technology-Transceiver-Module-DS50002346F.pdf)***
 
 ![Second_vers](images/Second_vers.png)
-After 
-
-
+In the end after testing we are getting better results, better signal strenght and range. So we are certainly closer for a better impedance, but it could be better as the Analyser retrieved us with not perfect transmision Impedence (29.5 +j*92.3) 
 ## Final result
 
 ![Final result](solidworks/images/final_result.png)
