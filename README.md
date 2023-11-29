@@ -46,7 +46,7 @@ WIP
 ## RF Impedance Analyser Results
 
 ![First_vers](images/First_vers.png)
-The first version was a bit off, because we didn't follow the [LoRa Module](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/RN2483-Low-Power-Long-Range-LoRa-Technology-Transceiver-Module-DS50002346F.pdf), where we have application information for better transmission.
+The first version was a bit off, because we didn't follow the [LoRa Module Datasheet](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/RN2483-Low-Power-Long-Range-LoRa-Technology-Transceiver-Module-DS50002346F.pdf), where we have application information for better transmission.
 
 ![Datasheet](images/Datasheet.png)
 
