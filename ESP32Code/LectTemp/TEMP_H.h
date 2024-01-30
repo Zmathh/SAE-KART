@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include <Wire.h> 
-#include <LiquidCrystal_I2C.h>
+#include "..\1Librairies\LiquidCrystal_I2C\LiquidCrystal_I2C.h"
 
 class TEMP_H {
 public:
