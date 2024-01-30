@@ -1,4 +1,5 @@
 {
     "board": "esp32:esp32:esp32da",
-    "port": "COM4"
+    "port": "COM12",
+    "sketch": "ESP32Code\\ESP32Code.ino"
 }
