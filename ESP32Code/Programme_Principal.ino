@@ -1,7 +1,6 @@
 #include CONFIG_H
 
 #include "Lecture_Frein_Accel.h"
-#include <Arduino.h>
 
 //-------------------
 // Variable Numero de port
