@@ -1,6 +1,5 @@
-// MonCapteurs.h
-#ifndef Lecture_Frein_Accel
-#define Lecture_Frein_Accel
+#ifndef Lecture_Frein_Accel_h
+#define Lecture_Frein_Accel_h
 
 #include <Arduino.h>
 
@@ -9,6 +8,8 @@ public:
     Lecture_Frein_Accel(int pinFrein, int pinAccel);
     void setup();
     void lireCapteurs();
+    int getFr_Prcent();
+    int getAc_Prcent();
 
 private:
     int pinFrein_;

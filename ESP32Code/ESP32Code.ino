@@ -6,8 +6,7 @@
 // Variable Numero de port
 //-------------------
 
-#define FREIN 36
-#define ACCEL 39
+Lecture_Frein_Accel lectureFreinAccel(FREIN, ACCEL);
 
 //-------------------
 // Variables générales
@@ -26,8 +25,7 @@ void setup() {
 void loop() {
     //-------Accelero/Frein--------
     lectureFreinAccel.lireCapteurs();
-    Serial.println(lectureFreinAccel.getFr_Prcent());  // Utilisez les getters pour accéder aux valeurs
+    Serial.println(lectureFreinAccel.getFr_Prcent());
     Serial.println(lectureFreinAccel.getAc_Prcent());
 
-    // Ajoutez le reste de votre code loop ici
 }
