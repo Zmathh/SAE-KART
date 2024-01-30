@@ -58,7 +58,7 @@
 //     //-----------GPS---------------
 //     GPS();
 //     //-------temperature-----------
-//     Mesure_temp();
+//     Mesure_temp(Lect, Somme);
 //     //-------Accelero/Frein--------
 //     Serial.print("Frein : ");
 //     Serial.println(lesLectures.readFrein());

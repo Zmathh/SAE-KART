@@ -7,10 +7,8 @@
 
 class TEMP_H {
 public:
-    Mesure_temp();
-    Attend();
-
-  
+    TEMP_H();     
+    void Attend(); 
 
 private:
     int SC;

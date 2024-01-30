@@ -10,38 +10,34 @@ float Somme=0;
 int a;
 float puiss;
 
-void setup() {
+
+void Attend() {
+  for (int a = 0; a < 30000; a++) {
+    __asm__("nop\n\t");
+  }
 }
 
-void loop() {
-}
-
-
-void Mesure_temp(){
-  for(i=0;i<16;i++){
-    digitalWrite(SC,HIGH);
+void Mesure_temp(bool (&Lect)[16], float& Somme) {
+  for (i = 0; i < 16; i++) {
+    digitalWrite(SC, HIGH);
     Attend();
-    Lect[i]=digitalRead(SIO);
-    digitalWrite(SC,LOW);
+    Lect[i] = digitalRead(SIO);
+    digitalWrite(SC, LOW);
     Attend();
   }
-  for(i=0;i<16;i++){
-    digitalWrite(SC,HIGH);
+
+  for (i = 0; i < 16; i++) {
+    digitalWrite(SC, HIGH);
     Attend();
-    digitalWrite(SC,LOW);
+    digitalWrite(SC, LOW);
     Attend();
   }
-  digitalWrite(CSN,HIGH);
+
+  digitalWrite(CSN, HIGH);
   delay(500);
-  for(i=1;i<14;i++){
-    puiss=128/pow(2,(i-1));
-    Somme=Somme+Lect[i]*puiss;
-  }
-  return Lect, Somme
-}
 
-void Attend(){
-  for(a=0;a<30000;a++){
-  __asm__("nop\n\t");
+  for (i = 1; i < 14; i++) {
+    puiss = 128 / pow(2, (i - 1));
+    Somme = Somme + Lect[i] * puiss;
   }
 }

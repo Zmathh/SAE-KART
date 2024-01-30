@@ -5,13 +5,7 @@ char buffer[64];
 int count = 0;
 bool isGPGGA = false;
 
-void setup() {
-  SoftSerial.begin(9600);
-  Serial.begin(115200);
-}
 
-void loop() {
-}
 
 
 void GPS(){

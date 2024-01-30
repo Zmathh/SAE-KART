@@ -1,5 +1,3 @@
-// GPS_Reader.h
-
 #ifndef GPS_H
 #define GPS_H
 
@@ -8,10 +6,8 @@
 
 class GPS_H {
 public:
-  GPS();
-
+  GPS_H(); 
 private:
-  SoftwareSerial softSerial;
   char buffer[64];
   int count;
   bool isGPGGA;
