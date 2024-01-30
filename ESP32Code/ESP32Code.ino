@@ -1,6 +1,6 @@
 #include "CONFIG_H.h"  
-#include "Lecture_Frein_Accel/Lecture_Frein_Accel.h"
-#include "GPS/GPS.h"
+#include "Lecture_Frein_Accel\Lecture_Frein_Accel.h"
+#include "GPS\GPS.h"
 #include "code_ecran\ECRAN_H.h"
 #include "LectTemp\TEMP_H.h"
 
@@ -69,9 +69,9 @@ void loop() {
 
     latitude = latitude + 0.00001;
     longitude = longitude + 0.00001;
-    memcpy(dataPacket, data, sizeof(float) * 7);
-    memcpy(dataPacket + sizeof(float) * 7, &latitude, sizeof(float));
-    memcpy(dataPacket + sizeof(float) * 7 + sizeof(float), &longitude, sizeof(float));
+    memcpy(dataPacket, data, sizeof(float) * 13);
+    memcpy(dataPacket + sizeof(float) * 13, &latitude, sizeof(float));
+    memcpy(dataPacket + sizeof(float) * 13 + sizeof(float), &longitude, sizeof(float));
     pModuleLoRa->radioTX(dataPacket, dataPacketSize);
     
     //--------ECRAN------------
