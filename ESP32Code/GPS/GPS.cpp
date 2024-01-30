@@ -1,4 +1,4 @@
- #include <SoftwareSerial.h>
+ #include "..\1Librairies\SoftwareSerial\SoftwareSerial.h"
 
 SoftwareSerial SoftSerial(17, 16);
 char buffer[64];
