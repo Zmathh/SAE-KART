@@ -1,6 +1,6 @@
 #include "CONFIG_H.h"  
 
-#include "Lecture_Frein_Accel/Lecture_Frein_Accel.h"
+#include "Petit code\Lecture_Frein_Accel\Lecture_Frein_Accel.h"
 
 //-------------------
 // Variable Numero de port
