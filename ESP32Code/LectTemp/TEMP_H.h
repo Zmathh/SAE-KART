@@ -7,8 +7,8 @@
 
 class TEMP_H {
 public:
-    Mesure_temp()
-    Attend()
+    Mesure_temp();
+    Attend();
 
   
 
