@@ -18,7 +18,7 @@ Lecture_Frein_Accel lectureFreinAccel(FREIN, ACCEL);
 void setup() {
     //-------Accelero/Frein--------
     lectureFreinAccel.setup();
-    Serial.begin(115200);  // Assurez-vous d'initialiser Serial si ce n'est pas déjà fait
+    Serial.begin(VITESSE_SERIAL);  // Assurez-vous d'initialiser Serial si ce n'est pas déjà fait
 
     // Initialisez d'autres configurations si nécessaire
 }
