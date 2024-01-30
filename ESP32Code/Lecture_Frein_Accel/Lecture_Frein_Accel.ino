@@ -17,10 +17,3 @@ void Lecture_Frein_Accel::lireCapteurs() {
     // Ajoutez d'autres fonctionnalités de lecture si nécessaire
 }
 
-int Lecture_Frein_Accel::getFr_Prcent() {
-    return Fr_Prcent;
-}
-
-int Lecture_Frein_Accel::getAc_Prcent() {
-    return Ac_Prcent;
-}
