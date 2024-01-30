@@ -63,7 +63,6 @@ In the end after testing we are getting better results, better signal strenght a
 ![Final result](images/finalprod2.jpg)
 ![Final result](images/top_view.jpg)
 ![Final result](images/bot_view.jpg)
-WIP
 ***Final result***
 # Processing 
 
