@@ -61,34 +61,6 @@ void loop() {
     lectureFreinAccel.lireCapteurs();
     Serial.println(lectureFreinAccel.getFr_Prcent());
     Serial.println(lectureFreinAccel.getAc_Prcent());
+    Serial.println()
 
-    //-------Envoi-LORA--------
-    for (int i = 0; i < 13; i++) {
-        data[i] += 1.0;
-    }
-
-    latitude = latitude + 0.00001;
-    longitude = longitude + 0.00001;
-    memcpy(dataPacket, data, sizeof(float) * 7);
-    memcpy(dataPacket + sizeof(float) * 7, &latitude, sizeof(float));
-    memcpy(dataPacket + sizeof(float) * 7 + sizeof(float), &longitude, sizeof(float));
-    pModuleLoRa->radioTX(dataPacket, dataPacketSize);
-    
-    //--------ECRAN------------
-
-    if(etat_PIT) {PIT_LCD();} //Si on reçoit alarme du stand (supervions) affichage du mot PIT sur l'écran
-    else {
-        SPEEDCOUNTER(speed);                                  //Gestion affichage vitesse
-        TOPSPEED(speed);                                      //Gestion vitesse maximum
-        BATTERY(tension_big_battery, tension_small_battery);  //Gestion batterie
-        CHRONOMETER();                                        //Gestion chronomètre
-
-        etat_clean = true; 
-
-        //A utiliser pour phase de test
-        /*
-        speed++; 
-        delay(200);
-        */
-    }
 }
