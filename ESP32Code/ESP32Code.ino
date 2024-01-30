@@ -1,12 +1,12 @@
 #include "CONFIG_H.h"  
 
-#include "Petit code\Lecture_Frein_Accel\Lecture_Frein_Accel.h"
+#include "Petit_code/Lecture_Frein_Accel/Lecture_Frein_Accel.h"
 
 //-------------------
 // Variable Numero de port
 //-------------------
 
-Lecture_Frein_Accel lectureFreinAccel(FREIN, ACCEL);
+
 
 //-------------------
 // Variables générales
@@ -15,9 +15,13 @@ Lecture_Frein_Accel lectureFreinAccel(FREIN, ACCEL);
 Lecture_Frein_Accel lectureFreinAccel(FREIN, ACCEL);
 
 void setup() {
+    
+    //-------Serial--------
+    Serial.begin(VITESSE_SERIAL);  // Initialisation de la vitesse de la liaison série
+
     //-------Accelero/Frein--------
-    lectureFreinAccel.setup();
-    Serial.begin(VITESSE_SERIAL);  // Assurez-vous d'initialiser Serial si ce n'est pas déjà fait
+    lectureFreinAccel.setup();  // Initialisation des capteurs
+
 
     // Initialisez d'autres configurations si nécessaire
 }

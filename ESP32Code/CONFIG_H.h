@@ -1,6 +1,6 @@
 // config.h
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef CONFIG_H_h
+#define CONFIG_H_h
 
 #define VITESSE_SERIAL 115200
 
@@ -10,8 +10,8 @@
 
 // PINs
 
-#define FREIN =
-#define ACELL = 
+#define FREIN 25
+#define ACCEL 26
 
 
 
