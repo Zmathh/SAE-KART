@@ -26,4 +26,6 @@ void loop
 {
     //-------Accelero/Frein--------
     Lecture_Frein_Accel.lireCapteurs();
+    Serial.println(Lecture_Frein_Accel.Fr_Prcent)
+    Serial.println(Lecture_Frein_Accel.Ac_Prcent)
 }
