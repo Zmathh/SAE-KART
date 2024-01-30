@@ -1,21 +1,14 @@
-#ifndef Lecture_Frein_Accel
-#define Lecture_Frein_Accel
+#ifdef Lecture_Frein_Accel.h
+#define Lecture_Frein_Accel.h
 
-#include <Arduino.h>
+#include "Lecture_Frein_Accel.h"
 
-class Lecture_Frein_Accel {
-public:
-    Lecture_Frein_Accel(int pinFrein, int pinAccel);
-    void setup();
-    void lireCapteurs();
-    int getFr_Prcent();
-    int getAc_Prcent();
+Lecture_Frein_Accel::Lecture_Frein_Accel(int pinFrein, int pinAccel) {
+    pinFrein_ = pinFrein;
+    pinAccel_ = pinAccel;
+    Fr_Prcent = 0; 
+    Ac_Prcent = 0;
+}
 
-private:
-    int pinFrein_;
-    int pinAccel_;
-    int Fr_Prcent;
-    int Ac_Prcent;
-};
 
-#endif
+
