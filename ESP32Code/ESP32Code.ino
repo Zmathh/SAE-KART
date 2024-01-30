@@ -55,6 +55,8 @@ void setup() {
 }
 
 void loop() {
+    //-----------GPS---------------
+    GPS();
     //-------temperature-----------
     Mesure_temp();
     //-------Accelero/Frein--------
