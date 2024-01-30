@@ -1,6 +1,6 @@
 #include "CONFIG_H.h"  
-#include "Lecture_Frein_Accel/Lecture_Frein_Accel.h"
-#include "GPS/GPS.h"
+#include "Lecture_Frein_Accel\Lecture_Frein_Accel.h"
+#include "GPS\GPS.h"
 #include "code_ecran\ECRAN_H.h"
 #include "LectTemp\TEMP_H.h"
 
