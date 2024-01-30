@@ -6,7 +6,7 @@
 // Variable Numero de port
 //-------------------
 
-Lecture_Frein_Accel lectureFreinAccel(FREIN, ACCEL);
+
 
 //-------------------
 // Variables générales
