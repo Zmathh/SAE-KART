@@ -1,17 +1,14 @@
 // GPS_Reader.h
 
-#ifndef GPS_READER_H
-#define GPS_READER_H
+#ifndef GPS_H
+#define GPS_H
 
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 
 class GPSReader {
 public:
-  GPSReader(int rxPin, int txPin);
-  void begin();
-  void readGPS();
-  void passThroughSerial();
+  GPS();
 
 private:
   SoftwareSerial softSerial;
