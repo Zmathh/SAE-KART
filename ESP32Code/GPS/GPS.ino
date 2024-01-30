@@ -1,17 +1,22 @@
-  arduino #include <SoftwareSerial.h>
+ #include <SoftwareSerial.h>
 
-  SoftwareSerial SoftSerial(8, 9);
-  char buffer[64];
-  int count = 0;
-  bool isGPGGA = false;
+SoftwareSerial SoftSerial(17, 16);
+char buffer[64];
+int count = 0;
+bool isGPGGA = false;
 
-  void setup() {
-    SoftSerial.begin(9600);
-    Serial.begin(9600);
-  }
+void setup() {
+  SoftSerial.begin(9600);
+  Serial.begin(115200);
+}
 
-  void loop() {
-    if (SoftSerial.available()) {
+void loop() {
+  GPS();
+}
+
+
+void GPS(){
+if (SoftSerial.available()) {
       char incomingChar = SoftSerial.read();
 
       if (incomingChar == '$') {
@@ -55,4 +60,4 @@
     if (Serial.available()) {
       SoftSerial.write(Serial.read());
     }
-  }
+}
