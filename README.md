@@ -59,7 +59,10 @@ Tiny holes are for [via stitching](https://www.altium.com/documentation/altium-d
 In the end after testing we are getting better results, better signal strenght and range. So we are certainly closer for a better impedance, but it could be better as the Analyser retrieved us with not perfect transmision Impedence (29.5 +j*92.3) 
 ## Final result
 
-![Final result](solidworks/images/final_result.png)
+![Final result](images\finalprod1.jpg)
+![Final result](images\finalprod2.jpg)
+![Final result](images\top_view.jpg)
+![Final result](images\bot_view.jpg)
 WIP
 ***Final result***
 # Processing 
