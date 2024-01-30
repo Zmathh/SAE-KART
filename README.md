@@ -1,8 +1,8 @@
-# SAE-KART LoRa
+# SAE-KART 
 ![Kart](images/Kart.jpg)
 
 
-
+# SAE-KART LoRa
 Simple KiCad design for an Arduino compatible RN2483 (or RN2903) LoRaWA suited for our Project.
 
 Fork of the original [jpmeyers/RN2483shield](https://github.com/jpmeijers/RN2483shield).
