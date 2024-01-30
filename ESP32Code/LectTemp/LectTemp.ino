@@ -1,4 +1,4 @@
-#include <Arduino.h>
+
 
 
 int SC=6;

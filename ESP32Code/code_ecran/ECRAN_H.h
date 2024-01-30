@@ -1,3 +1,4 @@
+#ifdef ECRAN_H.h
 #define ECRAN_H.h
 
 #include <Arduino.h>
@@ -40,6 +41,6 @@ private:
     int speed; 
     float tension_big_battery; 
     float tension_small_battery; 
-    };
+};
 
 #endif
