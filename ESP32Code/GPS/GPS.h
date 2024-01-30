@@ -6,7 +6,7 @@
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 
-class GPSReader {
+class GPS_H {
 public:
   GPS();
 
