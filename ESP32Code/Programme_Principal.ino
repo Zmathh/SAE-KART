@@ -1,4 +1,6 @@
 #include CONFIG_H
+
+#include "Lecture_Frein_Accel.h"
 #include <Arduino.h>
 
 //-------------------
@@ -9,20 +11,21 @@
 #define ACCEL 39
 
 //-------------------
-// Variable géneral
+// Variables génerales
 //-------------------
 
 pinMode(FREIN, INPUT);
 pinMode(ACCEL, INPUT);
 
 
-//-------Accelero/Frain--------
 
-void setup
-{
-    //-------Accelero/Frain--------
+
+void setup {
+    //-------Accelero/Frein--------
+     Lecture_Frein_Accel.setup();
 }
 
-void loop
-{
+void loop {
+    //-------Accelero/Frein--------
+     Lecture_Frein_Accel.lireCapteurs();
 }

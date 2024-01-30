@@ -1,21 +1,20 @@
-#include <Arduino.h>
+// MonCapteurs.cpp
+#include "Lecture_Frein_Accel.h"
 
-#define FREIN 36
-#define ACCEL 39
-
-int Fr_Prcent = 0, Ac_Prcent = 0;
-
-void setup()
-{
-    Serial.begin(115200);
-    pinMode(FREIN, INPUT);
-    pinMode(ACCEL, INPUT);
+Lecture_Frein_Accel::Lecture_Frein_Accel(int pinFrein, int pinAccel) {
+    pinFrein_ = pinFrein;
+    pinAccel_ = pinAccel;
 }
 
-void loop()
-{
-    Fr_Prcent = (int)((float)(((analogRead(FREIN) * 3.3) / 4095) / 3.3) * 100);
-    Ac_Prcent = (int)((float)(((analogRead(ACCEL) * 3.3) / 4095) / 3.3) * 100);
+void Lecture_Frein_Accel::setup() {
+    Serial.begin(115200);
+    pinMode(pinFrein_, INPUT);
+    pinMode(pinAccel_, INPUT);
+}
+
+void Lecture_Frein_Accel::lireCapteurs() {
+    Fr_Prcent = (int)((float)(((analogRead(pinFrein_) * 3.3) / 4095) / 3.3) * 100);
+    Ac_Prcent = (int)((float)(((analogRead(pinAccel_) * 3.3) / 4095) / 3.3) * 100);
 
     Serial.print("Frein : ");
     Serial.println(Fr_Prcent);
