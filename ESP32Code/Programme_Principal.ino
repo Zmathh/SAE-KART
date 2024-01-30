@@ -17,7 +17,7 @@
 void setup
 {
     // General
-    Serial.begin(115200);
+    Serial.begin(VITESSE_SERIAL);
 
     //-------Accelero/Frain--------
     pinMode(FREIN, INPUT);
