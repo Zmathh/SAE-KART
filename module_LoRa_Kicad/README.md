@@ -1,40 +1,70 @@
-# RN2483shield
+# SAE-KART LoRa
+![Kart](images/Kart.jpg)
 
-KiCad design for an Arduino compatible RN2483 (or RN2903) LoRaWAN shield.
+
+
+Simple KiCad design for an Arduino compatible RN2483 (or RN2903) LoRaWA suited for our Project.
 
 Fork of the original [jpmeyers/RN2483shield](https://github.com/jpmeijers/RN2483shield).
 
-![top layout](images/top_rev1.png)
+![top layout](module_LoRa_Kicad/images/top_rev1.png)
 ***Top board view***
+
+![bottom layout](module_LoRa_Kicad/images/bottom_rev1.png)
+***Bottom board view***
+
 
 Adjusted to:
 
- * use the Microchip specified RF trace geometry to maintain R&TTE (CE) and FCC testing compliance for the radio module (datasheet pg. 12),
  * ignore the 433MHz antenna trace (868MHz only),
- * use solder jumper connections for Serial UART connection,
- * normally connected jumpers for default connections:
-   * Serial D3 Tx → Radio Serial Rx,
-   * Serial D2 Rx → Radio Serial Tx,
- * Mosfet level converters on the UART connection to allow 5V→3.3V signal conversion,
- * Breakout of all GPIO pins on the radio (GPIO 0–13),
- * edge mounted SMA connetion for antenna.
+ 
 
-![bottom layout](images/bottom_rev1.png)
-***Bottom board view***
+## Required Parts for PCB
 
-## Required Parts
-
- * 1× Shield PCB,
- * 2× BSS138 SOT-23 N-channel MOSFET,
- * 5× 0603 10k resistors,
- * 1× SMA female edge jack,
+ * 3× 10k resistors,
  * 1× SMA 868MHz antenna,
- * 1× 1x10 stacking thru-headers,
- * 2× 1x8 stacking thru-headers,
- * 1× 1x6 stacking thru-headers
+ * 1x RN2483 (or RN2903)
 
-## Setting the Serial lines
+## Setting up
 
-By default, the Arduino D3 (Serial Tx) is connected to the Radio UART_RX, and the Arduino D2 (Serial Rx) is connected to the Radio UART_TX. By cutting between the pads marked by an asterisk in the Serial_TX and Serial_RX bank, these links can be severed, and a new connection made for each UART line by adding solder to bridge one pair of solder jumpers for each direction.
+WIP
+-debug possible
 
-Only make connetions across one of each direction at a time to prevent multiplexing the digital pins on the Arduino, and don't connect both TX and RX to the same pin, as this will make communication very difficult!  
+## Schematic
+
+![Schematic](module_LoRa_Kicad/images/Schematic.png)
+***Schematic***
+
+![PCB](module_LoRa_Kicad/images/PCB.png)
+***PCB***
+
+
+# Solidworks Case
+![Solidworks](solidworks/images/Solidworks_view.png)
+***Solidworks view***
+
+## RF Impedance Analyser Results
+
+>(R +jX) - Calibrated with 50ohms
+
+![First_vers](images/First_vers.png)
+> The first version was a bit off, because we didn't follow the [LoRa Module Datasheet](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/RN2483-Low-Power-Long-Range-LoRa-Technology-Transceiver-Module-DS50002346F.pdf), where we have application information for better transmission.
+Tiny holes are for [via stitching](https://www.altium.com/documentation/altium-designer/via-stitching-via-shielding-pcb) 
+
+![Datasheet](images/Datasheet.png)
+
+***[Datasheet P.12](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/RN2483-Low-Power-Long-Range-LoRa-Technology-Transceiver-Module-DS50002346F.pdf)***
+
+![Second_vers](images/Second_vers.png)
+In the end after testing we are getting better results, better signal strenght and range. So we are certainly closer for a better impedance, but it could be better as the Analyser retrieved us with not perfect transmision Impedence (29.5 +j*92.3) 
+## Final result
+
+![Final result](solidworks/images/final_result.png)
+WIP
+***Final result***
+# Processing 
+
+Despite the use of an LCD arduino screen, we wanted to add a better gauge interface, more customizable so we tried to use processing.
+A first sketch code has been written, using an raspberry pi with a raspberry 7" screen.
+![Processing interface](images/processing_interface.png)
+
