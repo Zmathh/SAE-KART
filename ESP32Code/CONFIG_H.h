@@ -2,12 +2,22 @@
 #ifndef CONFIG_H_h
 #define CONFIG_H_h
 
+////////////////////////////////////////////////////////////////
+
+#include "Lecture_Frein_Accel\Lecture_Frein_Accel.cpp"
+#include "Lecture_Frein_Accel\Lecture_Frein_Accel.h"
+
+////////////////////////////////////////////////////////////////
+ // CONFIGURATION //////////////
+////////////////////////////////////////////////////////////////
 #define VITESSE_SERIAL 115200
+
+
 
 // PINs
 
 #define FREIN 26
-#define ACELL 25
+#define ACCEL 25
 #define TensionGrandBat 13
 #define TensionPetiteBat 17
 #define LedSignal 23

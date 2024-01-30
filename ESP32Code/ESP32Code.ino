@@ -1,13 +1,11 @@
-#include "CONFIG_H.h"  
-#include "Lecture_Frein_Accel\Lecture_Frein_Accel.h"
+#include "CONFIG_H.h"
+
 #include "GPS\GPS.h"
 #include "code_ecran\ECRAN_H.h"
 #include "LectTemp\TEMP_H.h"
 
 
 LiquidCrystal_I2C lcd(0x27,20,4);
-
-//test
 
 
 //-------------------
@@ -19,11 +17,12 @@ pinMode(CSN,OUTPUT);
 pinMode(SIO,INPUT);
 
 
+
 //-------------------
 // Variables générales
 //-------------------
 
-Lecture_Frein_Accel lectureFreinAccel(FREIN, ACCEL);
+Lecture_Frein_Accel lesLectures;
 
 CModuleLoRa* pModuleLoRa = NULL;
 
@@ -39,8 +38,8 @@ void setup() {
     //-------temperature-----------
     digitalWrite(CSN,HIGH);
 
-    //-------Accelero/Frein--------
-    lectureFreinAccel.setup();  // Initialisation des capteurs
+    ////-------Accelero/Frein--------
+    lesLectures.begin();  // Initialisation des capteurs
 
     // Initialisation LoRa
     pModuleLoRa = CModuleLoRa::GetInstance();
@@ -56,18 +55,22 @@ void setup() {
     lcd.createChar(7, BATTL);  lcd.createChar(3, BATTF);
 
 }
-
+//----------------------------------------------------------------
 void loop() {
     //-----------GPS---------------
     GPS();
     //-------temperature-----------
     Mesure_temp();
     //-------Accelero/Frein--------
-    lectureFreinAccel.lireCapteurs();
+    Serial.print("Frein : ");
+    Serial.println(lesLectures.readFrein());
+    Serial.print("Accel : ");
+    Serial.println(lesLectures.readAccel());
+    delay(500);
     Serial.println(lectureFreinAccel.getFr_Prcent());
     Serial.println(lectureFreinAccel.getAc_Prcent());
 
-    //-------Envoi-LORA--------
+    ////-------Envoi-LORA--------
     for (int i = 0; i < 13; i++) {
         data[i] += 1.0;
     }

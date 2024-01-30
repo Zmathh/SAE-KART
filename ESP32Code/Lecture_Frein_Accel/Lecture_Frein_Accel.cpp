@@ -1,19 +1,23 @@
 #include "Lecture_Frein_Accel.h"
 
-Lecture_Frein_Accel::Lecture_Frein_Accel(int pinFrein, int pinAccel) {
-    pinFrein_ = pinFrein;
-    pinAccel_ = pinAccel;
+Lecture_Frein_Accel::Lecture_Frein_Accel(int pinFrein, int pinAccel)
+{
+  _pinFrein = pinFrein;
+  _pinAccel = pinAccel;
 }
 
-void Lecture_Frein_Accel::setup() {
-    pinMode(pinFrein_, INPUT);
-    pinMode(pinAccel_, INPUT);
-    // Initialisez d'autres configurations si nécessaire
+void Lecture_Frein_Accel::begin()
+{
+  pinMode(_pinFrein, INPUT);
+  pinMode(_pinAccel, INPUT);
 }
 
-void Lecture_Frein_Accel::lireCapteurs() {
-    Fr_Prcent = (int)((float)(((analogRead(pinFrein_) * 3.3) / 4095) / 3.3) * 100);
-    Ac_Prcent = (int)((float)(((analogRead(pinAccel_) * 3.3) / 4095) / 3.3) * 100);
-    // Ajoutez d'autres fonctionnalités de lecture si nécessaire
+int Lecture_Frein_Accel::readFrein()
+{
+  return (int) ((float) ((analogRead(_pinFrein) * 3.3) / 4095) * 100);
 }
 
+int Lecture_Frein_Accel::readAccel()
+{
+  return (int) ((float) ((analogRead(_pinAccel) * 3.3) / 4095) * 100);
+}

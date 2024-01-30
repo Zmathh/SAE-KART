@@ -1,14 +1,19 @@
-#ifdef Lecture_Frein_Accel.h
-#define Lecture_Frein_Accel.h
+#ifndef Lecture_Frein_Accel_h
+#define Lecture_Frein_Accel_h
 
-#include "Lecture_Frein_Accel.h"
+#include <Arduino.h>
 
-Lecture_Frein_Accel::Lecture_Frein_Accel(int pinFrein, int pinAccel) {
-    pinFrein_ = pinFrein;
-    pinAccel_ = pinAccel;
-    Fr_Prcent = 0; 
-    Ac_Prcent = 0;
-}
+class Lecture_Frein_Accel
+{
+  public:
+    Lecture_Frein_Accel(int pinFrein=36, int pinAccel=39);
+    void begin();
+    int readFrein();
+    int readAccel();
 
+  private:
+    int _pinFrein;
+    int _pinAccel;
+};
 
-
+#endif
