@@ -4,6 +4,16 @@
 
 ////////////////////////////////////////////////////////////////
 
+
+#include "GPS\GPS.h"
+#include "GPS\GPS.ino"
+
+#include "code_ecran\ECRAN_H.h"
+#include "code_ecran\code_ecran.cpp"
+
+#include "LectTemp\TEMP_H.h"
+#include "LectTemp\LectTemp.cpp"
+
 #include "Lecture_Frein_Accel\Lecture_Frein_Accel.cpp"
 #include "Lecture_Frein_Accel\Lecture_Frein_Accel.h"
 
