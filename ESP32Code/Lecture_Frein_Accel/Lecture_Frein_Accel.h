@@ -1,5 +1,5 @@
-#ifndef Lecture_Frein_Accel_h
-#define Lecture_Frein_Accel_h
+#ifndef Lecture_Frein_Accel
+#define Lecture_Frein_Accel
 
 #include <Arduino.h>
 

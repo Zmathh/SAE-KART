@@ -1,7 +1,7 @@
 #include "CONFIG_H.h"  
 
 #include "Lecture_Frein_Accel/Lecture_Frein_Accel.h"
-#include "GPS/GPS.h"
+//#include "GPS/GPS.h"
 
 
 //-------------------
@@ -31,8 +31,8 @@ void setup() {
 void loop() {
     //-------Accelero/Frein--------
     lectureFreinAccel.lireCapteurs();
-    Serial.println(lectureFreinAccel.getFr_Prcent());
-    Serial.println(lectureFreinAccel.getAc_Prcent());
-    Serial.println()
+    //Serial.println(lectureFreinAccel.getFr_Prcent())
+    //Serial.println(lectureFreinAccel.getAc_Prcent())
+    //Serial.println()
 
 }
