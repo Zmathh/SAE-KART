@@ -12,15 +12,16 @@
 // Variable géneral
 //-------------------
 
-pinMode(FREIN, INPUT);
-pinMode(ACCEL, INPUT);
-
-
-//-------Accelero/Frain--------
+//.....Accelero/Frain.....
 
 void setup
 {
+    // General
+    Serial.begin(115200);
+
     //-------Accelero/Frain--------
+    pinMode(FREIN, INPUT);
+    pinMode(ACCEL, INPUT);
 }
 
 void loop
