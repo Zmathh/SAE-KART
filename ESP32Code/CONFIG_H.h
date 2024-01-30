@@ -6,7 +6,7 @@
 
 
 #include "GPS\GPS.h"
-#include "GPS\GPS.ino"
+#include "GPS\GPS.cpp"
 
 #include "code_ecran\ECRAN_H.h"
 #include "code_ecran\code_ecran.cpp"
