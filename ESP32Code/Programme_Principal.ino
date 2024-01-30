@@ -14,9 +14,7 @@
 // Variables génerales
 //-------------------
 
-pinMode(FREIN, INPUT);
-pinMode(ACCEL, INPUT);
-
+MonCapteurs mesCapteurs(FREIN, ACCEL);
 
 
 
