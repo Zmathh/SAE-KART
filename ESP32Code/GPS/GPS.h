@@ -8,10 +8,7 @@
 
 class GPSReader {
 public:
-  GPSReader(int rxPin, int txPin);
-  void begin();
-  void readGPS();
-  void passThroughSerial();
+  GPS();
 
 private:
   SoftwareSerial softSerial;
