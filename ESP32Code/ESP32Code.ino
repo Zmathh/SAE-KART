@@ -66,10 +66,12 @@ void loop()
 {
     //     //-----------GPS---------------
     auto coordonne = gps.readData();
-    float latitude = coordonne.first;
-    float longitude = coordonne.second;
-    Serial.print(latitude);
-    Serial.println(longitude);
+    float lat = coordonne.first;
+    float longi = coordonne.second;
+    Serial.print("Latitude ");
+    Serial.print(lat, 6);
+    Serial.print(" Longitude ");
+    Serial.println(longi, 6);
 
     
 
