@@ -36,8 +36,8 @@
 #define i2C_SDA 21
 #define uWire_SI_O 19
 #define uWire_CLK 18
-#define GPS_Tx2 17
-#define GPS_Rx2 16
+#define GPS_Tx 17
+#define GPS_Rx 16
 #define LoRa_Tx 1
 #define LoRa_Rx 3
 #define Led_Alarme 15
