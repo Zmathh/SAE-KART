@@ -38,8 +38,8 @@
 #define uWire_CLK 18
 #define GPS_Tx2 17
 #define GPS_Rx2 16
-#define LoRa_Tx2 1
-#define LoRa_Rx2 3
+#define LoRa_Tx 1
+#define LoRa_Rx 3
 #define Led_Alarme 15
 #define CS_STD 0
 #define CS_CKL 2

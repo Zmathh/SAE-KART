@@ -33,11 +33,8 @@ GPS gps(GPS_Rx2, GPS_Tx2);
 // float longitude = 1.496218;
 
 void setup() {
-<<<<<<< HEAD
 
-    GPS::begin();
-=======
->>>>>>> c3aff37b96168e12e0a0230a1333c06d0b6f0d26
+    GPS::begin(VITESSE_SERIAL_2);
     
 //     //-------Serial----------------
 //     Serial.begin(VITESSE_SERIAL);  // Initialisation de la vitesse de la liaison série
