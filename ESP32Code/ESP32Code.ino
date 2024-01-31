@@ -32,7 +32,7 @@
 // float latitude = 48.4423344;
 // float longitude = 1.496218;
 
-// void setup() {
+void setup() {
     
 //     //-------Serial----------------
 //     Serial.begin(VITESSE_SERIAL);  // Initialisation de la vitesse de la liaison série
@@ -56,9 +56,9 @@
 //     lcd.createChar(4, BOT);    lcd.createChar(5, TOP);    lcd.createChar(6, FULL);
 //     lcd.createChar(7, BATTL);  lcd.createChar(3, BATTF);
 
-// }
+ }
 // //----------------------------------------------------------------
-// void loop() {
+ void loop() {
 //     //-----------GPS---------------
 //     GPS();
 //     //-------temperature-----------
@@ -106,5 +106,5 @@
 //    Serial.print("Temperature: ");
 //    Serial.print(temperature);
 //    Serial.println(" C");
-// }
+ }
 
