@@ -5,8 +5,6 @@
 
 #define LED 21
 
-#define SW 23
-
 #define GEN 15
 
 #define timerID 0
@@ -67,7 +65,7 @@ void Mesure_Frequence::setup()
   attachInterrupt(SW, &onFallingEdge, FALLING); // Fonction de base
 }
 
-void Mesure_Frequence::Mesure()
+float Mesure_Frequence::Mesure()
 {
 
   if (FlagPin)
@@ -117,6 +115,7 @@ void Mesure_Frequence::Mesure()
     }
 #endif
   }
+  return (Vitesse);
 }
 
 void Mesure_Frequence::initTimer(uint8_t ID, uint16_t Prescaler, uint16_t alarm)

@@ -22,6 +22,8 @@
 
 // Lecture_Frein_Accel lesLectures;
 
+// LectTemp temperatureSensor(CS_CKL, CS_DAT, CS_STD); //// Vérifier les PINs
+
 // CModuleLoRa* pModuleLoRa = NULL;
 
 GPS gps(GPS_Rx2, GPS_Tx2);
@@ -31,14 +33,17 @@ GPS gps(GPS_Rx2, GPS_Tx2);
 // float longitude = 1.496218;
 
 void setup() {
+<<<<<<< HEAD
 
     GPS::begin();
+=======
+>>>>>>> c3aff37b96168e12e0a0230a1333c06d0b6f0d26
     
 //     //-------Serial----------------
 //     Serial.begin(VITESSE_SERIAL);  // Initialisation de la vitesse de la liaison série
 
 //     //-------temperature-----------
-//     digitalWrite(CSN,HIGH);
+//     temperatureSensor.begin();
 
 //     ////-------Accelero/Frein--------
 //     lesLectures.begin();  // Initialisation des capteurs
@@ -56,9 +61,13 @@ void setup() {
 //     lcd.createChar(4, BOT);    lcd.createChar(5, TOP);    lcd.createChar(6, FULL);
 //     lcd.createChar(7, BATTL);  lcd.createChar(3, BATTF);
 
+<<<<<<< HEAD
 }
+=======
+ }
+>>>>>>> c3aff37b96168e12e0a0230a1333c06d0b6f0d26
 // //----------------------------------------------------------------
-// void loop() {
+ void loop() {
 //     //-----------GPS---------------
 //     GPS();
 //     //-------temperature-----------
@@ -101,5 +110,10 @@ void setup() {
 //         delay(200);
 //         */
 //     }
-// }
+
+//    float temperature = temperatureSensor.readTemperature(); // Lit la température du capteur
+//    Serial.print("Temperature: ");
+//    Serial.print(temperature);
+//    Serial.println(" C");
+ }
 

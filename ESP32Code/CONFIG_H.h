@@ -8,10 +8,10 @@
 #include "GPS\GPS.h"
 #include "GPS\GPS.cpp"
 
-#include "code_ecran\ECRAN_H.h"
-#include "code_ecran\code_ecran.cpp"
+//#include "code_ecran\ECRAN_H.h"
+//#include "code_ecran\code_ecran.cpp"
 
-#include "LectTemp\TEMP_H.h"
+#include "LectTemp\LectTemp.h"
 #include "LectTemp\LectTemp.cpp"
 
 #include "Lecture_Frein_Accel\Lecture_Frein_Accel.cpp"
@@ -46,7 +46,7 @@
 #define CS_DAT 4
 #define RESET 5
 #define INT 32
-#define Vistesse 33
+#define Vitesse 33
 
 // Add other configurations or declarations if needed
 
