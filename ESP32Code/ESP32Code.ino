@@ -58,15 +58,11 @@ void setup() {
 //     lcd.createChar(4, BOT);    lcd.createChar(5, TOP);    lcd.createChar(6, FULL);
 //     lcd.createChar(7, BATTL);  lcd.createChar(3, BATTF);
 
-<<<<<<< HEAD
 }
-=======
- }
->>>>>>> c3aff37b96168e12e0a0230a1333c06d0b6f0d26
 // //----------------------------------------------------------------
  void loop() {
 //     //-----------GPS---------------
-//     GPS();
+    GPS::readData();
 //     //-------temperature-----------
 //     Mesure_temp(Lect, Somme);
 //     //-------Accelero/Frein--------
@@ -112,5 +108,5 @@ void setup() {
 //    Serial.print("Temperature: ");
 //    Serial.print(temperature);
 //    Serial.println(" C");
- }
+}
 
