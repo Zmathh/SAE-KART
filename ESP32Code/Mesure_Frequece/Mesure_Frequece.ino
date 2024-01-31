@@ -5,12 +5,20 @@
 
 #define LED 21
 
-#define SW 38
+#define SW 23
 
 #define GEN 15
 
 #define timerID 0
 #define preScaler 8 //Timer 10MHz
+
+
+#define Diametre 26   
+#define pi 3.1416
+#define Nb_Ecrou 6
+#define Perimetre (Diametre*pi)/Nb_Ecrou
+#define Coefcm_s_to_km_h 36/1000
+#define CoefFreq_Vitesse Coefcm_s_to_km_h*Perimetre
 
 hw_timer_t *My_timer = NULL;
 TaskHandle_t Loop0;
@@ -18,6 +26,8 @@ TaskHandle_t Loop0;
 boolean FlagPin = false;
 
 uint16_t timrValue = 0;
+
+float Vitesse;
 
 uint16_t i = 0, temp = 0, temp2 = 0;
 
@@ -52,35 +62,10 @@ void setup() {
   
   attachInterrupt(SW, &onFallingEdge, FALLING);
 
-#if SELFTEST == 1
-  //create a task that will be executed in the Task1code() function, with priority 1 and executed on core 0
-  xTaskCreatePinnedToCore(
-                    Loop0code,   /* Task function. */
-                    "Loop0",     /* name of task. */
-                    10000,       /* Stack size of task */
-                    NULL,        /* parameter of the task */
-                    1,           /* priority of the task */
-                    &Loop0,      /* Task handle to keep track of created task */
-                    0);          /* pin task to core 0 */                  
-  //delay(500); 
-#endif
 
 }
 
-#if SELFTEST == 1
-void Loop0code( void * pvParameters ){
-  Serial.print("Loop0 running on core ");
-  Serial.println(xPortGetCoreID());
 
-  for(;;){
-    digitalWrite(GEN, HIGH);
-    delay(10);
-    digitalWrite(GEN, LOW);
-    delay(10);
-  } 
-bite
-}
-#endif
 void loop() {
 
   if (FlagPin) {
@@ -105,10 +90,12 @@ void loop() {
       }
     }
     attachInterrupt(SW, &onFallingEdge, FALLING);
+
+    Vitesse= freq*CoefFreq_Vitesse;
 #if SERIAL == 1  
     if (temp > 0) {
       Serial.print("B");
-      Serial.println(freq);
+      Serial.println(Vitesse);
     }
 #endif  
   }
