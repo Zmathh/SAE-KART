@@ -1,0 +1,17 @@
+[
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\Surface Mathis\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.11\\cores\\esp32"
+  },
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\Surface Mathis\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.11\\variants\\esp32da"
+  },
+  {
+    "Sourcefile": "C:\\Users\\Surface Mathis\\Desktop\\SAE-KART-1\\temp\\sketch\\ESP32Code.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  }
+]
