@@ -38,6 +38,8 @@ void setup()
     //     //-------GPS-------------------
     Serial.begin(VITESSE_SERIAL_1);
     gps.begin(VITESSE_SERIAL_2);
+    Serial.print();
+
 
     //     //-------Serial----------------
     //     Serial.begin(VITESSE_SERIAL);  // Initialisation de la vitesse de la liaison série
