@@ -26,7 +26,7 @@
 
 // CModuleLoRa* pModuleLoRa = NULL;
 
-GPS gps(GPS_Rx2, GPS_Tx2);
+GPS gps(GPS_Rx, GPS_Tx);
 
 // float data[] = {0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0}; 
 // float latitude = 48.4423344;
@@ -34,7 +34,7 @@ GPS gps(GPS_Rx2, GPS_Tx2);
 
 void setup() {
 
-    GPS::begin(VITESSE_SERIAL_2);
+     GPS_Serial.begin(VITESSE_SERIAL_2);
     
 //     //-------Serial----------------
 //     Serial.begin(VITESSE_SERIAL);  // Initialisation de la vitesse de la liaison série
@@ -62,7 +62,9 @@ void setup() {
 // //----------------------------------------------------------------
  void loop() {
 //     //-----------GPS---------------
-    GPS::readData();
+//     GPS();
+    if (GPS_Serial.available()) {
+        }
 //     //-------temperature-----------
 //     Mesure_temp(Lect, Somme);
 //     //-------Accelero/Frein--------
@@ -108,5 +110,5 @@ void setup() {
 //    Serial.print("Temperature: ");
 //    Serial.print(temperature);
 //    Serial.println(" C");
-}
+ }
 
