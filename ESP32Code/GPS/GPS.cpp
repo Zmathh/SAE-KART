@@ -1,6 +1,5 @@
 #include "..\1Librairies\SoftwareSerial\SoftwareSerial.h"
 
-
 #include "GPS.h"
 
 GPS::GPS(uint8_t rxPin, uint8_t txPin) : gpsSerial(rxPin, txPin) {
@@ -10,10 +9,11 @@ GPS::GPS(uint8_t rxPin, uint8_t txPin) : gpsSerial(rxPin, txPin) {
 
 void GPS::begin(uint32_t baudRate) {
   gpsSerial.begin(baudRate);
-  Serial.begin(baudRate);
 }
 
-void GPS::readData() {
+std::pair<float, float> GPS::readData() {
+  float latitude = 0.0f, longitude = 0.0f;
+  
   if (gpsSerial.available()) {
     char incomingChar = gpsSerial.read();
 
@@ -40,8 +40,8 @@ void GPS::readData() {
             *latitudeEnd = '\0';
             *longitudeEnd = '\0';
 
-            float latitude = atof(latitudeStart) / 100.0; 
-            float longitude = atof(longitudeStart) / 100.0;
+            latitude = atof(latitudeStart) / 100.0; 
+            longitude = atof(longitudeStart) / 100.0;
 
           }
         }
@@ -54,4 +54,6 @@ void GPS::readData() {
   if (Serial.available()) {
     gpsSerial.write(Serial.read());
   }
+  
+  return {latitude, longitude};
 }

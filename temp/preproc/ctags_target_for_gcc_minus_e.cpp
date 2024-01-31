@@ -3,8 +3,8 @@
 
 // Var LoRa
 
-const uint8_t dataPacketSize = sizeof(float) * 13 + sizeof(float) * 2;
-uint8_t dataPacket[dataPacketSize];
+// const uint8_t dataPacketSize = sizeof(float) * 13 + sizeof(float) * 2; 
+// uint8_t dataPacket[dataPacketSize];
 
 // LiquidCrystal_I2C lcd(0x27,20,4);
 
@@ -24,24 +24,21 @@ uint8_t dataPacket[dataPacketSize];
 
 // LectTemp temperatureSensor(CS_CKL, CS_DAT, CS_STD); //// Vérifier les PINs
 
-CModuleLoRa* pModuleLoRa = 
-# 26 "C:\\Users\\Arno\\Desktop\\SAE-KART\\ESP32Code\\ESP32Code.ino" 3 4
-                          __null
-# 26 "C:\\Users\\Arno\\Desktop\\SAE-KART\\ESP32Code\\ESP32Code.ino"
-                              ;
+// CModuleLoRa* pModuleLoRa = NULL;
 
-// GPS gps(GPS_Tx, GPS_Rx);
+GPS gps(16, 17);
 
 
 
-float data[] = {0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0};
-float latitude = 48.4423344;
-float longitude = 1.496218;
+// float data[] = {0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0};
+// float latitude = 48.4423344;
+// float longitude = 1.496218;
 
 void setup()
 {
     //     //-------GPS-------------------
-    // gps.begin(VITESSE_SERIAL_1);
+    Serial.begin(115200);
+    gps.begin(9600);
 
     //     //-------Serial----------------
     //     Serial.begin(VITESSE_SERIAL);  // Initialisation de la vitesse de la liaison série
@@ -53,11 +50,11 @@ void setup()
     //     lesLectures.begin();  // Initialisation des capteurs
 
         // Initialisation LoRa
-        pModuleLoRa = CModuleLoRa::GetInstance();
-        pModuleLoRa->init(16, 17);
-        pModuleLoRa->setConfig();
-        pModuleLoRa->getConfig();
-        pModuleLoRa->getInfo();
+        // pModuleLoRa = CModuleLoRa::GetInstance();
+        // pModuleLoRa->init(16, 17);
+        // pModuleLoRa->setConfig();
+        // pModuleLoRa->getConfig();
+        // pModuleLoRa->getInfo();
 
     //     // Initialisation ECRAN
     //     lcd.init(); lcd.backlight();
@@ -69,11 +66,11 @@ void setup()
 void loop()
 {
     //     //-----------GPS---------------
-    // gps.readData();
-    // Serial.print("Latitude: ");
-    // Serial.print(gps.getLatitude(), 6); // Print with 6 decimal places
-    // Serial.print(", Longitude: ");
-    // Serial.println(gps.getLongitude(), 6); // Print with 6 decimal places
+    gps.readData();
+    Serial.print("Latitude: ");
+    Serial.print(gps.getLatitude(), 6); // Print with 6 decimal places
+    Serial.print(", Longitude: ");
+    Serial.println(gps.getLongitude(), 6); // Print with 6 decimal places
 
     //     //-------temperature-----------
     //     Mesure_temp(Lect, Somme);
@@ -87,17 +84,17 @@ void loop()
     //     Serial.println(lectureFreinAccel.getAc_Prcent());
 
         ////-------Envoi-LORA--------
-        for (int i = 0; i < 13; i++) {
-            data[i] += 1.0;
-        }
+        // for (int i = 0; i < 13; i++) {
+        //     data[i] += 1.0;
+        // }
 
-        latitude = latitude + 0.00001;
-        longitude = longitude + 0.00001;
-        memcpy(dataPacket, data, sizeof(float) * 13);
-        memcpy(dataPacket + sizeof(float) * 13, &latitude, sizeof(float));
-        memcpy(dataPacket + sizeof(float) * 13 + sizeof(float), &longitude, sizeof(float));
-        pModuleLoRa->radioTX(dataPacket, dataPacketSize);
-        delay(1000);
+        // latitude = latitude + 0.00001;
+        // longitude = longitude + 0.00001;
+        // memcpy(dataPacket, data, sizeof(float) * 13);
+        // memcpy(dataPacket + sizeof(float) * 13, &latitude, sizeof(float));
+        // memcpy(dataPacket + sizeof(float) * 13 + sizeof(float), &longitude, sizeof(float));
+        // pModuleLoRa->radioTX(dataPacket, dataPacketSize);
+        // delay(250);
 
     //     //--------ECRAN------------
 
