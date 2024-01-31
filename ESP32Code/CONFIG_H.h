@@ -20,7 +20,8 @@
 ////////////////////////////////////////////////////////////////
  // CONFIGURATION //////////////
 ////////////////////////////////////////////////////////////////
-#define VITESSE_SERIAL 115200
+#define VITESSE_SERIAL_1 115200
+#define VITESSE_SERIAL_2 9600
 
 
 
@@ -35,8 +36,10 @@
 #define i2C_SDA 21
 #define uWire_SI_O 19
 #define uWire_CLK 18
-#define GPS_Tx 17
-#define GPS_Rx 16
+#define GPS_Tx2 17
+#define GPS_Rx2 16
+#define LoRa_Tx2 1
+#define LoRa_Rx2 3
 #define Led_Alarme 15
 #define CS_STD 0
 #define CS_CKL 2

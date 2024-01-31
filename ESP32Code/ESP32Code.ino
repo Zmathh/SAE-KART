@@ -24,13 +24,15 @@
 
 // CModuleLoRa* pModuleLoRa = NULL;
 
-// GPS gps(GPS_Rx, GPS_Tx);
+GPS gps(GPS_Rx2, GPS_Tx2);
 
 // float data[] = {0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0}; 
 // float latitude = 48.4423344;
 // float longitude = 1.496218;
 
-// void setup() {
+void setup() {
+
+    GPS::begin();
     
 //     //-------Serial----------------
 //     Serial.begin(VITESSE_SERIAL);  // Initialisation de la vitesse de la liaison série
@@ -54,7 +56,7 @@
 //     lcd.createChar(4, BOT);    lcd.createChar(5, TOP);    lcd.createChar(6, FULL);
 //     lcd.createChar(7, BATTL);  lcd.createChar(3, BATTF);
 
-// }
+}
 // //----------------------------------------------------------------
 // void loop() {
 //     //-----------GPS---------------
