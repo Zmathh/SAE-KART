@@ -1,5 +1,10 @@
 #include "CONFIG_H.h"
 
+// Var LoRa
+
+const uint8_t dataPacketSize = sizeof(float) * 13 + sizeof(float) * 2; 
+uint8_t dataPacket[dataPacketSize];
+
 // LiquidCrystal_I2C lcd(0x27,20,4);
 
 // //-------------------
@@ -20,7 +25,7 @@
 
 CModuleLoRa* pModuleLoRa = NULL;
 
-GPS gps(GPS_Tx, GPS_Rx);
+// GPS gps(GPS_Tx, GPS_Rx);
 
 
 
@@ -87,6 +92,7 @@ void loop()
         memcpy(dataPacket + sizeof(float) * 13, &latitude, sizeof(float));
         memcpy(dataPacket + sizeof(float) * 13 + sizeof(float), &longitude, sizeof(float));
         pModuleLoRa->radioTX(dataPacket, dataPacketSize);
+        delay(1000);
 
     //     //--------ECRAN------------
 
