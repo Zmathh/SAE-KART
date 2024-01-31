@@ -1,4 +1,4 @@
-#line 1 "C:\\Users\\Surface Mathis\\Desktop\\SAE-KART-1\\ESP32Code\\CONFIG_H.h"
+#line 1 "C:\\Users\\Arno\\Desktop\\SAE-KART\\ESP32Code\\CONFIG_H.h"
 // config.h
 #ifndef CONFIG_H_h
 #define CONFIG_H_h
@@ -21,6 +21,9 @@
 
 #include "Lecture_Frein_Accel\Lecture_Frein_Accel.cpp"
 #include "Lecture_Frein_Accel\Lecture_Frein_Accel.h"
+
+#include "module_lora\module_lora.h"
+#include "module_lora\module_lora.cpp"
 
 ////////////////////////////////////////////////////////////////
  // CONFIGURATION //////////////

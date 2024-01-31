@@ -37,16 +37,12 @@ void GPS::readData() {
           char *longitudeEnd = strchr(longitudeStart, ',');
 
           if (latitudeEnd && longitudeEnd) {
-            *latitudeEnd = '\0'; // Null-terminate the latitude string
-            *longitudeEnd = '\0'; // Null-terminate the longitude string
+            *latitudeEnd = '\0';
+            *longitudeEnd = '\0';
 
-            float latitude = atof(latitudeStart) / 100.0; // Convert and divide latitude by 100
-            float longitude = atof(longitudeStart) / 100.0; // Convert and divide longitude by 100
+            float latitude = atof(latitudeStart) / 100.0; 
+            float longitude = atof(longitudeStart) / 100.0;
 
-            Serial.print("Latitude: ");
-            Serial.print(latitude, 6); // Print with 6 decimal places
-            Serial.print(", Longitude: ");
-            Serial.println(longitude, 6); // Print with 6 decimal places
           }
         }
       }

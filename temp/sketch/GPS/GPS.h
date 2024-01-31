@@ -1,4 +1,4 @@
-#line 1 "C:\\Users\\Surface Mathis\\Desktop\\SAE-KART-1\\ESP32Code\\GPS\\GPS.h"
+#line 1 "C:\\Users\\Arno\\Desktop\\SAE-KART\\ESP32Code\\GPS\\GPS.h"
 #ifndef GPS_H
 #define GPS_H
 
@@ -11,8 +11,13 @@ public:
   GPS(uint8_t rxPin, uint8_t txPin);
   void begin(uint32_t baudRate);
   void readData();
+  float getLatitude() { return latitude; }
+  float getLongitude() { return longitude; }
+
 
 private:
+  float latitude;
+  float longitude;
   SoftwareSerial gpsSerial;
   char buffer[64];
   int count;
