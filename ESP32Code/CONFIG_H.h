@@ -21,6 +21,9 @@
 #include "Lecture_Frein_Accel\Lecture_Frein_Accel.cpp"
 #include "Lecture_Frein_Accel\Lecture_Frein_Accel.h"
 
+#include "module_lora\module_lora.h"
+#include "module_lora\module_lora.cpp"
+
 ////////////////////////////////////////////////////////////////
  // CONFIGURATION //////////////
 ////////////////////////////////////////////////////////////////
