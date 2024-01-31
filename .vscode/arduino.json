@@ -1,5 +1,6 @@
 {
     "board": "esp32:esp32:esp32da",
     "port": "COM12",
-    "sketch": "ESP32Code\\ESP32Code.ino"
+    "sketch": "ESP32Code\\ESP32Code.ino",
+    "programmer": "esptool"
 }

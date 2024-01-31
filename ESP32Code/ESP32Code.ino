@@ -59,7 +59,7 @@ void setup()
 void loop()
 {
     //     //-----------GPS---------------
-    //     GPS();
+    gps.readData();
     //     //-------temperature-----------
     //     Mesure_temp(Lect, Somme);
     //     //-------Accelero/Frein--------
