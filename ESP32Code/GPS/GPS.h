@@ -4,10 +4,13 @@
 #include <Arduino.h>
 #include "../1Librairies/SoftwareSerial/SoftwareSerial.h"
 
-class GPS_H {
+class GPS {
 public:
-  GPS_H(); 
+  GPS(uint8_t rxPin, uint8_t txPin);
+  void begin(uint32_t baudRate);
+  void readData();
 private:
+  SoftwareSerial gpsSerial;
   char buffer[64];
   int count;
   bool isGPGGA;
