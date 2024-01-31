@@ -2,7 +2,7 @@
 #define GPS_H
 
 #include <Arduino.h>
-#include "../1Librairies/SoftwareSerial/SoftwareSerial.h"
+#include "..\1Librairies\SoftwareSerial\SoftwareSerial.h"
 
 class GPS {
 public:

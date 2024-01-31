@@ -1,4 +1,5 @@
 #include "Lecture_Frein_Accel.h"
+#include "..\1Librairies\SoftwareSerial\SoftwareSerial.h"
 
 Lecture_Frein_Accel::Lecture_Frein_Accel(int pinFrein, int pinAccel)
 {
