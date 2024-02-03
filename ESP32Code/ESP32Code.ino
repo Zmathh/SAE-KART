@@ -1,7 +1,7 @@
 #include "CONFIG_H.h"
 
 #if Activate_Ecran == 1
-LiquidCrystal_I2C lcd(0x27,20,4);
+Ecran ecran;
 #endif
 
 #if Activate_LoRa == 1
@@ -67,7 +67,7 @@ void setup()
     #endif
 
     #if Activate_Ecran == 1
-    ecran.setup();
+    ecran.begin();
     #endif
 }
 
@@ -117,21 +117,7 @@ void loop()
     #endif
 
     #if Activate_Ecran == 1 
-    if(etat_PIT) {PIT_LCD();} //Si on reçoit alarme du stand (supervions) affichage du mot PIT sur l'écran
-    else {
-        SPEEDCOUNTER(speed);                                  //Gestion affichage vitesse
-        TOPSPEED(speed);                                      //Gestion vitesse maximum
-        BATTERY(tension_big_battery, tension_small_battery);  //Gestion batterie
-        CHRONOMETER();                                        //Gestion chronomètre
-
-        etat_clean = true;
-
-        //A utiliser pour phase de test
-        /*
-        speed++;
-        delay(200);
-        */
-    }
+    ecran.refresh();
     #endif
     
     #if Activate_FREQ == 1
