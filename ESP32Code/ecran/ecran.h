@@ -18,6 +18,10 @@ class Ecran
     void begin();
     void refresh();
 
+    int speed; //speed correspond à la vitesse du kart pour TOPSPEED et SPEEDCOUNTER
+    float BV48, BV12 ; //TBB et TSB correspond au tension des batteries pour BATTERY
+    bool running; //CHRONOMETER
+
     
 
   private:
@@ -27,7 +31,7 @@ class Ecran
 
     char mid = 0xFD;
     char empty = 0x20;
-    bool running = false; //CHRONOMETER
+    
     unsigned long startTime = 0; //CHRONOMETER
     unsigned long elapsedTime = 0; ///CHRONOMETER
     unsigned long previousMillis_B = 0, previousMillis_L = 0; //BATTERY
@@ -38,8 +42,7 @@ class Ecran
     //Déclaration des variables utiles dans le programme
     bool etat_PIT = false, etat_clean; //PITLCD
     int hundreds, tens, units; //SPEEDCOUNTER
-    int speed = 0; //speed correspond à la vitesse du kart pour TOPSPEED et SPEEDCOUNTER
-    float tension_big_battery = 48, tension_small_battery = 12; //TBB et TSB correspond au tension des batteries pour BATTERY
+    
 
 
     LiquidCrystal_I2C lcd;

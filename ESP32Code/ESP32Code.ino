@@ -67,6 +67,10 @@ void setup()
     #endif
 
     #if Activate_Ecran == 1
+    ecran.BV12 = 12;
+    ecran.BV48 = 48;
+    ecran.speed = 42;
+    ecran.running = false;
     ecran.begin();
     #endif
 }

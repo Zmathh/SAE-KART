@@ -8,7 +8,7 @@ Ecran::Ecran() : lcd(0x20, 16, 2) {}
 void Ecran::begin() {
   lcd.begin();
   lcd.backlight();
-  Serial.begin(9600);
+  //Serial.begin(9600);
   
   lcd.createChar(0, Eclair);
   lcd.createChar(1, Chrono);
@@ -386,16 +386,16 @@ void Ecran::refresh()
   else {
     Ecran::SPEEDCOUNTER(speed);                                  //Gestion affichage vitesse
     Ecran::TOPSPEED(speed);                                      //Gestion vitesse maximum
-    Ecran::BATTERY(tension_big_battery, tension_small_battery);  //Gestion batterie
+    Ecran::BATTERY(BV48, BV12);    //Gestion batterie
     Ecran::CHRONOMETER();                                        //Gestion chronomètre
 
     etat_clean = true; 
 
     //A utiliser pour phase de test
-    /*
+    
     speed++; 
     delay(200);
-    */
-   
+    
+
   }
 }
