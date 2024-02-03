@@ -19,6 +19,9 @@
 #include "GPS\GPS.h"
 #include "GPS\GPS.cpp"
 
+#include "shiftReg\shiftReg.h"
+#include "shiftReg\shiftReg.cpp"
+
 #include "LectTemp\LectTemp.h"
 #include "LectTemp\LectTemp.cpp"
 
