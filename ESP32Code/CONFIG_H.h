@@ -37,7 +37,14 @@
 
 #define VITESSE_SERIAL_DEBUG 115200
 
-
+#define Activate_Serial 0
+#define Activate_GPS 0
+#define Activate_ShiftReg 0
+#define Activate_Temperature 0
+#define Activate_ACCEL_FREIN 0
+#define Activate_LoRa 0
+#define Activate_Ecran 0
+#define Activate_FREQ 0
 
 // PINs
 
