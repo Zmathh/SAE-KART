@@ -1,5 +1,3 @@
-#include "..\1Librairies\SoftwareSerial\SoftwareSerial.h"
-
 #include "GPS.h"
 
 GPS::GPS(uint8_t txPin, uint8_t rxPin) : gpsSerial(txPin, rxPin) {

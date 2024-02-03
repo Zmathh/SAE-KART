@@ -7,6 +7,8 @@
 
 // LiquidCrystal_I2C lcd(0x27,20,4);
 
+
+
 // //-------------------
 // // Variable Numero de port
 // //-------------------
@@ -32,6 +34,7 @@
 // float longitude = 1.496218;
 
 //
+Ecran ecran;
 
 void setup()
 {
@@ -60,7 +63,7 @@ void setup()
     // MFreq.setup();
 
     //     // Initialisation Ecran
-    //  ecran.setup();
+      ecran.begin();
 }
 // //----------------------------------------------------------------
  void loop()
@@ -125,4 +128,7 @@ void setup()
     
     //  MFreq.loop();
     //  float freq = MFreq.getFreq();
+
+    
+    ecran.refresh();
 }

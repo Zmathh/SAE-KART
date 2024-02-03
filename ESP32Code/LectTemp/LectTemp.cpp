@@ -1,5 +1,5 @@
 #include "LectTemp.h"
-#include "..\1Librairies\SoftwareSerial\SoftwareSerial.h"
+
 
 LectTemp::LectTemp(int SC_pin, int CSN_pin, int SIO_pin) {
   this->SC_pin = SC_pin;

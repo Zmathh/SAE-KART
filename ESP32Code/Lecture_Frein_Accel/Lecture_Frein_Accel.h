@@ -2,7 +2,7 @@
 #define Lecture_Frein_Accel_h
 
 #include <Arduino.h>
-#include "..\1Librairies\SoftwareSerial\SoftwareSerial.h"
+#include "Lecture_Frein_Accel.h"
 
 class Lecture_Frein_Accel
 {

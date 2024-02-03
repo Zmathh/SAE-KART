@@ -5,28 +5,28 @@
 ////////////////////////////////////////////////////////////////
 
 #include <arduino.h>
-#include "1Librairies\SoftwareSerial\SoftwareSerial.h"
-#include "1Librairies\SoftwareSerial\SoftwareSerial.cpp"
+
+#include <Wire.h> 
+
+#include "1Librairies/SoftwareSerial/SoftwareSerial.cpp"
+
+#include "1Librairies/Wire/wire.cpp"
+
+//#include "1Librairies/LiquidCrystal_I2C/LiquidCrystal_I2C.cpp"
 
 ///////////////////////////////////////////////////////////////
 
-// #include "ecran/ecran.h"
-// #include "ecran/ecran.cpp"
+#include "ecran/ecran.cpp"
 
-//#include "MFrequence/MFrequence.h"
 //#include "MFrequence/MFrequence.cpp"
 
-#include "GPS\GPS.h"
-#include "GPS\GPS.cpp"
+#include "GPS/GPS.cpp"
 
-#include "LectTemp\LectTemp.h"
-#include "LectTemp\LectTemp.cpp"
+#include "LectTemp/LectTemp.cpp"
 
-#include "Lecture_Frein_Accel\Lecture_Frein_Accel.cpp"
-#include "Lecture_Frein_Accel\Lecture_Frein_Accel.h"
+#include "Lecture_Frein_Accel/Lecture_Frein_Accel.cpp"
 
-#include "module_lora\module_lora.h"
-#include "module_lora\module_lora.cpp"
+#include "module_lora/module_lora.cpp"
 
 ////////////////////////////////////////////////////////////////
  // CONFIGURATION //////////////

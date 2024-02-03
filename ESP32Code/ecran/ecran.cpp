@@ -1,46 +1,25 @@
 #include <Wire.h> 
-#include "..\1Librairies\LiquidCrystal_I2C\LiquidCrystal_I2C.h"
-#include "..\1Librairies\LiquidCrystal_I2C\LiquidCrystal_I2C.cpp"
+#include "ecran.h"
 
-LiquidCrystal_I2C lcd(0x27,20,4);
 
-//Déclaration des caractères spréciaux
-byte Eclair[] = {0x02, 0x06, 0x0C, 0x1F, 0x06, 0x0C, 0x08, 0x00};
-byte Chrono[] = {0x0E, 0x04, 0x0E, 0x13, 0x15, 0x11, 0x0E, 0x00};
-byte BOT[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x1F, 0x1F};
-byte TOP[] = {0x1F, 0x1F, 0x1F, 0x00, 0x00, 0x00, 0x00, 0x00};
-byte FULL[] = {0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F};
-byte BATTL[] = {0x0E, 0x1B, 0x11, 0x11, 0x11, 0x11, 0x1F, 0x00};
-byte BATTF[] = {0x0E, 0x1B, 0x11, 0x1F, 0x1F, 0x1F, 0x1F, 0x00};
-char mid = 0xFD, empty = 0x20;
 
-//Déclaration des variables utiles pour les fonctions
-bool running = false; //CHRONOMETER
-unsigned long startTime = 0; //CHRONOMETER
-unsigned long elapsedTime = 0; ///CHRONOMETER
-unsigned long previousMillis_B = 0, previousMillis_L = 0; //BATTERY
-const long interval = 500; //BATTERY
-int speed_max; //TOPSPEED
-int etat_B = 1, etat_L = 1; //BATTERY
+Ecran::Ecran() : lcd(0x20, 16, 2) {}
 
-//Déclaration des variables utiles dans le programme
-bool etat_PIT = false, etat_clean; //PITLCD
-int hundreds, tens, units; //SPEEDCOUNTER
-int speed = 0; //speed correspond à la vitesse du kart pour TOPSPEED et SPEEDCOUNTER
-float tension_big_battery = 48, tension_small_battery = 12; //TBB et TSB correspond au tension des batteries pour BATTERY
-
-void setup()
-{
-  lcd.init(); lcd.backlight();
+void Ecran::begin() {
+  lcd.begin();
+  lcd.backlight();
   Serial.begin(9600);
   
-  //Création des caractères spéciaux
-  lcd.createChar(0, Eclair); lcd.createChar(1, Chrono); 
-  lcd.createChar(4, BOT);    lcd.createChar(5, TOP);    lcd.createChar(6, FULL);
-  lcd.createChar(7, BATTL);  lcd.createChar(3, BATTF);
-} 
+  lcd.createChar(0, Eclair);
+  lcd.createChar(1, Chrono);
+  lcd.createChar(4, BOT);
+  lcd.createChar(5, TOP);
+  lcd.createChar(6, FULL);
+  lcd.createChar(7, BATTL);
+  lcd.createChar(3, BATTF);
+}
 
-void NUMBER(int x, int y) {//Permet l'affichage des chiffres 0 à 9
+void Ecran::NUMBER(int x, int y) {//Permet l'affichage des chiffres 0 à 9
   lcd.setCursor(8,3); lcd.print("km/hr");
 
   switch (x) {
@@ -229,12 +208,12 @@ void NUMBER(int x, int y) {//Permet l'affichage des chiffres 0 à 9
     lcd.setCursor((y+3),2); lcd.write(empty);
     break;}}
 
-void CLEAN_COLUMN(int x) {//Permet de nettoyer une colonne pour optimiser l'affichage de la vitesse
+void Ecran::CLEAN_COLUMN(int x) {//Permet de nettoyer une colonne pour optimiser l'affichage de la vitesse
   lcd.setCursor(x,0); lcd.write(empty);
   lcd.setCursor(x,1); lcd.write(empty);
   lcd.setCursor(x,2); lcd.write(empty);}
 
-void CLEAN_LCD() {//Permet de nettoyer l'ensemble de l'écran (optimisation : lcd.clear)
+void Ecran::CLEAN_LCD() {//Permet de nettoyer l'ensemble de l'écran (optimisation : lcd.clear)
   for(int i =0; i<=19; i++) {
     lcd.setCursor(i,0); lcd.write(empty);
     lcd.setCursor(i,1); lcd.write(empty);
@@ -242,27 +221,54 @@ void CLEAN_LCD() {//Permet de nettoyer l'ensemble de l'écran (optimisation : lc
     lcd.setCursor(i,3); lcd.write(empty);}}
   
 
-void CHRONOMETER() {//Affichage et gestion du chronomètre (pour l'instant avec le moniteur série)
-  lcd.setCursor(2,0); lcd.write(1);
-  lcd.setCursor(0,1); lcd.print("00:00");
+void Ecran::CHRONOMETER() {
+  lcd.setCursor(2, 0);
+  lcd.write(1);
+  lcd.setCursor(0, 1);
+  lcd.print("00:00");
+  
   if (Serial.available() > 0) {
-    String command = Serial.readStringUntil('\n');;
+    String command = Serial.readStringUntil('\n');
     if (command == "start") {
-      if (!running) {startTime = millis() - elapsedTime; running = true;}} 
-      else if (command == "stop") {
-      if (running) {elapsedTime = millis() - startTime; running = false;}}
-      else if (command == "reset") {elapsedTime = 0; running = false;}}
-  if (running) {unsigned long currentTime = millis(); elapsedTime = currentTime - startTime;}
+      if (!running) {
+        startTime = millis() - elapsedTime;
+        running = true;
+      }
+    } else if (command == "stop") {
+      if (running) {
+        elapsedTime = millis() - startTime;
+        running = false;
+      }
+    } else if (command == "reset") {
+      elapsedTime = 0;
+      running = false;
+    }
+  }
+  
+  if (running) {
+    unsigned long currentTime = millis();
+    elapsedTime = currentTime - startTime;
+  }
+  
   int minutes = elapsedTime / 60000;
   int seconds = (elapsedTime % 60000) / 1000;
-  lcd.setCursor(0,1);
-  if(minutes < 10) {lcd.print("0"); lcd.print(minutes);}
-  else {lcd.print(minutes);}
+  
+  lcd.setCursor(0, 1);
+  
+  if (minutes < 10) {
+    lcd.print("0");
+  }
+  lcd.print(minutes);
+  
   lcd.print(":");
-  if(seconds < 10) {lcd.print("0"); lcd.print(seconds);}
-  else {lcd.print(seconds);}}
+  
+  if (seconds < 10) {
+    lcd.print("0");
+  }
+  lcd.print(seconds);
+}
 
-void TOPSPEED(int x) {//Permet d'afficher la vitesse max atteinte
+void Ecran::TOPSPEED(int x) {//Permet d'afficher la vitesse max atteinte
   lcd.setCursor(2,2); lcd.write(0);
   if(x > speed_max) {speed_max = x;}
   if(speed_max >= 100) {lcd.setCursor(1,3); lcd.print(speed_max);}
@@ -271,7 +277,7 @@ void TOPSPEED(int x) {//Permet d'afficher la vitesse max atteinte
           else {lcd.setCursor(1,3); lcd.print("00"); lcd.setCursor(3,3); lcd.print(speed_max);}
        else {lcd.setCursor(1,3); lcd.print("0"); lcd.setCursor(2,3); lcd.print(speed_max);}} 
 
-void SPEEDCOUNTER(int x) {//Permet la gestion de l'affichage de la vitesse (fonctionne avec la fonction NUMBER)
+void Ecran::SPEEDCOUNTER(int x) {//Permet la gestion de l'affichage de la vitesse (fonctionne avec la fonction Ecran::NUMBER)
   hundreds = x / 100; 
   x %= 100; 
   tens = x / 10; 
@@ -284,24 +290,24 @@ void SPEEDCOUNTER(int x) {//Permet la gestion de l'affichage de la vitesse (fonc
   */
 
   if(hundreds == 0) {
-    CLEAN_COLUMN(6); CLEAN_COLUMN(14); //Clean colonne 6 et 14 qyand on passe de 100 ves <100
+    Ecran::CLEAN_COLUMN(6); Ecran::CLEAN_COLUMN(14); //Clean colonne 6 et 14 qyand on passe de 100 ves <100
     if(tens <= 1){
       if(tens == 0) {
-        if(units == 1) {CLEAN_COLUMN(7); CLEAN_COLUMN(8); CLEAN_COLUMN(12); CLEAN_COLUMN(13); NUMBER(units, 10);} 
-        else {CLEAN_COLUMN(7); CLEAN_COLUMN(13); NUMBER(units, 9);}}
+        if(units == 1) {Ecran::CLEAN_COLUMN(7); Ecran::CLEAN_COLUMN(8); Ecran::CLEAN_COLUMN(12); Ecran::CLEAN_COLUMN(13); Ecran::NUMBER(units, 10);} 
+        else {Ecran::CLEAN_COLUMN(7); Ecran::CLEAN_COLUMN(13); Ecran::NUMBER(units, 9);}}
       if(tens == 1) {
-        if(units == 1) {CLEAN_COLUMN(7); CLEAN_COLUMN(13); NUMBER(units, 11); NUMBER(tens, 9);}
-        else {NUMBER(units, 10); NUMBER(tens, 8);}}}
+        if(units == 1) {Ecran::CLEAN_COLUMN(7); Ecran::CLEAN_COLUMN(13); Ecran::NUMBER(units, 11); Ecran::NUMBER(tens, 9);}
+        else {Ecran::NUMBER(units, 10); Ecran::NUMBER(tens, 8);}}}
     if(tens >= 2) {
-      if(units == 1) {NUMBER(tens, 8); NUMBER(units, 12);} 
-      else {NUMBER(tens, 7); NUMBER(units, 11);}}}
+      if(units == 1) {Ecran::NUMBER(tens, 8); Ecran::NUMBER(units, 12);} 
+      else {Ecran::NUMBER(tens, 7); Ecran::NUMBER(units, 11);}}}
   else if(tens == 1){
-      if(units == 1) {NUMBER(hundreds, 8); NUMBER(tens, 10); NUMBER(units, 12);}
-      else {NUMBER(hundreds, 7); NUMBER(tens, 9); NUMBER(units, 11);}}
-    else if(units == 1) {NUMBER(hundreds, 7); NUMBER(tens, 9); NUMBER(units, 13);}
-         else {NUMBER(hundreds, 6); NUMBER(tens, 8); NUMBER(units, 12);}}
+      if(units == 1) {Ecran::NUMBER(hundreds, 8); Ecran::NUMBER(tens, 10); Ecran::NUMBER(units, 12);}
+      else {Ecran::NUMBER(hundreds, 7); Ecran::NUMBER(tens, 9); Ecran::NUMBER(units, 11);}}
+    else if(units == 1) {Ecran::NUMBER(hundreds, 7); Ecran::NUMBER(tens, 9); Ecran::NUMBER(units, 13);}
+         else {Ecran::NUMBER(hundreds, 6); Ecran::NUMBER(tens, 8); Ecran::NUMBER(units, 12);}}
 
-void BATTERY(float x, float y) {//Permet d'afficher la tension des batterie
+void Ecran::BATTERY(float x, float y) {//Permet d'afficher la tension des batterie
   if(x <= 44) {
     unsigned long currentMillis_B = millis();
     if (currentMillis_B - previousMillis_B >= interval) 
@@ -335,7 +341,7 @@ void BATTERY(float x, float y) {//Permet d'afficher la tension des batterie
     lcd.setCursor(17,2); lcd.print("VPB");
     lcd.setCursor(16,3); lcd.print(y, 1);}}
 
-void PIT_LCD() {//Permet d'afficher une alerte PIT
+void Ecran::PIT_LCD() {//Permet d'afficher une alerte PIT
   int x = 4;
   if(etat_clean == true) {CLEAN_LCD(); etat_clean = false;}
 
@@ -374,14 +380,14 @@ void PIT_LCD() {//Permet d'afficher une alerte PIT
   lcd.setCursor((x+12),2); lcd.write(6);
   lcd.setCursor((x+12),3); lcd.write(4);}
 
-void loop()
+void Ecran::refresh()
 {
   if(etat_PIT) {PIT_LCD();} //Si on recoie alarme du stand (supervions) affichage du mot PIT sur l'écran
   else {
-    SPEEDCOUNTER(speed);                                  //Gestion affichage vitesse
-    TOPSPEED(speed);                                      //Gestion vitesse maximum
-    BATTERY(tension_big_battery, tension_small_battery);  //Gestion batterie
-    CHRONOMETER();                                        //Gestion chronomètre
+    Ecran::SPEEDCOUNTER(speed);                                  //Gestion affichage vitesse
+    Ecran::TOPSPEED(speed);                                      //Gestion vitesse maximum
+    Ecran::BATTERY(tension_big_battery, tension_small_battery);  //Gestion batterie
+    Ecran::CHRONOMETER();                                        //Gestion chronomètre
 
     etat_clean = true; 
 
@@ -390,5 +396,6 @@ void loop()
     speed++; 
     delay(200);
     */
+   
   }
 }

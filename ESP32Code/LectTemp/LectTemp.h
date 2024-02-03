@@ -1,8 +1,7 @@
 #ifndef LectTemp_h
 #define LectTemp_h
 
-#include <Arduino.h>
-#include "..\1Librairies\SoftwareSerial\SoftwareSerial.h"
+
 
 class LectTemp {
 public:
