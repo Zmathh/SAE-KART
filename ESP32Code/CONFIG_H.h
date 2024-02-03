@@ -34,7 +34,14 @@
 
 #define VITESSE_SERIAL_DEBUG 115200
 
-
+#define Activate_Serial 0
+#define Activate_GPS 0
+#define Activate_ShiftReg 0
+#define Activate_Temperature 0
+#define Activate_ACCEL_FREIN 0
+#define Activate_LoRa 0
+#define Activate_Ecran 0
+#define Activate_FREQ 0
 
 // PINs
 
@@ -52,8 +59,8 @@
 #define LoRa_Tx 1
 #define LoRa_Rx 3
 #define Led_Alarme 15
-#define CS_STD 0
-#define CS_CKL 2
+#define CS_STRB 0
+#define CS_CLK 2
 #define CS_DAT 4
 #define RESET 5
 #define INT 32
