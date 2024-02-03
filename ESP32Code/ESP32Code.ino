@@ -64,8 +64,8 @@ void setup()
     //     lcd.createChar(7, BATTL);  lcd.createChar(3, BATTF);
 }
 // //----------------------------------------------------------------
-// void loop()
-// {
+ void loop()
+ {
 //     //     //-----------GPS---------------
 //     auto coordonne = gps.readData();
 //     float lat = coordonne.first;
