@@ -9,7 +9,7 @@ public:
     shiftReg(uint8_t dataPin, uint8_t clockPin,uint8_t strobePin);
     void setup();
     void selectionTemp();
-    void Selecteur_CS(int capteur);
+    
   
 
 
@@ -17,6 +17,7 @@ private:
     const int dataPin;
     const int clockPin;
     const int strobePin;
+    void Selecteur_CS(int capteur);
 };
 
 #endif

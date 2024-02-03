@@ -21,6 +21,8 @@
 
 // Lecture_Frein_Accel lesLectures;
 
+//shiftReg dataPin(CS_DAT), clockPin(CS_CLK), strobePin(CS_STRB);
+
 // LectTemp temperatureSensor(CS_CKL, CS_DAT, CS_STD); //// Vérifier les PINs
 
 // CModuleLoRa* pModuleLoRa = NULL;
@@ -40,6 +42,9 @@ void setup()
 
     //     //-------GPS-------------------
     // gps.begin();
+
+    //     //-------shiftReg-----------
+    //shiftReg.setup();
 
     //     //-------temperature-----------
     //     temperatureSensor.begin();
@@ -73,7 +78,9 @@ void setup()
     // Serial.println(gps.longitude, 6);
     // gps.flushBuffer();
     
-    
+    //----------shiftReg-----------
+
+    //shiftReg.selectionTemp();
 
     //-------temperature-----------
     //     Mesure_temp(Lect, Somme);

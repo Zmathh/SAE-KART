@@ -55,8 +55,8 @@
 #define LoRa_Tx 1
 #define LoRa_Rx 3
 #define Led_Alarme 15
-#define CS_STD 0
-#define CS_CKL 2
+#define CS_STRB 0
+#define CS_CLK 2
 #define CS_DAT 4
 #define RESET 5
 #define INT 32
