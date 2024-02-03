@@ -7,16 +7,15 @@
 class GPS
 {
 public:
-  GPS(uint8_t rxPin, uint8_t txPin);
-  void begin(uint32_t baudRate);
-  std::pair<float, float> readData();
-  float getLatitude() { return latitude; }
-  float getLongitude() { return longitude; }
+  GPS(uint8_t txPin, uint8_t rxPin);
+  void begin();
+  void readData();
+  float latitude;
+  float longitude;
+  void flushBuffer();
 
 
 private:
-  float latitude;
-  float longitude;
   SoftwareSerial gpsSerial;
   char buffer[64];
   int count;

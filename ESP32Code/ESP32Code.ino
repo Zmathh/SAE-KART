@@ -25,9 +25,7 @@
 
 // CModuleLoRa* pModuleLoRa = NULL;
 
-// GPS gps(GPS_Rx, GPS_Tx);
-
-
+// GPS gps(GPS_Tx, GPS_Rx);
 
 // float data[] = {0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0};
 // float latitude = 48.4423344;
@@ -36,9 +34,8 @@
 void setup()
 {
     //     //-------GPS-------------------
-    // Serial.begin(VITESSE_SERIAL_1);
-    // gps.begin(VITESSE_SERIAL_2);
-    // Serial.print("test");
+    // Serial.begin(9600);
+    // gps.begin();
 
 
     //     //-------Serial----------------
@@ -65,16 +62,16 @@ void setup()
 }
 // //----------------------------------------------------------------
  void loop()
- {
-//     //     //-----------GPS---------------
-//     auto coordonne = gps.readData();
-//     float lat = coordonne.first;
-//     float longi = coordonne.second;
-//     Serial.print("Latitude ");
-//     Serial.print(lat, 6);
-//     Serial.print(" Longitude ");
-//     Serial.println(longi, 6);
-
+{
+//     //-----------GPS---------------
+  
+    // gps.readData();
+    // Serial.print("Latitude: ");
+    // Serial.print(gps.latitude, 6);
+    // Serial.print(" Longitude: ");
+    // Serial.println(gps.longitude, 6);
+    // gps.flushBuffer();
+    
     
 
     //     //-------temperature-----------
