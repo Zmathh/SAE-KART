@@ -67,10 +67,10 @@ void setup()
     #endif
 
     #if Activate_Ecran == 1
-    ecran.BV12 = 12;
-    ecran.BV48 = 48;
-    ecran.speed = 42;
-    ecran.running = false;
+    ecran.BV12 = 12; // Batterie 12V
+    ecran.BV48 = 48; // Batterie 48V
+    ecran.speed = 42; // Vitesse 
+    ecran.running = false; // Bouton PIT
     ecran.begin();
     #endif
 }
