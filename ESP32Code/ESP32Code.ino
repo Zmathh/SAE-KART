@@ -35,13 +35,11 @@
 
 void setup()
 {
-    //     //-------GPS-------------------
-    // Serial.begin(9600);
-    // gps.begin();
-
-
     //     //-------Serial----------------
-    //     Serial.begin(VITESSE_SERIAL);  // Initialisation de la vitesse de la liaison série
+    // Serial.begin(VITESSE_SERIAL_DEBUG);  // Initialisation de la vitesse de la liaison série
+
+    //     //-------GPS-------------------
+    // gps.begin();
 
     //     //-------temperature-----------
     //     temperatureSensor.begin();
@@ -49,12 +47,12 @@ void setup()
     //     ////-------Accelero/Frein--------
     //     lesLectures.begin();  // Initialisation des capteurs
 
-        // Initialisation LoRa
-        // pModuleLoRa = CModuleLoRa::GetInstance();
-        // pModuleLoRa->init(16, 17);
-        // pModuleLoRa->setConfig();
-        // pModuleLoRa->getConfig();
-        // pModuleLoRa->getInfo();
+    // Initialisation LoRa
+    // pModuleLoRa = CModuleLoRa::GetInstance();
+    // pModuleLoRa->init(16, 17);
+    // pModuleLoRa->setConfig();
+    // pModuleLoRa->getConfig();
+    // pModuleLoRa->getInfo();
 
     //     // Initialisation ECRAN
 
@@ -67,8 +65,7 @@ void setup()
 // //----------------------------------------------------------------
  void loop()
 {
-//     //-----------GPS---------------
-  
+    //-----------GPS---------------
     // gps.readData();
     // Serial.print("Latitude: ");
     // Serial.print(gps.latitude, 6);
@@ -78,18 +75,19 @@ void setup()
     
     
 
-    //     //-------temperature-----------
+    //-------temperature-----------
     //     Mesure_temp(Lect, Somme);
-    //     //-------Accelero/Frein--------
+
+    //-------Accelero/Frein--------
     //     Serial.print("Frein : ");
     //     Serial.println(lesLectures.readFrein());
     //     Serial.print("Accel : ");
     //     Serial.println(lesLectures.readAccel());
     //     delay(500);
     //     Serial.println(lectureFreinAccel.getFr_Prcent());
-    //     Serial.println(lectureFreinAccel.getAc_Prcent());
+        // Serial.println(lectureFreinAccel.getAc_Prcent());
 
-        ////-------Envoi-LORA--------
+    //-------Envoi-LORA--------
         // for (int i = 0; i < 13; i++) {
         //     data[i] += 1.0;
         // }
@@ -102,7 +100,7 @@ void setup()
         // pModuleLoRa->radioTX(dataPacket, dataPacketSize);
         // delay(250);
 
-    //     //--------ECRAN------------
+    //--------ECRAN------------
 
     //     if(etat_PIT) {PIT_LCD();} //Si on reçoit alarme du stand (supervions) affichage du mot PIT sur l'écran
     //     else {

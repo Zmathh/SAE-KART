@@ -10,8 +10,8 @@
 
 ///////////////////////////////////////////////////////////////
 
-#include "ecran/ecran.h"
-#include "ecran/ecran.cpp"
+// #include "ecran/ecran.h"
+// #include "ecran/ecran.cpp"
 
 //#include "MFrequence/MFrequence.h"
 //#include "MFrequence/MFrequence.cpp"
@@ -32,8 +32,7 @@
  // CONFIGURATION //////////////
 ////////////////////////////////////////////////////////////////
 
-#define VITESSE_SERIAL_1 115200
-#define VITESSE_SERIAL_2 9600
+#define VITESSE_SERIAL_DEBUG 115200
 
 
 
