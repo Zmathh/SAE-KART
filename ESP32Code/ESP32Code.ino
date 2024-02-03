@@ -33,6 +33,8 @@
 // float latitude = 48.4423344;
 // float longitude = 1.496218;
 
+//
+
 void setup()
 {
     //     //-------GPS-------------------
@@ -58,10 +60,12 @@ void setup()
         // pModuleLoRa->getInfo();
 
     //     // Initialisation ECRAN
-    //     lcd.init(); lcd.backlight();
-    //     lcd.createChar(0, Eclair); lcd.createChar(1, Chrono);
-    //     lcd.createChar(4, BOT);    lcd.createChar(5, TOP);    lcd.createChar(6, FULL);
-    //     lcd.createChar(7, BATTL);  lcd.createChar(3, BATTF);
+
+    //     // Initialisation MFREQUENCE
+    // MFreq.setup();
+
+    //     // Initialisation Ecran
+    //  ecran.setup();
 }
 // //----------------------------------------------------------------
  void loop()
@@ -123,4 +127,7 @@ void setup()
     //    Serial.print("Temperature: ");
     //    Serial.print(temperature);
     //    Serial.println(" C");
+    
+    //  MFreq.loop();
+    //  float freq = MFreq.getFreq();
 }

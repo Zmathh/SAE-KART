@@ -8,12 +8,16 @@
 #include "1Librairies\SoftwareSerial\SoftwareSerial.h"
 #include "1Librairies\SoftwareSerial\SoftwareSerial.cpp"
 
-////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+
+#include "ecran/ecran.h"
+#include "ecran/ecran.cpp"
+
+//#include "MFrequence/MFrequence.h"
+//#include "MFrequence/MFrequence.cpp"
+
 #include "GPS\GPS.h"
 #include "GPS\GPS.cpp"
-
-//#include "code_ecran\ECRAN_H.h"
-//#include "code_ecran\code_ecran.cpp"
 
 #include "LectTemp\LectTemp.h"
 #include "LectTemp\LectTemp.cpp"
@@ -27,6 +31,7 @@
 ////////////////////////////////////////////////////////////////
  // CONFIGURATION //////////////
 ////////////////////////////////////////////////////////////////
+
 #define VITESSE_SERIAL_1 115200
 #define VITESSE_SERIAL_2 9600
 
@@ -55,6 +60,6 @@
 #define INT 32
 #define Vitesse 33
 
-// Add other configurations or declarations if needed
+
 
 #endif // CONFIG_H

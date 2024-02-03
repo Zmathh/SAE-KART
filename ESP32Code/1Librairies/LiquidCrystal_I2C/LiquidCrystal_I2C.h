@@ -73,7 +73,7 @@ public:
 	/**
 	 * Set the LCD display in the correct begin state, must be called before anything else is done.
 	 */
-	void begin();
+	void begin(int8_t sda=-1, int8_t scl=-1);
 
 	 /**
 	  * Remove all the characters currently shown. Next print/write operation will start
