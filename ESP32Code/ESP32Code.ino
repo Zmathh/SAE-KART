@@ -21,7 +21,7 @@
 
 // Lecture_Frein_Accel lesLectures;
 
-//shiftReg dataPin(CS_DAT), clockPin(CS_CLK), strobePin(CS_STRB);
+// shiftReg shiftReg(CS_DAT, CS_CLK, CS_STRB);
 
 // LectTemp temperatureSensor(CS_CKL, CS_DAT, CS_STD); //// Vérifier les PINs
 
@@ -44,7 +44,7 @@ void setup()
     // gps.begin();
 
     //     //-------shiftReg-----------
-    //shiftReg.setup();
+    // shiftReg.setup();
 
     //     //-------temperature-----------
     //     temperatureSensor.begin();
@@ -80,7 +80,7 @@ void loop()
     
     //----------shiftReg-----------
 
-    //shiftReg.selectionTemp();
+    // shiftReg.selectionTemp();
 
     //-------temperature-----------
     //     Mesure_temp(Lect, Somme);

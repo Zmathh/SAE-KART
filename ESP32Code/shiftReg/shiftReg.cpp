@@ -1,6 +1,6 @@
 #include "shiftReg.h"
 
-shiftReg::shiftReg(uint8_t dataPin, uint8_t clockPin, uint8_t strobePin)
+shiftReg::shiftReg(int dataPin, int clockPin, int strobePin)
     : dataPin(dataPin), clockPin(clockPin), strobePin(strobePin)
 {
     dataPin = dataPin;

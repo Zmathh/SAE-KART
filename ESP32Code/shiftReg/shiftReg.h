@@ -6,7 +6,7 @@
 class shiftReg
 {
 public:
-    shiftReg(uint8_t dataPin, uint8_t clockPin,uint8_t strobePin);
+    shiftReg(int dataPin, int clockPin, int strobePin);
     void setup();
     void selectionTemp();
     
