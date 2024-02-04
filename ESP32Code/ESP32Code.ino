@@ -131,7 +131,7 @@ void coreTaskOne( void * pvParameters ){/////////////// LOOP main
 
     while(true){
         Serial.println("taskOne");
-        delay(1000);
+        delay(10);
         #if Activate_GPS == 1
             gps.readData();
             Serial.print("Latitude: ");
@@ -190,7 +190,7 @@ void coreTaskTwo( void * pvParameters ){ /////////////////////// LOOP écran
         Serial.println("taskTwo");
         #if Activate_Ecran == 1 
             ecran.refresh();
-            delay(1000);
+            delay(100);
         #endif
     }
 }
