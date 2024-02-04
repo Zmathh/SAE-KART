@@ -40,7 +40,8 @@
 
 #define VITESSE_SERIAL_DEBUG 115200
 
-#define Activate_Serial 0
+#define Activate_Serial 1
+#define Activate_ESP32Core 1  //Activer Serial Debug pour comprendre
 #define Activate_GPS 0
 #define Activate_ShiftReg 0
 #define Activate_Temperature 0
@@ -53,24 +54,24 @@
  // Déclaration Pins //////////////
 ////////////////////////////////////////////////////////////////
 
-#define FREIN 26
-#define ACCEL 25
-#define TensionGrandBat 13
-#define TensionPetiteBat 17
-#define LedSignal 23
-#define I2C_SCL 22
-#define i2C_SDA 21
-#define uWire_SI_O 19
-#define uWire_CLK 18
-#define GPS_Tx 17
-#define GPS_Rx 16
-#define LoRa_Tx 1
-#define LoRa_Rx 3
-#define Led_Alarme 15
 #define CS_STRB 0
+#define LoRa_Tx 1
 #define CS_CLK 2
+#define LoRa_Rx 3
 #define CS_DAT 4
 #define RESET 5
+#define Led_Alarme 15
+#define GPS_Rx 16
+#define TensionPetiteBat 17
+#define GPS_Tx 17
+#define uWire_CLK 18
+#define uWire_SI_O 19
+#define TensionGrandBat 13
+#define i2C_SDA 21
+#define I2C_SCL 22
+#define LedSignal 23
+#define ACCEL 25
+#define FREIN 26
 #define INT 32
 #define Vitesse 33
 
