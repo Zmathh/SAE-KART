@@ -155,7 +155,7 @@ void coreTaskOne( void * pvParameters ){/////////////// LOOP main
         #endif
         
         #if Activate_Temperature == 1
-            float temperature = LectTemp.readTemperature(); // Lit la température du capteur
+            float temperature = temperatureSensor.Somme; // Lit la température du capteur
             Serial.print("Temperature: ");
             Serial.print(temperature);
             Serial.println(" °C");
