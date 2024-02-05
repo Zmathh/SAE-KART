@@ -58,13 +58,16 @@ void setup()
         ecran.running = false; // Bouton PIT
         ecran.begin();
         //delay(5000);
-        Serial.println("Ecran initialisé");
+        #if Activate_Serial == 1
+            Serial.println("Ecran initialisé");
+        #endif
     #endif
 
     #if Activate_ESP32Core == 1 
-        delay(1000);
-        Serial.println("Starting to create tasks...");
-
+        //delay(1000);
+        #if Activate_Serial == 1
+            Serial.println("Starting to create tasks...");
+        #endif
         xTaskCreatePinnedToCore(
                             coreTaskOne,    /* Function to implement the task */
                             "coreTaskOne",  /* Name of the task */
@@ -73,8 +76,9 @@ void setup()
                             2,              /* Priority of the task */
                             NULL,           /* Task handle. */
                             taskCoreOne);   /* Core where the task should run */
-        Serial.println("TaskOne Created");
-
+        #if Activate_Serial == 1
+            Serial.println("TaskOne Created");
+        #endif
         xTaskCreatePinnedToCore(
                             coreTaskTwo,    /* Function to implement the task */
                             "coreTaskTwo",  /* Name of the task */
@@ -83,9 +87,11 @@ void setup()
                             3,              /* Priority of the task */
                             NULL,           /* Task handle. */
                             taskCoreTwo);   /* Core where the task should run */
-        Serial.println("TaskTwo Created");
+        #if Activate_Serial == 1
+            Serial.println("TaskTwo Created");
         
-        Serial.println("All Tasks created...");
+            Serial.println("All Tasks created...");
+        #endif
     #endif
         
     #if Activate_GPS == 1
@@ -121,17 +127,20 @@ void setup()
 
 void coreTaskOne( void * pvParameters ){/////////////// LOOP main
 
-    // #if Activate_Serial == 1 
+    #if Activate_Serial == 1 
     //     String taskMessage = "running on core ";
     //     taskMessage = taskMessage + xPortGetCoreID();
     //     Serial.println(taskMessage);
-    // #endif
-
-    Serial.println("taskOne ON");
-
+    
+    
+        Serial.println("taskOne ON");
+    #endif
     while(true){
-        Serial.println("taskOne");
-        delay(10);
+        delay(10); // possible watchdog si retiré
+        #if Activate_Serial == 1
+            Serial.println("taskOne");
+        #endif
+
         #if Activate_GPS == 1
             gps.readData();
             Serial.print("Latitude: ");
@@ -207,7 +216,8 @@ void coreTaskTwo( void * pvParameters ){ /////////////////////// LOOP écran
 // }
 
 void loop(){ // NE SERT A RIEN !!!!
-
-    Serial.println("TaskLoop delay 10s ");
+    #if Activate_Serial == 1
+        Serial.println("TaskLoop delay 10s ");
+    #endif
 delay(10000);
 }
