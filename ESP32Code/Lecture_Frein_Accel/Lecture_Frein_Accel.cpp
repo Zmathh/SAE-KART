@@ -1,6 +1,5 @@
 #include "Lecture_Frein_Accel.h"
 
-
 Lecture_Frein_Accel::Lecture_Frein_Accel(int pinFrein, int pinAccel)
 {
   _pinFrein = pinFrein;
@@ -15,10 +14,10 @@ void Lecture_Frein_Accel::begin()
 
 int Lecture_Frein_Accel::readFrein()
 {
-  return (int) ((float) ((analogRead(_pinFrein) * 3.3) / 4095) * 100);
+  return float((int)((float)((analogRead(_pinFrein)) / 4095.0) * 100.0));
 }
 
 int Lecture_Frein_Accel::readAccel()
 {
-  return (int) ((float) ((analogRead(_pinAccel) * 3.3) / 4095) * 100);
+  return float((int)((float)((analogRead(_pinAccel)) / 4095.0) * 100.0));
 }
