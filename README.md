@@ -5,15 +5,16 @@ A brief description of what this project does and who it's for
 
 ![Logo](images/SAE_KART.png)
 
-
-## Roadmap
-
-- Additional browser support
-
-- Add more integrations
-
-
 ## Programme ESP32
+
+### Roadmap
+
+- Intégrer les modules testés et validés individuelement dans un même programme principal (main)
+
+- Fix les modules
+
+
+### Avancée
 
 |    Module     |     Test      |     Notes     |
 | ------------- | ------------- |              -|
