@@ -24,8 +24,9 @@ Supervision d'un Kart
 | Dual Core     | ✅           |Terminé fonctionnel (1 loop/coeurs (2) )   |
 | GPS           | ✅           |Terminé fonctionnel    |
 | Module Lora   | ✅           |Terminé fonctionnel    |
-| écran         | ✅           |Terminé fonctionnel   |
-| Shift register| 🟨           |En cours...    |
+| écran         | ✅           |Terminé fonctionnel    |
+| Accel/frein   | ✅           |Terminé fonctionnel    |
+| Shift register| 🟨           |En cours...            |
 | Capteur temperature|🟨 ✅    |Besoin du Shift reg pour tester tout les capteurs en meme temps |
 | Capteur fréquence| ❌  |Demande la fin de tout les modules pour gérer les interruptions   |
 
