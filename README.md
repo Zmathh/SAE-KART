@@ -5,6 +5,8 @@ A brief description of what this project does and who it's for
 
 ![Logo](images/SAE_KART.png)
 
+![Kart](images/Kart.jpg)
+
 ## Programme ESP32
 
 ### Roadmap
@@ -26,8 +28,6 @@ A brief description of what this project does and who it's for
 | Shift register| 🟨           |En cours...    |
 | Capteur temperature|🟨 ✅    |Besoin du Shift reg pour tester tout les capteurs en meme temps |
 | Capteur fréquence| ❌  |Demande la fin de tout les modules pour gérer les interruptions   |
-
-![Kart](images/Kart.jpg)
 
 
 # SAE-KART LoRa
