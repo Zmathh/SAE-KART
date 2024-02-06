@@ -3,12 +3,12 @@
 shiftReg::shiftReg(int dataPin, int clockPin, int strobePin)
     : dataPin(dataPin), clockPin(clockPin), strobePin(strobePin)
 {
-    dataPin = dataPin;
-    clockPin = clockPin;
-    strobePin = strobePin;
+  dataPin = dataPin;
+  clockPin = clockPin;
+  strobePin = strobePin;
 }
 
-void shiftReg::setup() 
+void shiftReg::setup()
 {
   pinMode(dataPin, OUTPUT);
   pinMode(clockPin, OUTPUT);
@@ -19,16 +19,34 @@ void shiftReg::setup()
   digitalWrite(strobePin, LOW);
 }
 
-void shiftReg::selectionTemp() 
+void shiftReg::Selecteur_CS(int capteur)
 {
-  for (int capteur = 0; capteur < 5; capteur++) {
-    Selecteur_CS(capteur);
+  bool SerieBits[5];
+  for (int i = 0; i < 5; i++)
+  {
+    SerieBits[i] = LOW;
   }
+
+  SerieBits[capteur] = HIGH;
+
+  for (int i = 0; i < 5; i++)
+  {
+    digitalWrite(clockPin, LOW);
+    delay(1);
+
+    digitalWrite(clockPin, HIGH);
+    delay(1);
+    // Serial.print(SerieBits[i]);
+  }
+
+  // shiftOut(dataPin, clockPin, MSBFIRST, 1 << capteur);
+  Serial.print("......");
 }
 
-void shiftReg::Selecteur_CS(int capteur) 
-{
-  shiftOut(dataPin, clockPin, MSBFIRST, 1 << capteur);
-  digitalWrite(strobePin, HIGH);
+/*
+
+digitalWrite(strobePin, HIGH);
+  delay(100);
   digitalWrite(strobePin, LOW);
-}
+  delay(100);
+  */
