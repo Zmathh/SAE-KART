@@ -44,9 +44,9 @@
 #define Activate_ESP32Core 1  //Activer Serial Debug pour comprendre
 #define Activate_GPS 0
 #define Activate_ShiftReg 0
-#define Activate_Temperature 1
+#define Activate_Temperature 0
 #define Activate_ACCEL_FREIN 0
-#define Activate_LoRa 0
+#define Activate_LoRa 1
 #define Activate_Ecran 0
 #define Activate_FREQ 0
 

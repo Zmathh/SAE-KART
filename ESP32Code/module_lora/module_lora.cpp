@@ -58,7 +58,7 @@ CModuleLoRa::CModuleLoRa()
 {
   m_pinHWReset = 0;
 
-  pSerialPort = new HardwareSerial(0);
+  pSerialPort = new HardwareSerial(1);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -92,7 +92,7 @@ bool CModuleLoRa::hwReset()
     Serial.println("[RN2483] Hardware reset...");
 
     digitalWrite(m_pinHWReset, LOW);
-    delay(10);
+    delay(1);
     digitalWrite(m_pinHWReset, HIGH);
 
     String rsp;

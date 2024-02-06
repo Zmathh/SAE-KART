@@ -4,5 +4,7 @@
     "C_Cpp.default.compilerPath": "",
     "files.associations": {
         "*.old": "cpp"
-    }
+    },
+    "C_Cpp.dimInactiveRegions": true,
+    "C_Cpp.intelliSenseEngineFallback": "enabled"
 }
