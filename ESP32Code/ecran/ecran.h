@@ -13,7 +13,10 @@
 class Ecran
 {
   public:
-    Ecran();
+    Ecran(int I2C_SCL, int i2C_SDA);
+
+    int I2C_SCL;
+    int I2C_SDA;
 
     void begin();
     void refresh();
