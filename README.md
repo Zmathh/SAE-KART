@@ -3,7 +3,7 @@
 A brief description of what this project does and who it's for
 
 
-![Logo](images\SAE_KART.png)
+![Logo](images/SAE_KART.png)
 
 
 ## Roadmap
