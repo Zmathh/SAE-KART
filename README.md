@@ -1,6 +1,6 @@
 # SAE-KART 
 
-A brief description of what this project does and who it's for
+Supervision d'un Kart
 
 
 ![Logo](images/SAE_KART.png)
