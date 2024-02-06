@@ -27,6 +27,7 @@ Supervision d'un Kart
 | écran         | ✅           |Terminé fonctionnel   |
 | Shift register| 🟨           |En cours...    |
 | Capteur temperature|🟨 ✅    |Besoin du Shift reg pour tester tout les capteurs en meme temps |
+| Lecture Frein/Accel| ❌      |En cours...    |
 | Capteur fréquence| ❌  |Demande la fin de tout les modules pour gérer les interruptions   |
 
 
