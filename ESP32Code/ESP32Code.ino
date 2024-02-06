@@ -18,7 +18,7 @@ shiftReg shiftReg(CS_DAT, CS_CLK, CS_STRB);
 #endif
 
 #if Activate_Temperature == 1
-LectTemp temperatureSensor(CS_CLK, CS_DAT, CS_STRB); //// Vérifier les PINs
+LectTemp temperatureSensor(SC_pin, CSN_pin, SIO_pin); //// Vérifier les PINs
 #endif
 
 #if Activate_GPS == 1
@@ -46,6 +46,7 @@ void setup()
     Serial.println(VITESSE_SERIAL_DEBUG);
 #endif
 
+<<<<<<< HEAD
 #if Activate_Ecran == 1
     ecran.BV12 = 12;       // Batterie 12V
     ecran.BV48 = 48;       // Batterie 48V
@@ -79,6 +80,54 @@ void setup()
         NULL,          /* Task handle. */
         taskCoreTwo);  /* Core where the task should run */
     Serial.println("TaskTwo Created");
+=======
+    #if Activate_Ecran == 1
+        ecran.BV12 = 12; // Batterie 12V
+        ecran.BV48 = 48; // Batterie 48V
+        ecran.speed = 42; // Vitesse 
+        ecran.running = false; // Bouton PIT
+        ecran.begin();
+        //delay(5000);
+        #if Activate_Serial == 1
+            Serial.println("Ecran initialisé");
+        #endif
+    #endif
+
+    #if Activate_ESP32Core == 1 
+        //delay(1000);
+        #if Activate_Serial == 1
+            Serial.println("Starting to create tasks...");
+        #endif
+        xTaskCreatePinnedToCore(
+                            coreTaskOne,    /* Function to implement the task */
+                            "coreTaskOne",  /* Name of the task */
+                            10000,          /* Stack size in words */
+                            NULL,           /* Task input parameter */
+                            2,              /* Priority of the task */
+                            NULL,           /* Task handle. */
+                            taskCoreOne);   /* Core where the task should run */
+        #if Activate_Serial == 1
+            Serial.println("TaskOne Created");
+        #endif
+        xTaskCreatePinnedToCore(
+                            coreTaskTwo,    /* Function to implement the task */
+                            "coreTaskTwo",  /* Name of the task */
+                            10000,          /* Stack size in words */
+                            NULL,           /* Task input parameter */
+                            3,              /* Priority of the task */
+                            NULL,           /* Task handle. */
+                            taskCoreTwo);   /* Core where the task should run */
+        #if Activate_Serial == 1
+            Serial.println("TaskTwo Created");
+        
+            Serial.println("All Tasks created...");
+        #endif
+    #endif
+        
+    #if Activate_GPS == 1
+        gps.begin();
+    #endif
+>>>>>>> 1caf7994f3826ad360aceaefc778a23890cd18a9
 
     Serial.println("All Tasks created...");
 #endif
@@ -114,6 +163,7 @@ void setup()
 
 void coreTaskOne(void *pvParameters){ /////////////// LOOP main
 
+<<<<<<< HEAD
     // #if Activate_Serial == 1
     //     String taskMessage = "running on core ";
     //     taskMessage = taskMessage + xPortGetCoreID();
@@ -128,6 +178,25 @@ void coreTaskOne(void *pvParameters){ /////////////// LOOP main
     Serial.println("taskOne");
           
     #if Activate_GPS == 1
+=======
+void coreTaskOne( void * pvParameters ){/////////////// LOOP main
+
+    #if Activate_Serial == 1 
+    //     String taskMessage = "running on core ";
+    //     taskMessage = taskMessage + xPortGetCoreID();
+    //     Serial.println(taskMessage);
+    
+    
+        Serial.println("taskOne ON");
+    #endif
+    while(true){
+        delay(1000); // possible watchdog si retiré
+        #if Activate_Serial == 1
+            Serial.println("taskOne");
+        #endif
+
+        #if Activate_GPS == 1
+>>>>>>> 1caf7994f3826ad360aceaefc778a23890cd18a9
             gps.readData();
             Serial.print("Latitude: ");
             Serial.print(gps.latitude, 6);
@@ -136,6 +205,7 @@ void coreTaskOne(void *pvParameters){ /////////////// LOOP main
             gps.flushBuffer();
     #endif
 
+<<<<<<< HEAD
     #if Activate_ShiftReg == 1
     for(int i=0;i<5;i++){
       shiftReg.Selecteur_CS(i);
@@ -145,6 +215,15 @@ void coreTaskOne(void *pvParameters){ /////////////// LOOP main
 
     #if Activate_Temperature == 1
             float temperature = LectTemp.readTemperature(); // Lit la température du capteur
+=======
+        #if Activate_ShiftReg == 1
+            shiftReg.selectionTemp();
+        #endif
+        
+        #if Activate_Temperature == 1
+            temperatureSensor.readTemperature();
+            float temperature = temperatureSensor.temperature; // Lit la température du capteur
+>>>>>>> 1caf7994f3826ad360aceaefc778a23890cd18a9
             Serial.print("Temperature: ");
             Serial.print(temperature);
             Serial.println(" °C");
@@ -191,6 +270,16 @@ void coreTaskOne(void *pvParameters){ /////////////// LOOP main
     #if Activate_Ecran == 1
       ecran.refresh();
     #endif
+<<<<<<< HEAD
+=======
+    while(true){
+        delay(1000);
+        Serial.println("taskTwo");
+        #if Activate_Ecran == 1 
+            ecran.refresh();
+            
+        #endif
+>>>>>>> 1caf7994f3826ad360aceaefc778a23890cd18a9
     }
 }
 
@@ -205,9 +294,17 @@ void coreTaskOne(void *pvParameters){ /////////////// LOOP main
 //     }
 // }
 
+<<<<<<< HEAD
 void loop()
 { // NE SERT A RIEN !!!!
 
     //Serial.println("TaskLoop delay 10s ");
     delay(10000);
+=======
+void loop(){ // NE SERT A RIEN !!!!
+    #if Activate_Serial == 1
+        Serial.println("TaskLoop delay 10s ");
+    #endif
+delay(10000);
+>>>>>>> 1caf7994f3826ad360aceaefc778a23890cd18a9
 }

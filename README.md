@@ -1,5 +1,34 @@
 # SAE-KART 
+
+Supervision d'un Kart
+
+
+![Logo](images/SAE_KART.png)
+
 ![Kart](images/Kart.jpg)
+
+## Programme ESP32
+
+### Roadmap
+
+- Intégrer les modules testés et validés individuelement dans un même programme principal (main)
+
+- Fix les modules
+
+
+### Avancée
+
+|    Module     |     Test      |     Notes     |
+| ------------- | ------------- |              -|
+| MAIN ESP32    | 🟨           |En cours...    |
+| Dual Core     | ✅           |Terminé fonctionnel (1 loop/coeurs (2) )   |
+| GPS           | ✅           |Terminé fonctionnel    |
+| Module Lora   | ✅           |Terminé fonctionnel    |
+| écran         | ✅           |Terminé fonctionnel   |
+| Shift register| 🟨           |En cours...    |
+| Capteur temperature|🟨 ✅    |Besoin du Shift reg pour tester tout les capteurs en meme temps |
+| Lecture Frein/Accel| ❌      |En cours...    |
+| Capteur fréquence| ❌  |Demande la fin de tout les modules pour gérer les interruptions   |
 
 
 # SAE-KART LoRa

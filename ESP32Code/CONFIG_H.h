@@ -40,6 +40,7 @@
 
 #define VITESSE_SERIAL_DEBUG 115200
 
+<<<<<<< HEAD
 #define Activate_Serial 1    // Fonction testé et validér dans le main
 #define Activate_ESP32Core 1 // Activer Serial Debug pour comprendre
 #define Activate_GPS 0       // Fonction testé et validér dans le main
@@ -49,6 +50,17 @@
 #define Activate_LoRa 0  // Fonction testé et validér dans le main
 #define Activate_Ecran 0 // Fonction testé et validér dans le main
 #define Activate_FREQ 0  // En cour
+=======
+#define Activate_Serial 1
+#define Activate_ESP32Core 1  //Activer Serial Debug pour comprendre
+#define Activate_GPS 0
+#define Activate_ShiftReg 0
+#define Activate_Temperature 1
+#define Activate_ACCEL_FREIN 0
+#define Activate_LoRa 0
+#define Activate_Ecran 0
+#define Activate_FREQ 0
+>>>>>>> 1caf7994f3826ad360aceaefc778a23890cd18a9
 
 ////////////////////////////////////////////////////////////////
 // Déclaration Pins //////////////
@@ -76,4 +88,15 @@
 #define INT 32
 #define Vitesse 33
 
+<<<<<<< HEAD
+=======
+
+//pour test capteur temps (temporaire)
+#define SC_pin 33
+#define CSN_pin 32
+#define SIO_pin 25
+
+
+
+>>>>>>> 1caf7994f3826ad360aceaefc778a23890cd18a9
 #endif // CONFIG_H
