@@ -23,7 +23,7 @@ shiftReg shiftReg(CS_DAT, CS_CLK, CS_STRB);
 #endif
 
 #if Activate_Temperature == 1
-LectTemp temperatureSensor(CS_CLK, CS_DAT, CS_STRB); //// Vérifier les PINs
+LectTemp temperatureSensor(SC_pin, CSN_pin, SIO_pin); //// Vérifier les PINs
 #endif
 
 #if Activate_GPS == 1
@@ -136,7 +136,7 @@ void coreTaskOne( void * pvParameters ){/////////////// LOOP main
         Serial.println("taskOne ON");
     #endif
     while(true){
-        delay(10); // possible watchdog si retiré
+        delay(1000); // possible watchdog si retiré
         #if Activate_Serial == 1
             Serial.println("taskOne");
         #endif
@@ -155,7 +155,8 @@ void coreTaskOne( void * pvParameters ){/////////////// LOOP main
         #endif
         
         #if Activate_Temperature == 1
-            float temperature = temperatureSensor.Somme; // Lit la température du capteur
+            temperatureSensor.readTemperature();
+            float temperature = temperatureSensor.temperature; // Lit la température du capteur
             Serial.print("Temperature: ");
             Serial.print(temperature);
             Serial.println(" °C");
@@ -196,10 +197,11 @@ void coreTaskTwo( void * pvParameters ){ /////////////////////// LOOP écran
         Serial.println("taskTwo ON");
     #endif
     while(true){
+        delay(1000);
         Serial.println("taskTwo");
         #if Activate_Ecran == 1 
             ecran.refresh();
-            delay(100);
+            
         #endif
     }
 }

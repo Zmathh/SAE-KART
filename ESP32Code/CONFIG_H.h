@@ -47,7 +47,7 @@
 #define Activate_Temperature 1
 #define Activate_ACCEL_FREIN 0
 #define Activate_LoRa 0
-#define Activate_Ecran 1
+#define Activate_Ecran 0
 #define Activate_FREQ 0
 
 ////////////////////////////////////////////////////////////////
@@ -74,6 +74,12 @@
 #define FREIN 26
 #define INT 32
 #define Vitesse 33
+
+
+//pour test capteur temps (temporaire)
+#define SC_pin 33
+#define CSN_pin 32
+#define SIO_pin 25
 
 
 

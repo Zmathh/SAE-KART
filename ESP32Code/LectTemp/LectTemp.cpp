@@ -1,4 +1,5 @@
 #include "LectTemp.h"
+#include "../CONFIG_H.h"
 
 
 LectTemp::LectTemp(int SC_pin, int CSN_pin, int SIO_pin) {
@@ -16,31 +17,36 @@ void LectTemp::begin() {
 }
 
 float LectTemp::readTemperature() {
-  Somme = 0;
+  temperature = 0;
   digitalWrite(CSN_pin, LOW);
 
   for (i = 0; i < 16; i++) {
     digitalWrite(SC_pin, HIGH);
-    delayMicroseconds(5); // Attente d'environ 5 microsecondes
+    //delayMicroseconds(5); // Attente d'environ 5 microsecondes
     Lect[i] = digitalRead(SIO_pin);
     digitalWrite(SC_pin, LOW);
-    delayMicroseconds(5); // Attente d'environ 5 microsecondes
+    //delayMicroseconds(5); // Attente d'environ 5 microsecondes
   }
 
   for (i = 0; i < 16; i++) {
     digitalWrite(SC_pin, HIGH);
-    delayMicroseconds(5); // Attente d'environ 5 microsecondes
+    //delayMicroseconds(5); // Attente d'environ 5 microsecondes
     digitalWrite(SC_pin, LOW);
-    delayMicroseconds(5); // Attente d'environ 5 microsecondes
+    //delayMicroseconds(5); // Attente d'environ 5 microsecondes
   }
 
   digitalWrite(CSN_pin, HIGH);
-  delay(500);
+  //delay(500);
 
   for (i = 1; i < 14; i++) {
-    puiss = 128 / pow(2, (i - 1));
-    Somme = Somme + Lect[i] * puiss;
+    puiss = 128. / pow(2, (i - 1));
+    temperature = temperature + Lect[i] * puiss;
   }
 
-  return Somme;
+  float offset = 2.1; // Offset value to be adjusted as needed
+  temperature -= offset;
+
+  //Serial.println(temperature);
+
+  return temperature;
 }

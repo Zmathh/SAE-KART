@@ -1,4 +1,31 @@
 # SAE-KART 
+
+A brief description of what this project does and who it's for
+
+
+![Logo](images\SAE_KART.png)
+
+
+## Roadmap
+
+- Additional browser support
+
+- Add more integrations
+
+
+## Programme ESP32
+
+|    Module     |     Test      |     Notes     |
+| ------------- | ------------- |              -|
+| MAIN ESP32    | 🟨           |En cours...    |
+| Dual Core     | ✅           |Terminé fonctionnel (1 loop/coeurs (2) )   |
+| GPS           | ✅           |Terminé fonctionnel    |
+| Module Lora   | ✅           |Terminé fonctionnel    |
+| écran         | ✅           |Terminé fonctionnel   |
+| Shift register| 🟨           |En cours...    |
+| Capteur temperature|🟨 ✅    |Besoin du Shift reg pour tester tout les capteurs en meme temps |
+| Capteur fréquence| ❌  |Demande la fin de tout les modules pour gérer les interruptions   |
+
 ![Kart](images/Kart.jpg)
 
 
