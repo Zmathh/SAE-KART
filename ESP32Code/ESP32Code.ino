@@ -27,7 +27,7 @@ LectTemp temperatureSensor(SC_pin, CSN_pin, SIO_pin); //// Vérifier les PINs
 #endif
 
 #if Activate_GPS == 1
-GPS gps(GPS_Tx, GPS_Rx);
+GPS gps(I2C_SCL, I2C_SDA);
 #endif
 
 #if Activate_FREQ == 1

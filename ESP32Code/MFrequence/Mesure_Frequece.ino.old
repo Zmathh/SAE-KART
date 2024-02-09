@@ -1,7 +1,6 @@
 #include <Arduino.h>
 
 #define SERIAL 1
-#define SELFTEST 0
 
 #define LED 21
 
@@ -52,34 +51,8 @@ void setup() {
   
   attachInterrupt(SW, &onFallingEdge, FALLING);
 
-#if SELFTEST == 1
-  //create a task that will be executed in the Task1code() function, with priority 1 and executed on core 0
-  xTaskCreatePinnedToCore(
-                    Loop0code,   /* Task function. */
-                    "Loop0",     /* name of task. */
-                    10000,       /* Stack size of task */
-                    NULL,        /* parameter of the task */
-                    1,           /* priority of the task */
-                    &Loop0,      /* Task handle to keep track of created task */
-                    0);          /* pin task to core 0 */                  
-  //delay(500); 
-#endif
-
 }
 
-#if SELFTEST == 1
-void Loop0code( void * pvParameters ){
-  Serial.print("Loop0 running on core ");
-  Serial.println(xPortGetCoreID());
-
-  for(;;){
-    digitalWrite(GEN, HIGH);
-    delay(10);
-    digitalWrite(GEN, LOW);
-    delay(10);
-  } 
-bite
-}
 #endif
 void loop() {
 

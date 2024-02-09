@@ -6,7 +6,10 @@
 class GPS
 {
 public:
-  GPS(uint8_t txPin, uint8_t rxPin);
+  GPS(int I2C_SCL, int I2C_SDA);
+  int I2C_SCL;
+  int I2C_SDA;
+  
   void begin();
   void readData();
   float latitude;
