@@ -35,7 +35,7 @@ void shiftReg::Selecteur_CS(int capteur)
 
   Serial.println("------------------");
 
-  for (i = 0; i < 8; i++)
+  for (i = 5; i >= 0; i--)
   {
     digitalWrite(clockPin, LOW);
     delay_Retard(2);

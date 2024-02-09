@@ -123,7 +123,7 @@ void coreTaskOne(void *pvParameters)
 { /////////////// LOOP main
 
 #if Activate_Serial == 1
-    //     String taskMessage = "running on core ";
+  //     String taskMessage = "running on core ";
     //     taskMessage = taskMessage + xPortGetCoreID();
     //     Serial.println(taskMessage);
 
@@ -146,7 +146,46 @@ void coreTaskOne(void *pvParameters)
 #endif
 
 #if Activate_ShiftReg == 1
+
+        if (Serial.available() > 0)
+        {
+            // read the incoming byte:
+
+            // say what you got:
+            switch (Serial.read())
+            {
+            case 48: // 0
+                shiftReg.Selecteur_CS(-1);
+                break;
+            case 49: // 1
+                shiftReg.Selecteur_CS(0);
+                break;
+            case 50: // 2
+                shiftReg.Selecteur_CS(1);
+                break;
+            case 51: // 1
+                shiftReg.Selecteur_CS(2);
+                break;
+            case 52: // 0
+                shiftReg.Selecteur_CS(3);
+                break;
+            case 53: // 1
+                shiftReg.Selecteur_CS(4);
+                break;
+            }
+        }
+
+        /*shiftReg.Selecteur_CS(0);
+        delay(100);
         shiftReg.Selecteur_CS(1);
+        delay(100);
+        shiftReg.Selecteur_CS(2);
+        delay(100);
+        shiftReg.Selecteur_CS(3);
+        delay(100);
+        shiftReg.Selecteur_CS(4);
+        delay(100);*/
+
 #endif
 
 #if Activate_Temperature == 1
