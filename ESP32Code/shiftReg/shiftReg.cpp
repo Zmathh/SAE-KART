@@ -22,47 +22,42 @@ void shiftReg::setup()
 void shiftReg::Selecteur_CS(int capteur)
 {
 
-  digitalWrite(strobePin, HIGH);
   digitalWrite(clockPin, LOW);
   digitalWrite(dataPin, LOW);
-  int i=0;
+  int i = 0;
   bool bitenvoyer[8];
 
-  for(int i=0;i<8;i++) bitenvoyer[i]= LOW;
-  
-  if(capteur!=-1)
-  bitenvoyer[capteur]=HIGH;
-  
+  for (int i = 0; i < 8; i++)
+    bitenvoyer[i] = LOW;
+
+  if (capteur != -1)
+    bitenvoyer[capteur] = HIGH;
+
   Serial.println("------------------");
-
-
-
 
   for (i = 0; i < 8; i++)
   {
     digitalWrite(clockPin, LOW);
     delay_Retard(2);
-    if(bitenvoyer[i]==LOW) digitalWrite(dataPin, LOW);
-    else digitalWrite(dataPin, HIGH);
+    if (bitenvoyer[i] == LOW)
+      digitalWrite(dataPin, LOW);
+    else
+      digitalWrite(dataPin, HIGH);
     Serial.print(bitenvoyer[i]);
     delay_Retard(2);
     digitalWrite(clockPin, HIGH);
     delay_Retard(3);
-    digitalWrite(strobePin, LOW);
-    delay_Retard(1);
-    digitalWrite(strobePin, HIGH);
-    delay_Retard(1);
   }
 
+  digitalWrite(strobePin, HIGH);
+  delay_Retard(1);
+  digitalWrite(strobePin, LOW);
+  delay_Retard(1);
   Serial.println("------------------");
 
-
-  digitalWrite(strobePin, HIGH);
   digitalWrite(clockPin, LOW);
   digitalWrite(dataPin, LOW);
 }
-
-
 
 void shiftReg::delay_Retard(int a)
 {
