@@ -150,15 +150,15 @@ void coreTaskOne( void * pvParameters ){/////////////// LOOP main
 
         #if Activate_ShiftReg == 1
           shiftReg.Selecteur_CS(1);
-          delay(10);
+          shiftReg.delay_Retard(10);
           shiftReg.Selecteur_CS(2);
-          delay(10);
+          shiftReg.delay_Retard(10);
           shiftReg.Selecteur_CS(3);
-          delay(10);
+          shiftReg.delay_Retard(10);
           shiftReg.Selecteur_CS(4);
-          delay(10);
+          shiftReg.delay_Retard(10);
           shiftReg.Selecteur_CS(5);
-          delay(10);
+          shiftReg.delay_Retard(10);
         #endif
         
         #if Activate_Temperature == 1
