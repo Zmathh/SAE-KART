@@ -16,9 +16,7 @@ Lecture_Frein_Accel frein_accel(FREIN, ACCEL);
 #endif
 
 #if Activate_ShiftReg == 1
-pinMode(SC,OUTPUT);
-pinMode(CSN,OUTPUT);
-pinMode(SIO,INPUT);
+
 shiftReg shiftReg(CS_DAT, CS_CLK, CS_STRB);
 #endif
 
@@ -151,7 +149,16 @@ void coreTaskOne( void * pvParameters ){/////////////// LOOP main
         #endif
 
         #if Activate_ShiftReg == 1
-            shiftReg.selectionTemp();
+          shiftReg.Selecteur_CS(1);
+          delay(10);
+          shiftReg.Selecteur_CS(2);
+          delay(10);
+          shiftReg.Selecteur_CS(3);
+          delay(10);
+          shiftReg.Selecteur_CS(4);
+          delay(10);
+          shiftReg.Selecteur_CS(5);
+          delay(10);
         #endif
         
         #if Activate_Temperature == 1

@@ -3,26 +3,26 @@
 #define CONFIG_H_h
 
 ////////////////////////////////////////////////////////////////
- // Déclaration des librairies  //////////////
+// Déclaration des librairies  //////////////
 ////////////////////////////////////////////////////////////////
 
 #include <arduino.h>
 
-#include <Wire.h> 
+#include <Wire.h>
 
 #include "1Librairies/SoftwareSerial/SoftwareSerial.cpp"
 
 #include "1Librairies/Wire/wire.cpp"
 
-//#include "1Librairies/LiquidCrystal_I2C/LiquidCrystal_I2C.cpp"
+// #include "1Librairies/LiquidCrystal_I2C/LiquidCrystal_I2C.cpp"
 
 ////////////////////////////////////////////////////////////////
- // Déclaration des librairies programmes //////////////
+// Déclaration des librairies programmes //////////////
 ////////////////////////////////////////////////////////////////
 
 #include "ecran/ecran.cpp"
 
-//#include "MFrequence/MFrequence.cpp"
+// #include "MFrequence/MFrequence.cpp"
 
 #include "GPS/GPS.cpp"
 
@@ -35,23 +35,23 @@
 #include "module_lora/module_lora.cpp"
 
 ////////////////////////////////////////////////////////////////
- // CONFIGURATION //////////////
+// CONFIGURATION //////////////
 ////////////////////////////////////////////////////////////////
 
 #define VITESSE_SERIAL_DEBUG 115200
 
 #define Activate_Serial 1
-#define Activate_ESP32Core 1  //Activer Serial Debug pour comprendre
+#define Activate_ESP32Core 1 // Activer Serial Debug pour comprendre
 #define Activate_GPS 1
 #define Activate_ShiftReg 0
 #define Activate_Temperature 1
 #define Activate_ACCEL_FREIN 0
-#define Activate_LoRa 1
+#define Activate_LoRa 0
 #define Activate_Ecran 0
 #define Activate_FREQ 0
 
 ////////////////////////////////////////////////////////////////
- // Déclaration Pins //////////////
+// Déclaration Pins //////////////
 ////////////////////////////////////////////////////////////////
 
 #define CS_STRB 0
@@ -75,12 +75,9 @@
 #define INT 32
 #define Vitesse 33
 
-
-//pour test capteur temps (temporaire)
+// pour test capteur temps (temporaire)
 #define SC_pin 33
 #define CSN_pin 32
 #define SIO_pin 25
-
-
 
 #endif // CONFIG_H

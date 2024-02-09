@@ -13,6 +13,8 @@ Supervision d'un Kart
 
 - Intégrer les modules testés et validés individuelement dans un même programme principal (main)
 
+- Utilisation d'un module I2C pour la communication UART du module GPS.
+
 - Fix les modules
 
 

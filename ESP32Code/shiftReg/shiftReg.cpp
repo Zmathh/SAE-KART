@@ -16,31 +16,63 @@ void shiftReg::setup()
 
   digitalWrite(dataPin, LOW);
   digitalWrite(clockPin, LOW);
-  digitalWrite(strobePin, LOW);
+  digitalWrite(strobePin, HIGH);
 }
 
 void shiftReg::Selecteur_CS(int capteur)
 {
-  bool SerieBits[5];
-  for (int i = 0; i < 5; i++)
-  {
-    SerieBits[i] = LOW;
+
+  digitalWrite(strobePin, HIGH);
+  digitalWrite(clockPin, LOW);
+  digitalWrite(dataPin, LOW);
+  int i=0;
+  bool bitenvoyer[8];
+
+  for(int i=0;i<8;i++) bitenvoyer[i]= LOW;
+  
+  if(capteur!=-1)
+  bitenvoyer[capteur]=HIGH;
+  
+  Serial.println("------------------");
+
+  for(int i = 0 ; i <8 ; i++){
+    Serial.print(bitenvoyer[i]);
   }
+  Serial.println("------------------");
 
-  SerieBits[capteur] = HIGH;
 
-  for (int i = 0; i < 5; i++)
+
+  for (i = 0; i < 8; i++)
   {
     digitalWrite(clockPin, LOW);
-    delay(1);
-
+    delay_Retard(2);
+    if(bitenvoyer[i]==LOW) digitalWrite(dataPin, LOW);
+    else digitalWrite(dataPin, HIGH);
+    delay_Retard(2);
     digitalWrite(clockPin, HIGH);
-    delay(1);
-    // Serial.print(SerieBits[i]);
+    delay_Retard(3);
   }
 
-  // shiftOut(dataPin, clockPin, MSBFIRST, 1 << capteur);
-  Serial.print("......");
+  delay_Retard(100000);
+
+  digitalWrite(strobePin, LOW);
+  delay_Retard(3);
+  digitalWrite(strobePin, HIGH);
+  delay_Retard(3);
+
+  digitalWrite(strobePin, HIGH);
+  digitalWrite(clockPin, LOW);
+  digitalWrite(dataPin, LOW);
+
+for(int i=0;i<8;i++) bitenvoyer[i]= LOW;
+}
+
+void shiftReg::delay_Retard(int a)
+{
+  for (int i = 0; i < 100000 * a; i++)
+  {
+    __asm__("nop\n\t");
+  }
 }
 
 /*
