@@ -33,7 +33,7 @@ MFrequence MFreq;
 #endif
 
 #if Activate_Ecran == 1
-Ecran ecran;
+Ecran ecran(I2C_SCL, I2C_SDA);
 #endif
 
 #if Activate_ESP32Core == 1
@@ -71,7 +71,7 @@ void setup()
                             "coreTaskOne",  /* Name of the task */
                             10000,          /* Stack size in words */
                             NULL,           /* Task input parameter */
-                            2,              /* Priority of the task */
+                            0,              /* Priority of the task */
                             NULL,           /* Task handle. */
                             taskCoreOne);   /* Core where the task should run */
         #if Activate_Serial == 1
@@ -82,7 +82,7 @@ void setup()
                             "coreTaskTwo",  /* Name of the task */
                             10000,          /* Stack size in words */
                             NULL,           /* Task input parameter */
-                            3,              /* Priority of the task */
+                            1,              /* Priority of the task */
                             NULL,           /* Task handle. */
                             taskCoreTwo);   /* Core where the task should run */
         #if Activate_Serial == 1
@@ -110,7 +110,7 @@ void setup()
 
     #if Activate_LoRa == 1
         pModuleLoRa = CModuleLoRa::GetInstance();
-        pModuleLoRa->init(16, 17);
+        pModuleLoRa->init(9, 10);
         pModuleLoRa->setConfig();
         pModuleLoRa->getConfig();
         pModuleLoRa->getInfo();
@@ -204,7 +204,9 @@ void coreTaskTwo( void * pvParameters ){ /////////////////////// LOOP écran
         Serial.println("taskTwo ON");
     #endif
     while(true){
-        delay(1000);
+        #if Activate_Ecran == 0
+            delay(1000);
+        #endif
         Serial.println("taskTwo");
         #if Activate_Ecran == 1 
             ecran.refresh();
@@ -212,17 +214,6 @@ void coreTaskTwo( void * pvParameters ){ /////////////////////// LOOP écran
         #endif
     }
 }
-
-// void coreTaskTwo( void * pvParameters ){
-//     #if Activate_Serial == 1 
-//         Serial.println("taskTwo ON");
-//     #endif
-
-//     while(true){
-//         Serial.println("taskTwo");
-//         delay(1000);
-//     }
-// }
 
 void loop(){ // NE SERT A RIEN !!!!
     #if Activate_Serial == 1

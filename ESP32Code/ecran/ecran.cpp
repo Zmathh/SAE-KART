@@ -3,10 +3,13 @@
 
 
 
-Ecran::Ecran() : lcd(0x20, 16, 2) {}
+Ecran::Ecran(int I2C_SCL, int I2C_SDA) : lcd(0x20, 16, 2) {
+  this->I2C_SCL = I2C_SCL;
+  this->I2C_SDA = I2C_SDA;
+}
 
 void Ecran::begin() {
-  lcd.begin();
+  lcd.begin(I2C_SDA, I2C_SCL);
   lcd.backlight();
   //Serial.begin(9600);
   
