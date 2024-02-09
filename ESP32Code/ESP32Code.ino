@@ -134,7 +134,7 @@ void coreTaskOne( void * pvParameters ){/////////////// LOOP main
         Serial.println("taskOne ON");
     #endif
     while(true){
-        delay(1000); // possible watchdog si retiré
+       // delay(1000); // possible watchdog si retiré
         #if Activate_Serial == 1
             Serial.println("taskOne");
         #endif
@@ -149,16 +149,7 @@ void coreTaskOne( void * pvParameters ){/////////////// LOOP main
         #endif
 
         #if Activate_ShiftReg == 1
-          shiftReg.Selecteur_CS(1);
-          delay(10);
-          shiftReg.Selecteur_CS(2);
-          delay(10);
-          shiftReg.Selecteur_CS(3);
-          delay(10);
           shiftReg.Selecteur_CS(4);
-          delay(10);
-          shiftReg.Selecteur_CS(5);
-          delay(10);
         #endif
         
         #if Activate_Temperature == 1
@@ -219,5 +210,5 @@ void loop(){ // NE SERT A RIEN !!!!
     #if Activate_Serial == 1
         Serial.println("TaskLoop delay 10s ");
     #endif
-delay(10000);
+delay(5000000000000000000);
 }
