@@ -1,44 +1,42 @@
-#include "MFrequence.h"
+#include "Mfrequence.h"
+#include <driver/timer.h>
 
-void IRAM_ATTR onTimer() {
-  //digitalWrite(LED, !digitalRead(LED));
-  MFrequence.i++;
-  MFrequence.temp2 = timerRead(MFrequence.My_timer);
+Mfrequence::Mfrequence() {
+  i = 0;
+  temp = 0;
+  temp2 = 0;
+  temps = 0.;
+  freq = 0.;
+  moy = 0;
+  n = 20;
+  l = 0;
 }
 
-void IRAM_ATTR onFallingEdge() {
-  MFrequence.FlagPin = !MFrequence.FlagPin;
+Mfrequence* Mfrequence::getInstance() {
+  static Mfrequence instance;
+  return &instance;
 }
 
-void MFrequence::setup() {
-  // pinMode(LED, OUTPUT);
-  // pinMode(GEN, OUTPUT);
-  // pinMode(SW, INPUT_PULLUP);
+void Mfrequence::staticOnFallingEdge() {
+  // Call the member function onFallingEdge of the current instance
+  Mfrequence::getInstance()->onFallingEdge();
+}
+
+void Mfrequence::setup() {
     
   initTimer(timerID, preScaler, 100);
-    
-  attachInterrupt(SW, &MFrequence.onFallingEdge, MFrequence.FALLING);
+  attachInterrupt(SW, staticOnFallingEdge, FALLING);
 }
 
-void MFrequence::loop() {
-  if (temp > 0) {
-    freq = getFreq();
-  }
-}
-
-float MFrequence::getFreq() {
+void Mfrequence::loop() {
   if (FlagPin) {
     enableAlarm();
-    attachInterrupt(SW, &MFrequence.onFallingEdge, MFrequence.FALLING);
+    attachInterrupt(SW, staticOnFallingEdge, FALLING);
   } else {
     detachInterrupt(SW);
-    for (int k = 0; k < 1000; k++) {
-      // Do nothing
-    }
+    for(int k = 0; k < 1000; k++){;;}
     disableAlarm();
-    for (int k = 0; k < 1000; k++) {
-      // Do nothing
-    }
+    for(int k = 0; k < 1000; k++){;;}
     temp = i;
     i = 0;
     if (temp != 0) {
@@ -47,20 +45,32 @@ float MFrequence::getFreq() {
         l++;
       } else {
         l = 0;
-        moy = moy / n;
-        temps = (temp * 100) + temp2;
-        freq = 10000000. / temps;
+        moy = moy/n;
+        temps = (temp * 100) + temp2 ; 
+        freq = 10000000. / temps; 
       }
     }
-    attachInterrupt(SW, &MFrequence.onFallingEdge, MFrequence.FALLING);
+    attachInterrupt(SW, staticOnFallingEdge, FALLING);
+  #if Activate_Serial == 1  
+      if (temp > 0) {
+        Serial.print("B");
+        Serial.println(freq);
+      }
+  #endif  
+    }
   }
-  return freq;
+
+void Mfrequence::initTimer(uint8_t ID, uint16_t Prescaler, uint16_t alarm) {
+  My_timer = timerBegin(ID, Prescaler, true);
+  timerAttachInterrupt(My_timer, reinterpret_cast<void (*)(void*)>(&Mfrequence::onTimer), this);
+  timerAlarmWrite(My_timer, alarm, true);
+  timerAlarmEnable(My_timer);
 }
 
-void enableAlarm() {
-  timerAlarmEnable(MFrequence.My_timer);
-}
+  void Mfrequence::enableAlarm() {
+    timerAlarmEnable(My_timer);
+  }
 
-void disableAlarm() {
-  timerAlarmDisable(MFrequence.My_timer);
-}
+  void Mfrequence::disableAlarm() {
+    timerAlarmDisable(My_timer);
+  }

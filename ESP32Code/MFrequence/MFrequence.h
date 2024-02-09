@@ -1,36 +1,37 @@
-#ifndef MFREQUENCE_H
-#define MFREQUENCE_H
+#ifndef Mfrequence_h
+#define Mfrequence_h
 
 #include <Arduino.h>
 
-class MFrequence
-{
-public:
+class Mfrequence {
+  public:
+    Mfrequence();
     void setup();
     void loop();
-    float getFreq();
+    static Mfrequence* getInstance();
 
-private:
-    const int LED = 21;
-    const int SW = 38;
-    const int GEN = 15;
-    const int timerID = 0;
-    const int preScaler = 8; // Timer 10MHz
-    const int n = 20;
+  private:
+    #define SW 38
 
-    volatile bool FlagPin = false;
-    volatile uint16_t i = 0;
-    volatile uint16_t temp = 0;
-    volatile uint16_t temp2 = 0;
-    volatile float temps = 0.0;
-    volatile float freq = 0.0;
-    volatile float moy = 0.0;
-    volatile int l = 0;
+    #define GEN 15
 
-    void IRAM_ATTR onFallingEdge(int timerID, int preScaler, int compareValue);
+    #define timerID 0
+    #define preScaler 8 //Timer 10MHz
+
+    static void IRAM_ATTR staticOnFallingEdge();
+
+    hw_timer_t* My_timer;
+    boolean FlagPin;
+    uint16_t timrValue;
+    uint16_t i, temp, temp2;
+    float temps, freq, moy;
+    int n, l;
+
+    void IRAM_ATTR onTimer();
+    void IRAM_ATTR onFallingEdge();
+    void initTimer(uint8_t ID, uint16_t Prescaler, uint16_t alarm);
     void enableAlarm();
     void disableAlarm();
-    void IRAM_ATTR onFallingEdge();
 };
 
 #endif
