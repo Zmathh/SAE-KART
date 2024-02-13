@@ -50,7 +50,7 @@
 #define Activate_ACCEL_FREIN 0
 #define Activate_LoRa 0
 #define Activate_Ecran 0
-#define Activate_FREQ 1
+#define Activate_FREQ 0
 
 ////////////////////////////////////////////////////////////////
 // Déclaration Pins //////////////

@@ -1,5 +1,7 @@
 #include "CONFIG_H.h"
 
+Fonctions Fonctions;
+
 #if Activate_LoRa == 1
 const uint8_t dataPacketSize = sizeof(float) * 13 + sizeof(float) * 2;
 uint8_t dataPacket[dataPacketSize];
@@ -13,7 +15,7 @@ float longitude = 1.496218;
 Lecture_Frein_Accel frein_accel(FREIN, ACCEL);
 #endif
 
-#if Activate_ShiftReg == 0
+#if Activate_ShiftReg == 1
 
 shiftReg shiftReg(CS_DAT, CS_CLK, CS_STRB);
 #endif
@@ -83,14 +85,14 @@ void setup()
     ecran.speed = 42;      // Vitesse
     ecran.running = false; // Bouton PIT
     ecran.begin();
-// Fonction.delay_Retard(5000);
+// Fonctions.delay_Retard(5000);
 #if Activate_Serial == 1
     Serial.println("Ecran initialisé");
 #endif
 #endif
 
 #if Activate_ESP32Core == 1
-// Fonction.delay_Retard(1000);
+// Fonctions.delay_Retard(1000);
 #if Activate_Serial == 1
     Serial.println("Starting to create tasks...");
 #endif
@@ -161,7 +163,7 @@ void coreTaskOne(void *pvParameters)
 #endif
     while (true)
     {
-        // Fonction.delay_Retard(1000); // possible watchdog si retiré sans aucun programme
+        // Fonctions.delay_Retard(1000); // possible watchdog si retiré sans aucun programme
 #if Activate_Serial == 1
         Serial.println("taskOne");
 #endif
@@ -219,7 +221,7 @@ void coreTaskOne(void *pvParameters)
         Serial.println(frein_accel.readFrein());
         Serial.print("Accel : ");
         Serial.println(frein_accel.readAccel());
-        Fonction.delay_Retard(500);
+        Fonctions.delay_Retard(500);
         Serial.println(frein_accel.getFr_Prcent());
         Serial.println(frein_accel.getAc_Prcent());
 #endif
@@ -235,7 +237,7 @@ void coreTaskOne(void *pvParameters)
         memcpy(dataPacket + sizeof(float) * 13, &latitude, sizeof(float));
         memcpy(dataPacket + sizeof(float) * 13 + sizeof(float), &longitude, sizeof(float));
         pModuleLoRa->radioTX(dataPacket, dataPacketSize);
-        Fonction.delay_Retard(250);
+        Fonctions.delay_Retard(250);
 #endif
 
 #if Activate_FREQ == 1
@@ -253,7 +255,7 @@ void coreTaskTwo(void *pvParameters)
     while (true)
     {
 #if Activate_Ecran == 0
-        Fonction.delay_Retard(1000);
+        Fonctions.delay_Retard(1000);
 #endif
         Serial.println("taskTwo");
 #if Activate_Ecran == 1
@@ -268,5 +270,5 @@ void loop()
 #if Activate_Serial == 1
     Serial.println("TaskLoop delay 10s ");
 #endif
-    Fonction.delay_Retard(5000000000000000000);
+    Fonctions.delay_Retard(5000000000000000000);
 }
