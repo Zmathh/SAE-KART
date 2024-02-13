@@ -20,9 +20,11 @@
 // Déclaration des librairies programmes //////////////
 ////////////////////////////////////////////////////////////////
 
+#include "Fonctions/Fonctions.cpp"
+
 #include "ecran/ecran.cpp"
 
-// #include "MFrequence/MFrequence.cpp"
+//#include "MFrequence/MFrequence.cpp"
 
 #include "GPS/GPS.cpp"
 
@@ -43,12 +45,12 @@
 #define Activate_Serial 1
 #define Activate_ESP32Core 1 // Activer Serial Debug pour comprendre
 #define Activate_GPS 0
-#define Activate_ShiftReg 1
+#define Activate_ShiftReg 0
 #define Activate_Temperature 0
 #define Activate_ACCEL_FREIN 0
 #define Activate_LoRa 0
 #define Activate_Ecran 0
-#define Activate_FREQ 0
+#define Activate_FREQ 1
 
 ////////////////////////////////////////////////////////////////
 // Déclaration Pins //////////////

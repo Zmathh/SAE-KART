@@ -15,7 +15,7 @@ float longitude = 1.496218;
 Lecture_Frein_Accel frein_accel(FREIN, ACCEL);
 #endif
 
-#if Activate_ShiftReg == 1
+#if Activate_ShiftReg == 0
 
 shiftReg shiftReg(CS_DAT, CS_CLK, CS_STRB);
 #endif
@@ -29,7 +29,37 @@ GPS gps(I2C_SCL, I2C_SDA);
 #endif
 
 #if Activate_FREQ == 1
-MFrequence MFreq;
+
+    float freq;
+
+  
+    #define SW 17
+
+    #define timerID 0
+    #define preScaler 8 //Timer 10MHz
+
+
+    hw_timer_t* My_timer;
+    boolean FlagPin;
+    uint16_t timrValue;
+    uint16_t i, temp, temp2;
+    float temps, moy;
+    int n, l;
+
+    void IRAM_ATTR onTimer() {
+
+    //digitalWrite(LED, !digitalRead(LED));
+    i++;
+    temp2 = timerRead(My_timer);
+
+    }
+
+    void IRAM_ATTR onFallingEdge() {
+    
+    FlagPin = !FlagPin;
+
+    }
+    //MFrequence MFrequence;
 #endif
 
 #if Activate_Ecran == 1
@@ -55,14 +85,14 @@ void setup()
         ecran.speed = 42; // Vitesse 
         ecran.running = false; // Bouton PIT
         ecran.begin();
-        //delay(5000);
+        //Fonction.delay_Retard(5000);
         #if Activate_Serial == 1
             Serial.println("Ecran initialisé");
         #endif
     #endif
 
     #if Activate_ESP32Core == 1 
-        //delay(1000);
+        //Fonction.delay_Retard(1000);
         #if Activate_Serial == 1
             Serial.println("Starting to create tasks...");
         #endif
@@ -117,7 +147,12 @@ void setup()
     #endif
 
     #if Activate_FREQ == 1
-        MFreq.setup();
+        // MFrequence.begin();
+        pinMode(SW, INPUT_PULLUP);
+        
+        initTimer(timerID, preScaler, 100);
+  
+        attachInterrupt(SW, &onFallingEdge, FALLING);
     #endif
 
 }
@@ -134,7 +169,7 @@ void coreTaskOne( void * pvParameters ){/////////////// LOOP main
         Serial.println("taskOne ON");
     #endif
     while(true){
-        delay(1000); // possible watchdog si retiré
+        //Fonction.delay_Retard(1000); // possible watchdog si retiré
         #if Activate_Serial == 1
             Serial.println("taskOne");
         #endif
@@ -174,7 +209,7 @@ void coreTaskOne( void * pvParameters ){/////////////// LOOP main
             Serial.println(frein_accel.readFrein());
             Serial.print("Accel : ");
             Serial.println(frein_accel.readAccel());
-            delay(500);
+            Fonction.delay_Retard(500);
             Serial.println(frein_accel.getFr_Prcent());
             Serial.println(frein_accel.getAc_Prcent());
         #endif
@@ -189,15 +224,46 @@ void coreTaskOne( void * pvParameters ){/////////////// LOOP main
             memcpy(dataPacket + sizeof(float) * 13, &latitude, sizeof(float));
             memcpy(dataPacket + sizeof(float) * 13 + sizeof(float), &longitude, sizeof(float));
             pModuleLoRa->radioTX(dataPacket, dataPacketSize);
-            delay(250);
+            Fonction.delay_Retard(250);
         #endif
 
         #if Activate_FREQ == 1
-            MFreq.loop();
-            float freq = MFreq.getFreq();
+                    if (FlagPin) {
+                enableAlarm();
+                attachInterrupt(SW, &onFallingEdge, FALLING);
+            } else {
+                detachInterrupt(SW);
+                for(int k = 0; k < 1000; k++){;;}
+                disableAlarm();
+                for(int k = 0; k < 1000; k++){;;}
+                temp = i;
+                i = 0;
+                if (temp != 0) {
+                if (l < n) {
+                    moy += temp;
+                    l++;
+                } else {
+                    l = 0;
+                    moy = moy/n;
+                    temps = (temp * 100) + temp2 ; 
+                    freq = 10000000. / temps; 
+                }
+                }
+                attachInterrupt(SW, &onFallingEdge, FALLING);
+            
+            }
+
+
+
+            //MFrequence.get();
+            // float freq = MFrequence.freq;
+            Serial.println(freq);
+            shiftReg.delay_Retard(100);
         #endif
     }
 }
+
+
 
 void coreTaskTwo( void * pvParameters ){ /////////////////////// LOOP écran
     #if Activate_Serial == 1 
@@ -205,7 +271,8 @@ void coreTaskTwo( void * pvParameters ){ /////////////////////// LOOP écran
     #endif
     while(true){
         #if Activate_Ecran == 0
-            delay(1000);
+            //Fonction.delay_Retard(1000);
+            shiftReg.delay_Retard(1000);
         #endif
         Serial.println("taskTwo");
         #if Activate_Ecran == 1 
@@ -219,5 +286,21 @@ void loop(){ // NE SERT A RIEN !!!!
     #if Activate_Serial == 1
         Serial.println("TaskLoop delay 10s ");
     #endif
-delay(10000);
+Fonction.delay_Retard(10000);
+}
+
+
+void initTimer(uint8_t ID, uint16_t Prescaler, uint16_t alarm) {
+  My_timer = timerBegin(ID, Prescaler, true);
+  timerAttachInterrupt(My_timer, &onTimer, true);
+  timerAlarmWrite(My_timer, alarm, true);
+  timerAlarmEnable(My_timer);
+}
+
+void enableAlarm() {
+  timerAlarmEnable(My_timer);
+}
+
+void disableAlarm() {
+  timerAlarmDisable(My_timer);
 }
