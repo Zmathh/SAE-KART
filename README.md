@@ -28,7 +28,7 @@ Supervision d'un Kart
 | Module Lora   | ✅           |Terminé fonctionnel    |
 | écran         | ✅           |Terminé fonctionnel    |
 | Accel/frein   | ✅           |Terminé fonctionnel    |
-| Shift register| 🟨           |En cours...            |
+| Shift register| ✅           |Terminé fonctionnel    |
 | Capteur temperature|🟨 ✅    |Besoin du Shift reg pour tester tout les capteurs en meme temps |
 | Capteur fréquence| ❌  |Demande la fin de tout les modules pour gérer les interruptions   |
 
