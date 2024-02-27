@@ -29,7 +29,8 @@ Supervision d'un Kart
 | écran         | ✅           |Terminé fonctionnel    |
 | Accel/frein   | ✅           |Terminé fonctionnel    |
 | Shift register| ✅           |Terminé fonctionnel    |
-| Capteur temperature|🟨 ✅    |Besoin du Shift reg pour tester tout les capteurs en meme temps |
+| Capteur temperature|✅       |Test unitaire OK, faire test avec les 5 capteurs |
+| I2C TO UART   | 🟨           |En cours...    |
 | Capteur fréquence| ❌  |Demande la fin de tout les modules pour gérer les interruptions   |
 
 
