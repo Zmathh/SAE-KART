@@ -25,7 +25,7 @@ LectTemp temperatureSensor(SC_pin, CSN_pin, SIO_pin); //// Vérifier les PINs
 #endif
 
 #if Activate_GPS_IIC == 1
-GPS_IIC GPS_IIC();
+GPS_IIC gps;
 #endif
 
 #if Activate_FREQ == 1
@@ -123,7 +123,7 @@ void setup()
 #endif
 
 #if Activate_GPS_IIC == 1
-    GPS_IIC.begin();
+    gps.begin();
 #endif
 
 #if Activate_ShiftReg == 1
@@ -169,11 +169,11 @@ void coreTaskOne(void *pvParameters)
 #endif
 
 #if Activate_GPS_IIC == 1
-        GPS_IIC.getData();
+        gps.getdata();
         Serial.print("Latitude: ");
-        Serial.println(latitude, 6); 
+        Serial.println(gps.latitude, 6); 
         Serial.print("Longitude: ");
-        Serial.println(longitude, 6); 
+        Serial.println(gps.longitude, 6); 
 #endif
 
 #if Activate_ShiftReg == 1

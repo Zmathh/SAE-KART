@@ -1,9 +1,9 @@
 #include "GPS_IIC.h"
-#include "../CONFIG_H.h"
+#include "DFRobot_IICSerial.h"
 
 
 GPS_IIC::GPS_IIC (){
-    DFRobot_IICSerial iicSerial1(Wire, SUBUART_CHANNEL_1, 1, 1);
+  DFRobot_IICSerial iicSerial1(Wire, SUBUART_CHANNEL_1, 1, 1);
 }
 
 void GPS_IIC::begin() {
