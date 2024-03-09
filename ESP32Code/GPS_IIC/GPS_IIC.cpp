@@ -1,5 +1,5 @@
 #include "GPS_IIC.h"
-#include "..\1Librairies\DFRobot_IICSerial\DFRobot_IICSerial.cpp"
+
 
 
 GPS_IIC::GPS_IIC (){

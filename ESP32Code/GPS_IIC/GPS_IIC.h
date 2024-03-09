@@ -3,8 +3,7 @@
 
 
 
-class GPS_IIC
-{
+class GPS_IIC {
 public:
   GPS_IIC();
   void begin();
@@ -15,7 +14,7 @@ public:
 
 private:
   DFRobot_IICSerial iicSerial1;
-  String getValue(String data, char separator, int index)
+  String getValue(String data, char separator, int index);
   char buffer[64];
   int count;
   bool isGPGGA;
