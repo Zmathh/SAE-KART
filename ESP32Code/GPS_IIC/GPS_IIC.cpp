@@ -1,5 +1,5 @@
 #include "GPS_IIC.h"
-
+#include "../CONFIG_H.h"
 
 
 GPS_IIC::GPS_IIC (){
