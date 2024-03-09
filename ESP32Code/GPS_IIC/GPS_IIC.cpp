@@ -1,5 +1,5 @@
+#include <DFRobot_IICSerial.h>
 #include "GPS_IIC.h"
-#include "DFRobot_IICSerial.h"
 
 
 GPS_IIC::GPS_IIC (){
@@ -8,7 +8,6 @@ GPS_IIC::GPS_IIC (){
 
 void GPS_IIC::begin() {
   iicSerial1.begin(9600);
-  delay(100); 
 }
 
 void GPS_IIC::getdata() {
@@ -16,24 +15,18 @@ void GPS_IIC::getdata() {
   static String line = "";
 
   if(iicSerial1.available()) {
-    while(iicSerial1.available()) {
-      c = iicSerial1.read();
-      line += c;
-      if (c == '\n') {
-        if (line.startsWith("$GPGGA")) {
-          String latitudeStr = getValue(line, ',', 2);
-          String longitudeStr = getValue(line, ',', 4);
-          float latitude = atof(latitudeStr.c_str()) / 100.0;
-          float longitude = atof(longitudeStr.c_str()) / 100.0;
-        }
-        line = "";
+    c = iicSerial1.read();
+    line += c;
+    if (c == '\n') {
+      if (line.startsWith("$GPGGA")) {
+        String latitudeStr = getValue(line, ',', 2);
+        String longitudeStr = getValue(line, ',', 4);
+        float latitude = atof(latitudeStr.c_str()) / 100.0;
+        float longitude = atof(longitudeStr.c_str()) / 100.0;
       }
+      line = "";
     }
   }
-  else {
-    Serial.println("Erreur I2C");
-  }
-  delay(1000);
 }
 
 String GPS_IIC::getValue(String data, char separator, int index) {

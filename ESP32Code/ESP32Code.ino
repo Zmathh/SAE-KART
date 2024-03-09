@@ -124,6 +124,7 @@ void setup()
 
 #if Activate_GPS_IIC == 1
     gps.begin();
+    Fonctions.delay_Retard(100);
 #endif
 
 #if Activate_ShiftReg == 1
@@ -174,6 +175,7 @@ void coreTaskOne(void *pvParameters)
         Serial.println(gps.latitude, 6); 
         Serial.print("Longitude: ");
         Serial.println(gps.longitude, 6); 
+        Fonctions.delay_Retard(1000);
 #endif
 
 #if Activate_ShiftReg == 1
@@ -266,8 +268,4 @@ void coreTaskTwo(void *pvParameters)
 
 void loop()
 { // NE SERT A RIEN !!!!
-#if Activate_Serial == 1
-    Serial.println("TaskLoop delay 10s ");
-#endif
-    Fonctions.delay_Retard(5000000000000000000);
 }

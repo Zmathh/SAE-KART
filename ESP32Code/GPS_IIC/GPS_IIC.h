@@ -2,7 +2,6 @@
 #define GPS_IIC_H
 
 
-
 class GPS_IIC {
 public:
     GPS_IIC();
@@ -10,7 +9,6 @@ public:
     void getdata();
     float latitude;
     float longitude;
-
 
 private:
     DFRobot_IICSerial iicSerial1;

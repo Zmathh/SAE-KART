@@ -14,8 +14,6 @@
 
 #include "1Librairies/Wire/wire.cpp"
 
-#include "1Librairies\DFRobot_IICSerial\DFRobot_IICSerial.cpp"
-
 // #include "1Librairies/LiquidCrystal_I2C/LiquidCrystal_I2C.cpp"
 
 ////////////////////////////////////////////////////////////////
