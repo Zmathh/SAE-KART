@@ -14,6 +14,8 @@
 
 #include "1Librairies/Wire/wire.cpp"
 
+#include "..\1Librairies\DFRobot_IICSerial\DFRobot_IICSerial.cpp"
+
 // #include "1Librairies/LiquidCrystal_I2C/LiquidCrystal_I2C.cpp"
 
 ////////////////////////////////////////////////////////////////
@@ -26,7 +28,7 @@
 
 //#include "MFrequence/MFrequence.cpp"
 
-#include "GPS/GPS.cpp"
+#include "GPS_IIC/GPS_IIC.cpp"
 
 #include "LectTemp/LectTemp.cpp"
 
@@ -44,7 +46,7 @@
 
 #define Activate_Serial 1
 #define Activate_ESP32Core 1 // Activer Serial Debug pour comprendre
-#define Activate_GPS 0
+#define Activate_GPS_IIC 1
 #define Activate_ShiftReg 0
 #define Activate_Temperature 0
 #define Activate_ACCEL_FREIN 0
@@ -63,8 +65,6 @@
 #define CS_DAT 4
 #define RESET 5
 #define Led_Alarme 15
-#define GPS_Tx 17
-#define GPS_Rx 16
 #define TensionPetiteBat 17
 #define uWire_CLK 18
 #define uWire_SI_O 19

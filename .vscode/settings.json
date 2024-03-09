@@ -3,7 +3,10 @@
     "CodeGPT.apiKey": "CodeGPT Plus Beta",
     "C_Cpp.default.compilerPath": "",
     "files.associations": {
-        "*.old": "cpp"
+        "*.old": "cpp",
+        "dfrobot_iicserial.h": "c",
+        "wire.cpp": "c",
+        "dfrobot_iicserial.cpp": "c"
     },
     "C_Cpp.dimInactiveRegions": true,
     "C_Cpp.intelliSenseEngineFallback": "enabled"
