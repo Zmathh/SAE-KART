@@ -2,6 +2,14 @@
 
 Fonctions Fonctions;
 
+#include <DFRobot_IICSerial.h>
+
+char buffer[64];
+int count;
+bool isGPGGA;
+
+DFRobot_IICSerial iicSerial1(Wire, SUBUART_CHANNEL_1, 1, 1);
+
 #if Activate_LoRa == 1
 const uint8_t dataPacketSize = sizeof(float) * 13 + sizeof(float) * 2;
 uint8_t dataPacket[dataPacketSize];
@@ -124,6 +132,7 @@ void setup()
 
 #if Activate_GPS_IIC == 1
     gps.begin();
+    iicSerial1.begin(9600);
     Fonctions.delay_Retard(100);
 #endif
 
@@ -169,12 +178,53 @@ void coreTaskOne(void *pvParameters)
         Serial.println("taskOne");
 #endif
 
-#if Activate_GPS_IIC == 1
-        gps.getdata();
-        Serial.print("Latitude: ");
-        Serial.println(gps.latitude, 6); 
-        Serial.print("Longitude: ");
-        Serial.println(gps.longitude, 6); 
+#if Activate_GPS_IIC == 1 
+            float latitude;
+            float longitude;
+            if (iicSerial1.available()) {
+            char incomingChar = iicSerial1.read();
+
+            if (incomingChar == '$') {
+                count = 0;
+                isGPGGA = false;
+            }
+
+            buffer[count] = incomingChar;
+            count++;
+
+            if (count >= 64 || incomingChar == '\n') {
+                buffer[count] = '\0';
+
+                if (strstr(buffer, "$GPGGA")) {
+                    isGPGGA = true;
+                }
+
+                if (isGPGGA) {
+                    char *latitudeStart = strchr(buffer, ',') + 12;
+                    char *longitudeStart = strchr(latitudeStart, ',') + 5;
+
+                    if (latitudeStart && longitudeStart) {
+                        char *latitudeEnd = strchr(latitudeStart, ',');
+                        char *longitudeEnd = strchr(longitudeStart, ',');
+
+                        if (latitudeEnd && longitudeEnd) {
+                            *latitudeEnd = '\0'; // Null-terminate the latitude string
+                            *longitudeEnd = '\0'; // Null-terminate the longitude string
+
+                            float latitude = atof(latitudeStart) / 100.0; // Convert and divide latitude by 100
+                            float longitude = atof(longitudeStart) / 100.0; // Convert and divide longitude by 100
+                            Serial.print("Latitude: ");
+                            Serial.println(latitude, 6); 
+                            Serial.print("Longitude: ");
+                            Serial.println(longitude, 6);
+                        }
+                        
+                    }
+                }
+                count = 0;
+                isGPGGA = false;
+            }
+        }
         Fonctions.delay_Retard(1000);
 #endif
 

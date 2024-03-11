@@ -1,45 +1,59 @@
-#include <DFRobot_IICSerial.h>
 #include "GPS_IIC.h"
 
 
-GPS_IIC::GPS_IIC (){
-  DFRobot_IICSerial iicSerial1(Wire, SUBUART_CHANNEL_1, 1, 1);
-}
+GPS_IIC::GPS_IIC() : iicSerial1(Wire, SUBUART_CHANNEL_1, 1, 1) {}
 
 void GPS_IIC::begin() {
-  iicSerial1.begin(9600);
+    Serial.begin(9600);
+    iicSerial1.begin(9600);
 }
 
 void GPS_IIC::getdata() {
-  char c;
-  static String line = "";
+    if (iicSerial1.available()) {
+        char incomingChar = iicSerial1.read();
 
-  if(iicSerial1.available()) {
-    c = iicSerial1.read();
-    line += c;
-    if (c == '\n') {
-      if (line.startsWith("$GPGGA")) {
-        String latitudeStr = getValue(line, ',', 2);
-        String longitudeStr = getValue(line, ',', 4);
-        float latitude = atof(latitudeStr.c_str()) / 100.0;
-        float longitude = atof(longitudeStr.c_str()) / 100.0;
-      }
-      line = "";
+        if (incomingChar == '$') {
+            count = 0;
+            isGPGGA = false;
+        }
+
+        buffer[count] = incomingChar;
+        count++;
+
+        if (count >= 64 || incomingChar == '\n') {
+            buffer[count] = '\0';
+
+            if (strstr(buffer, "$GPGGA")) {
+                isGPGGA = true;
+            }
+
+            if (isGPGGA) {
+                char *latitudeStart = strchr(buffer, ',') + 12;
+                char *longitudeStart = strchr(latitudeStart, ',') + 5;
+
+                if (latitudeStart && longitudeStart) {
+                    char *latitudeEnd = strchr(latitudeStart, ',');
+                    char *longitudeEnd = strchr(longitudeStart, ',');
+
+                    if (latitudeEnd && longitudeEnd) {
+                        *latitudeEnd = '\0'; // Null-terminate the latitude string
+                        *longitudeEnd = '\0'; // Null-terminate the longitude string
+
+                        latitude = atof(latitudeStart) / 100.0; // Convert and divide latitude by 100
+                        longitude = atof(longitudeStart) / 100.0; // Convert and divide longitude by 100
+                    }
+                }
+            }
+            count = 0;
+            isGPGGA = false;
+        }
     }
-  }
 }
 
-String GPS_IIC::getValue(String data, char separator, int index) {
-  int found = 0;
-  int strIndex[] = {0, -1};
-  int maxIndex = data.length() - 1;
+float GPS_IIC::getLatitude() {
+    return latitude;
+}
 
-  for (int i = 0; i <= maxIndex && found <= index; i++) {
-    if (data.charAt(i) == separator || i == maxIndex) {
-      found++;
-      strIndex[0] = strIndex[1] + 1;
-      strIndex[1] = (i == maxIndex) ? i+1 : i;
-    }
-  }
-  return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
+float GPS_IIC::getLongitude() {
+    return longitude;
 }
