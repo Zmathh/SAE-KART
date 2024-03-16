@@ -1,15 +1,18 @@
 #ifndef GPS_IIC_H
 #define GPS_IIC_H
 
-#include <DFRobot_IICSerial.h>
 
 class GPS_IIC {
 public:
     GPS_IIC();
     void begin();
     void getdata();
-    float getLatitude();
-    float getLongitude();
+    float latitude;
+    float longitude;
+    float latitude_float;
+    float longitude_float;
+    int go;
+    char incomingChar;
 
 private:
     DFRobot_IICSerial iicSerial1;
@@ -17,8 +20,9 @@ private:
     char buffer[64];
     int count;
     bool isGPGGA;
-    float latitude;
-    float longitude;
+    char messageBuffer[80];
+    int messageIndex;
+    
 };
 
 #endif

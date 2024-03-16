@@ -30,7 +30,7 @@ Supervision d'un Kart
 | Accel/frein   | ✅           |Terminé fonctionnel    |
 | Shift register| ✅           |Terminé fonctionnel    |
 | Capteur temperature|✅       |Test unitaire OK, faire test avec les 5 capteurs |
-| I2C TO UART   | 🟨           |En cours...    |
+| I2C TO UART   | ✅           |Terminé fonctionnel    |
 | Capteur fréquence| ❌  |Demande la fin de tout les modules pour gérer les interruptions   |
 
 

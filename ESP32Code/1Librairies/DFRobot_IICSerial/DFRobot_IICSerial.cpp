@@ -10,7 +10,7 @@
  * @https://github.com/DFRobot/DFRobot_IICSerial
  */
 #include <Arduino.h>
-#include <DFRobot_IICSerial.h>
+#include "DFRobot_IICSerial.h"
 
 /**
  * @brief Global register

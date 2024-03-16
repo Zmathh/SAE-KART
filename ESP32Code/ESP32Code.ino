@@ -171,13 +171,6 @@ void coreTaskOne(void *pvParameters)
 
 #if Activate_GPS_IIC == 1 
         gps.getdata();
-        float latitude = gps.getLatitude();
-        float longitude = gps.getLongitude();
-        Serial.print("Latitude : ");
-        Serial.println(latitude, 6);
-        Serial.print("Longitude : ");
-        Serial.println(longitude, 6);
-        Fonctions.delay_Retard(1000);
 #endif
 
 #if Activate_ShiftReg == 1

@@ -1,59 +1,50 @@
 #include "GPS_IIC.h"
 
+char messageBuffer[64];
+int messageIndex = 0;
 
 GPS_IIC::GPS_IIC() : iicSerial1(Wire, SUBUART_CHANNEL_1, 1, 1) {}
 
 void GPS_IIC::begin() {
-    Serial.begin(9600);
     iicSerial1.begin(9600);
 }
 
 void GPS_IIC::getdata() {
-    if (iicSerial1.available()) {
+    char latitude[15];
+    char longitude[15];
+    
+    while (iicSerial1.available()) {
         char incomingChar = iicSerial1.read();
-
         if (incomingChar == '$') {
-            count = 0;
-            isGPGGA = false;
+            messageIndex = 0;
         }
+        messageBuffer[messageIndex++] = incomingChar;
+        if (incomingChar == '\n') {
+            messageBuffer[messageIndex] = '\0'; 
+            if (strncmp(messageBuffer, "$GPGGA", 6) == 0 || strncmp(messageBuffer, "$GPRMC", 6) == 0) {
+                memset(latitude, 0, sizeof(latitude));
+                memset(longitude, 0, sizeof(longitude));
 
-        buffer[count] = incomingChar;
-        count++;
-
-        if (count >= 64 || incomingChar == '\n') {
-            buffer[count] = '\0';
-
-            if (strstr(buffer, "$GPGGA")) {
-                isGPGGA = true;
-            }
-
-            if (isGPGGA) {
-                char *latitudeStart = strchr(buffer, ',') + 12;
-                char *longitudeStart = strchr(latitudeStart, ',') + 5;
-
-                if (latitudeStart && longitudeStart) {
-                    char *latitudeEnd = strchr(latitudeStart, ',');
-                    char *longitudeEnd = strchr(longitudeStart, ',');
-
-                    if (latitudeEnd && longitudeEnd) {
-                        *latitudeEnd = '\0'; // Null-terminate the latitude string
-                        *longitudeEnd = '\0'; // Null-terminate the longitude string
-
-                        latitude = atof(latitudeStart) / 100.0; // Convert and divide latitude by 100
-                        longitude = atof(longitudeStart) / 100.0; // Convert and divide longitude by 100
+                char* token = strtok(messageBuffer, ",");
+                int index = 0;
+                while (token != NULL) {
+                    if (index == 2) {
+                        strncpy(latitude, token, sizeof(latitude) - 1);
+                    } else if (index == 4) {
+                        strncpy(longitude, token, sizeof(longitude) - 1);
                     }
+                    token = strtok(NULL, ",");
+                    index++;
                 }
+                float latitude_float = atof(latitude) / 100;
+                float longitude_float = atof(longitude) / 100;
+
+                Serial.print("Latitude: ");
+                Serial.println(latitude_float, 6);
+                Serial.print("Longitude: ");
+                Serial.println(longitude_float, 6);
             }
-            count = 0;
-            isGPGGA = false;
+            messageIndex = 0;
         }
     }
-}
-
-float GPS_IIC::getLatitude() {
-    return latitude;
-}
-
-float GPS_IIC::getLongitude() {
-    return longitude;
 }
