@@ -30,21 +30,25 @@ GPS_IIC gps;
 
 #if Activate_FREQ == 1
 
-    float freq;
 
-  
-    #define SW 17
+#define SW 38
 
-    #define timerID 0
-    #define preScaler 8 //Timer 10MHz
+#define GEN 15
 
+#define timerID 0
+#define preScaler 8 //Timer 10MHz
 
-    hw_timer_t* My_timer;
-    boolean FlagPin;
-    uint16_t timrValue;
-    uint16_t i, temp, temp2;
-    float temps, moy;
-    int n, l;
+hw_timer_t *My_timer = NULL;
+TaskHandle_t Loop0;
+
+boolean FlagPin = false;
+
+uint16_t timrValue = 0;
+
+uint16_t i = 0, temp = 0, temp2 = 0;
+
+float temps = 0., freq = 0., moy = 0;
+int n = 20, l = 0;
 
     void IRAM_ATTR onTimer() {
 
@@ -148,7 +152,14 @@ void setup()
 #endif
 
 #if Activate_FREQ == 1
-    MFreq.setup();
+    
+  pinMode(GEN, OUTPUT);
+  pinMode(SW, INPUT_PULLUP);
+  
+  initTimer(timerID, preScaler, 100);
+  
+  attachInterrupt(SW, &onFallingEdge, FALLING);
+
 #endif
 }
 
@@ -237,11 +248,40 @@ void coreTaskOne(void *pvParameters)
 #endif
 
 #if Activate_FREQ == 1
-        MFreq.loop();
-        float freq = MFreq.getFreq();
-#endif
+    if (FlagPin) {
+        enableAlarm();
+        attachInterrupt(SW, &onFallingEdge, FALLING);
     }
+    else {
+        detachInterrupt(SW);
+        for(int k = 0; k < 1000; k++){;;}
+        disableAlarm();
+        for(int k = 0; k < 1000; k++){;;}
+        temp = i;
+        i = 0;
+        if (temp != 0) {
+        if (l < n) {
+            moy += temp;
+            l++;
+        } else {
+            l = 0;
+            moy = moy/n;
+            temps = (temp * 100) + temp2 ; 
+            freq = 10000000. / temps; 
+        }
+        }
+        attachInterrupt(SW, &onFallingEdge, FALLING);
+        #if Activate_Serial == 1  
+            if (temp > 0) {
+            Serial.print("B");
+            Serial.println(freq);
+            }
+        #endif  
+    }
+#endif
 }
+    }
+        
 
 void coreTaskTwo(void *pvParameters)
 { /////////////////////// LOOP écran
@@ -264,3 +304,21 @@ void coreTaskTwo(void *pvParameters)
 void loop()
 { // NE SERT A RIEN !!!!
 }
+
+
+#if Activate_FREQ == 1
+void initTimer(uint8_t ID, uint16_t Prescaler, uint16_t alarm) {
+  My_timer = timerBegin(ID, Prescaler, true);
+  timerAttachInterrupt(My_timer, &onTimer, true);
+  timerAlarmWrite(My_timer, alarm, true);
+  timerAlarmEnable(My_timer);
+}
+
+void enableAlarm() {
+  timerAlarmEnable(My_timer);
+}
+
+void disableAlarm() {
+  timerAlarmDisable(My_timer);
+}
+#endif
