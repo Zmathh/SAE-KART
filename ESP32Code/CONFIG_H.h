@@ -61,22 +61,24 @@
 ////////////////////////////////////////////////////////////////
 
 #define CS_STRB 0
-#define LoRa_Tx 1
-#define LoRa_Rx 3
+#define LoRa_Tx 3
+#define LoRa_Rx 4
 #define CS_CLK 2
 #define CS_DAT 4
-#define RESET 5
-#define Led_Alarme 15
-#define TensionPetiteBat 17
-#define uWire_CLK 18
-#define uWire_SI_O 19
+#define RESET 35
+#define START_STOP 5
+#define BP_MENU 18
+#define BP_RESET_CHRONO 19
+#define TensionPetiteBat 12
+#define uWire_CLK 32
+#define uWire_SI_O 33
 #define TensionGrandBat 13
 #define I2C_SDA 21
 #define I2C_SCL 22
-#define LedSignal 23
-#define ACCEL 25
-#define FREIN 26
-#define INT 32
+#define LedSignal 15
+#define ACCEL 14
+#define FREIN 27
+#define Signal_INT 26
 #define Vitesse 33
 
 // pour test capteur temps (temporaire)
