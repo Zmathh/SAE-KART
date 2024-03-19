@@ -48,9 +48,9 @@
 
 #define Activate_Serial 1
 #define Activate_ESP32Core 1 // Activer Serial Debug pour comprendre
-#define Activate_GPS_IIC 1
-#define Activate_ShiftReg 0
-#define Activate_Temperature 0
+#define Activate_GPS_IIC 0
+#define Activate_ShiftReg 1
+#define Activate_Temperature 1
 #define Activate_ACCEL_FREIN 0
 #define Activate_LoRa 0
 #define Activate_Ecran 0
@@ -68,8 +68,8 @@
 #define RESET 5
 #define Led_Alarme 15
 #define TensionPetiteBat 17
-#define uWire_CLK 18
-#define uWire_SI_O 19
+#define uWire_CLK 32
+#define uWire_SI_O 33
 #define TensionGrandBat 13
 #define I2C_SDA 21
 #define I2C_SCL 22
@@ -80,8 +80,8 @@
 #define Vitesse 33
 
 // pour test capteur temps (temporaire)
-#define SC_pin 33
-#define CSN_pin 32
-#define SIO_pin 25
+#define SC_pin 32
+#define CSN_pin 25
+#define SIO_pin 33
 
 #endif // CONFIG_H
