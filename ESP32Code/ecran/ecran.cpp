@@ -3,7 +3,7 @@
 
 
 
-Ecran::Ecran(int I2C_SCL, int I2C_SDA) : lcd(0x20, 16, 2) {
+Ecran::Ecran(int I2C_SCL, int I2C_SDA) : lcd(0x27, 16, 2) {
   this->I2C_SCL = I2C_SCL;
   this->I2C_SDA = I2C_SDA;
 }
@@ -23,7 +23,7 @@ void Ecran::begin() {
 }
 
 void Ecran::NUMBER(int x, int y) {//Permet l'affichage des chiffres 0 à 9
-  lcd.setCursor(8,3); lcd.print("km/hr");
+  //lcd.setCursor(8,3); lcd.print("km/hr");
 
   switch (x) {
 
@@ -396,8 +396,8 @@ void Ecran::refresh()
 
     //A utiliser pour phase de test
     
-    speed++; 
-    delay(200);
+    //speed++; 
+    //delay(200);
     
 
   }

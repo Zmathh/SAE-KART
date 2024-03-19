@@ -154,7 +154,7 @@ void setup()
 #if Activate_FREQ == 1
     
   pinMode(GEN, OUTPUT);
-  pinMode(SW, INPUT_PULLUP);
+  pinMode(Vitesse, INPUT_PULLUP);
   
   initTimer(timerID, preScaler, 100);
   
@@ -175,9 +175,9 @@ void coreTaskOne(void *pvParameters)
 #endif
     while (true)
     {
-        // Fonctions.delay_Retard(1000); // possible watchdog si retiré sans aucun programme
+         //Fonctions.delay_Retard(1000); // possible watchdog si retiré sans aucun programme
 #if Activate_Serial == 1
-        Serial.println("taskOne");
+        //Serial.println("taskOne");
 #endif
 
 #if Activate_GPS_IIC == 1 
@@ -250,10 +250,10 @@ void coreTaskOne(void *pvParameters)
 #if Activate_FREQ == 1
     if (FlagPin) {
         enableAlarm();
-        attachInterrupt(SW, &onFallingEdge, FALLING);
+        attachInterrupt(Vitesse, &onFallingEdge, FALLING);
     }
     else {
-        detachInterrupt(SW);
+        detachInterrupt(Vitesse);
         for(int k = 0; k < 1000; k++){;;}
         disableAlarm();
         for(int k = 0; k < 1000; k++){;;}
@@ -270,10 +270,9 @@ void coreTaskOne(void *pvParameters)
             freq = 10000000. / temps; 
         }
         }
-        attachInterrupt(SW, &onFallingEdge, FALLING);
+        attachInterrupt(Vitesse, &onFallingEdge, FALLING);
         #if Activate_Serial == 1  
             if (temp > 0) {
-            Serial.print("B");
             Serial.println(freq);
             }
         #endif  
@@ -291,10 +290,11 @@ void coreTaskTwo(void *pvParameters)
     while (true)
     {
 #if Activate_Ecran == 0
-        Fonctions.delay_Retard(1000);
+        //Fonctions.delay_Retard(1000);
 #endif
-        Serial.println("taskTwo");
+        //Serial.println("taskTwo");
 #if Activate_Ecran == 1
+        ecran.speed=freq;
         ecran.refresh();
 
 #endif
