@@ -82,8 +82,8 @@
 #define Vitesse 33
 
 // pour test capteur temps (temporaire)
-#define SC_pin 33
-#define CSN_pin 32
-#define SIO_pin 25
+#define SC_pin 32
+#define CSN_pin 25
+#define SIO_pin 33
 
 #endif // CONFIG_H

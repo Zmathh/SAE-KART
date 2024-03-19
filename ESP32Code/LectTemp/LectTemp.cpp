@@ -22,24 +22,20 @@ float LectTemp::readTemperature() {
 
   for (i = 0; i < 16; i++) {
     digitalWrite(SC_pin, HIGH);
-    //delayMicroseconds(5); // Attente d'environ 5 microsecondes
     Lect[i] = digitalRead(SIO_pin);
     digitalWrite(SC_pin, LOW);
-    //delayMicroseconds(5); // Attente d'environ 5 microsecondes
   }
 
   for (i = 0; i < 16; i++) {
     digitalWrite(SC_pin, HIGH);
-    //delayMicroseconds(5); // Attente d'environ 5 microsecondes
     digitalWrite(SC_pin, LOW);
-    //delayMicroseconds(5); // Attente d'environ 5 microsecondes
   }
 
   digitalWrite(CSN_pin, HIGH);
   //delay(500);
 
   for (i = 1; i < 14; i++) {
-    puiss = 128. / pow(2, (i - 1));
+    puiss = 128 / pow(2, (i - 1));
     temperature = temperature + Lect[i] * puiss;
   }
 

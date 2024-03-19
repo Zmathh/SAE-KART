@@ -184,43 +184,51 @@ void coreTaskOne(void *pvParameters)
         gps.getdata();
 #endif
 
-#if Activate_ShiftReg == 1
-
-        if (Serial.available() > 0)
-        {
-            // read the incoming byte:
-
-            // say what you got:
-            switch (Serial.read())
-            {
-            case 48: // 0
-                shiftReg.Selecteur_CS(-1);
-                break;
-            case 49: // 1
-                shiftReg.Selecteur_CS(0);
-                break;
-            case 50: // 2
-                shiftReg.Selecteur_CS(1);
-                break;
-            case 51: // 1
-                shiftReg.Selecteur_CS(2);
-                break;
-            case 52: // 0
-                shiftReg.Selecteur_CS(3);
-                break;
-            case 53: // 1
-                shiftReg.Selecteur_CS(4);
-                break;
-            }
-        }
+#if Activate_ShiftReg == 1   
 #endif
 
 #if Activate_Temperature == 1
+        Fonctions.delay_Retard(100);
+        shiftReg.Selecteur_CS(0);
         temperatureSensor.readTemperature();
-        float temperature = temperatureSensor.temperature; // Lit la température du capteur
-        Serial.print("Temperature: ");
-        Serial.print(temperature);
+        float temperature1 = temperatureSensor.temperature; // Lit la température du capteur
+        Serial.print("Temperature 1 : ");
+        Serial.print(temperature1);
         Serial.println(" °C");
+        Fonctions.delay_Retard(10);
+        shiftReg.Selecteur_CS(1);
+        Fonctions.delay_Retard(100);
+        temperatureSensor.readTemperature();
+        float temperature2 = temperatureSensor.temperature; // Lit la température du capteur
+        Serial.print("Temperature 2 : ");
+        Serial.print(temperature2);
+        Serial.println(" °C");
+        Fonctions.delay_Retard(10);
+        shiftReg.Selecteur_CS(2);
+        Fonctions.delay_Retard(100);
+        temperatureSensor.readTemperature();
+        float temperature3 = temperatureSensor.temperature; // Lit la température du capteur
+        Serial.print("Temperature 3 : ");
+        Serial.print(temperature3);
+        Serial.println(" °C");
+        Fonctions.delay_Retard(10);
+        shiftReg.Selecteur_CS(3);
+        Fonctions.delay_Retard(100);
+        temperatureSensor.readTemperature();
+        float temperature4 = temperatureSensor.temperature; // Lit la température du capteur
+        Serial.print("Temperature 4 : ");
+        Serial.print(temperature4);
+        Serial.println(" °C");
+        Fonctions.delay_Retard(10);
+        shiftReg.Selecteur_CS(4);
+        Fonctions.delay_Retard(100);
+        temperatureSensor.readTemperature();
+        float temperature5 = temperatureSensor.temperature; // Lit la température du capteur
+        Serial.print("Temperature 5 : ");
+        Serial.print(temperature5);
+        Serial.println(" °C");
+        Fonctions.delay_Retard(100);
+        
 #endif
 
 #if Activate_ACCEL_FREIN == 1
