@@ -8,7 +8,7 @@
 
 #include <arduino.h>
 
-#include <Wire.h>
+#include "1Librairies/Wire/Wire.cpp"
 
 #include "1Librairies/SoftwareSerial/SoftwareSerial.cpp"
 
@@ -49,8 +49,8 @@
 #define Activate_Serial 0
 #define Activate_ESP32Core 1 // Activer Serial Debug pour comprendre
 #define Activate_GPS_IIC 0
-#define Activate_ShiftReg 0
-#define Activate_Temperature 0
+#define Activate_ShiftReg 1
+#define Activate_Temperature 1
 #define Activate_ACCEL_FREIN 0
 #define Activate_LoRa 0
 #define Activate_Ecran 1
