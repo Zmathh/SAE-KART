@@ -79,7 +79,7 @@
 #define ACCEL 14
 #define FREIN 27
 #define Signal_INT 26
-#define Vitesse 33
+#define Vitesse 25
 
 // pour test capteur temps (temporaire)
 #define SC_pin 32

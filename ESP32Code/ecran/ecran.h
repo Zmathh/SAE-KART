@@ -40,7 +40,8 @@ class Ecran
     float temp_bat1 = 0., temp_bat2 = 0., temp_bat3 = 0., temp_bat4 = 0.;
     int average_time, best_time, last_time = 0;
     int etat_menu = 1;
-    bool affichage_chrono = true, CPT = false, counter_start = false, counter_stop = true, counter_reset = false, counter_passage = false;
+    bool affichage_chrono = true;
+    static bool CPT ,counter_start , counter_stop , counter_reset , counter_passage  ;
     bool passage = true;
     bool force_start = false;
 
@@ -54,9 +55,7 @@ int tailleTableau = 0; // Taille actuelle du tableau
 
 
 
-// static void incrementDisplay();
-// static void incrementStart();
-// static void incrementReset();
+   
 
 
 
@@ -98,9 +97,9 @@ unsigned long previousMillis_GO = 0;  //ECRAN 3 2 1 GO
     void MENU_2(bool display_chrono, float speed, float w, float x, float y, float z);
     void MENU_3(bool display_chrono, float speed);
     void MENU_CLASSEMENT();
-    // void incrementDisplay();
-    // void incrementStart();
-    // void incrementReset();
+        static void incrementDisplay();
+    static void incrementStart();
+    static void incrementReset();
    
     // +
 };
