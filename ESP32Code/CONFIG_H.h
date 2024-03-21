@@ -60,30 +60,36 @@
 // Déclaration Pins //////////////
 ////////////////////////////////////////////////////////////////
 
-#define CS_STRB 0
+#define I2C_SDA 21
+#define I2C_SCL 22
+
 #define LoRa_Tx 3
 #define LoRa_Rx 4
+
+#define CS_STRB 0
 #define CS_CLK 2
 #define CS_DAT 4
-#define RESET 35
+
 #define START_STOP 5
 #define BP_MENU 18
 #define BP_RESET_CHRONO 19
-#define TensionPetiteBat 12
+
 #define uWire_CLK 32
 #define uWire_SI_O 33
+
+#define TensionPetiteBat 12
 #define TensionGrandBat 13
-#define I2C_SDA 21
-#define I2C_SCL 22
 #define LedSignal 15
 #define ACCEL 14
 #define FREIN 27
 #define Signal_INT 26
-#define Vitesse 33
+#define Vitesse 25
 
 // pour test capteur temps (temporaire)
-#define SC_pin 32
-#define CSN_pin 25
-#define SIO_pin 33
+// #define SC_pin 32
+// #define CSN_pin 25
+// #define SIO_pin 33
+
+#define RESET 35
 
 #endif // CONFIG_H
