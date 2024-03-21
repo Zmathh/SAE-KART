@@ -16,6 +16,10 @@
 
 #include "1Librairies/DFRobot_IICSerial/DFRobot_IICSerial.cpp"
 
+#include "1Librairies/LM74/LM74_V2.cpp"
+
+
+
 // #include "1Librairies/LiquidCrystal_I2C/LiquidCrystal_I2C.cpp"
 
 
@@ -34,8 +38,6 @@
 
 #include "LectTemp/LectTemp.cpp"
 
-#include "shiftReg/shiftReg.cpp"
-
 #include "Lecture_Frein_Accel/Lecture_Frein_Accel.cpp"
 
 #include "module_lora/module_lora.cpp"
@@ -46,15 +48,15 @@
 
 #define VITESSE_SERIAL_DEBUG 115200
 
-#define Activate_Serial 0
+#define Activate_Serial 1
 #define Activate_ESP32Core 1 // Activer Serial Debug pour comprendre
 #define Activate_GPS_IIC 0
 #define Activate_ShiftReg 1
 #define Activate_Temperature 1
 #define Activate_ACCEL_FREIN 0
 #define Activate_LoRa 0
-#define Activate_Ecran 1
-#define Activate_FREQ 1
+#define Activate_Ecran 0
+#define Activate_FREQ 0
 
 ////////////////////////////////////////////////////////////////
 // Déclaration Pins //////////////
