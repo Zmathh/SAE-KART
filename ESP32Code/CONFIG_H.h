@@ -71,11 +71,11 @@
 #define CS_DAT 4
 
 #define START_STOP 5
-#define BP_MENU 18
-#define BP_RESET_CHRONO 19
+#define BP_MENU 33
+#define BP_RESET_CHRONO 32
 
-#define uWire_CLK 32
-#define uWire_SI_O 33
+#define uWire_CLK 18
+#define uWire_SI_O 19
 
 #define TensionPetiteBat 12
 #define TensionGrandBat 13
