@@ -1,13 +1,17 @@
+
 #include <Wire.h> 
 #include "ecran.h"
 
-void incrementDisplay();
-void incrementStart();
-void incrementReset();
 
 //TwoWire I2Cone = TwoWire(0);
 // LiquidCrystal_I2C lcd(0x27,20,4);
 
+
+bool Ecran::CPT = false;
+bool Ecran::counter_passage = false;
+bool Ecran::counter_reset = false;
+bool Ecran::counter_start = false;
+bool Ecran::counter_stop = true;
 
 Ecran::Ecran(int I2C_SCL, int I2C_SDA) : lcd(0x27, 20,4) {
   this->I2C_SCL = I2C_SCL;
@@ -39,7 +43,6 @@ void Ecran::begin() {
   previousMillis_GO = currentMillis;
   CLEAN_LCD();
 }
-
 void Ecran::GO_GEII(){
   //AFFICHAGE DE "G"
   lcd.setCursor(3, 0); lcd.write(6);
@@ -657,12 +660,12 @@ void Ecran::refresh() {
 }
 
 
-void incrementDisplay() {bool CPT = true; Serial.println("PASSAGE DISPLAY");}
-void incrementStart() {
+void Ecran::incrementDisplay() { Ecran::CPT = true; Serial.println("PASSAGE DISPLAY");}
+void Ecran::incrementStart() {
   Serial.println("PASSAGE START/STOP"); 
-  bool counter_passage = true;
-  bool counter_start = true;
+  Ecran::counter_passage = true;
+   Ecran::counter_start = true;
   //if (counter_start) {counter_stop = true;}
   //if (counter_stop) {counter_start = true;}
 }
-void incrementReset() {Serial.println("PASSAGE RESET"); bool counter_reset = true; bool counter_passage = true;}
+void Ecran::incrementReset() {Serial.println("PASSAGE RESET"); Ecran::counter_reset = true;  Ecran::counter_passage = true;}
