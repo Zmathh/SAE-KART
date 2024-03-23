@@ -1,6 +1,7 @@
 #include "LM74_V2.h"
 #include <SPI.h>
 
+
 LM74::LM74(shiftReg &shiftRegister) : shiftRegister(shiftRegister)
 {
 }

@@ -2,7 +2,6 @@
 #define shiftReg_H
 
 #include <Arduino.h>
-#include "shiftReg.h"
 
 class shiftReg
 {

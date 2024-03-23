@@ -2,7 +2,6 @@
 #define LM74_V2_H
 
 #include "Arduino.h"
-#include "shiftReg.cpp"
 
 class LM74 {
     public:

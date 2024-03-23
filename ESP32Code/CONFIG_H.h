@@ -16,8 +16,6 @@
 
 #include "1Librairies/DFRobot_IICSerial/DFRobot_IICSerial.cpp"
 
-#include "1Librairies/LM74/LM74_V2.cpp"
-
 
 
 // #include "1Librairies/LiquidCrystal_I2C/LiquidCrystal_I2C.cpp"
@@ -41,6 +39,10 @@
 #include "Lecture_Frein_Accel/Lecture_Frein_Accel.cpp"
 
 #include "module_lora/module_lora.cpp"
+
+#include "shiftReg/shiftReg.cpp"
+
+#include "LM74/LM74_V2.cpp"
 
 ////////////////////////////////////////////////////////////////
 // CONFIGURATION //////////////
