@@ -20,8 +20,7 @@ Lecture_Frein_Accel frein_accel(FREIN, ACCEL);
 #endif
 
 #if Activate_Temperature == 1
-    LM74 lm74_1(shiftRegister); 
-    LM74 lm74_2(shiftRegister);
+    LM74 lm74_1(shiftRegister);  
 #endif
 
 #if Activate_GPS_IIC == 1
@@ -232,10 +231,27 @@ void coreTaskOne(void *pvParameters)
         // Serial.println(" °C");
         // Fonctions.delay_Retard(100);
         float temp_1 = lm74_1.read(0); // Read from sensor 0
-        Serial.print("Temperature of Sensor 1: ");
+        float temp_2 = lm74_1.read(1); // Read from sensor 0
+        float temp_3 = lm74_1.read(2);
+        float temp_4 = lm74_1.read(3);
+        float temp_5 = lm74_1.read(4);
+        Serial.print("Sensor 1: ");
         Serial.print(temp_1);
+        Serial.print("°C  /  ");
+        Serial.print("Sensor 2: ");
+        Serial.print(temp_2);
+        Serial.print("°C  /  ");
+        Serial.print("Sensor 3: ");
+        Serial.print(temp_3);
+        Serial.print("°C  /  ");
+        Serial.print("Sensor 4: ");
+        Serial.print(temp_4);
+        Serial.print("°C  /  ");
+        Serial.print("Sensor 5: ");
+        Serial.print(temp_5);
         Serial.println("°C");
-        Fonctions.delay_Retard(250); 
+        Fonctions.delay_Retard(10); 
+        
         
 #endif
 
