@@ -14,7 +14,6 @@ void LM74::begin()
 }
 
 float LM74::read(int selecteur) {
-    shiftRegister.Selecteur_CS(-1); 
     uint16_t byte1 = SPI.transfer(0);
     uint16_t byte2 = SPI.transfer(0);
     shiftRegister.Selecteur_CS(selecteur); 
