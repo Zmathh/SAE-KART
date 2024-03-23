@@ -230,7 +230,11 @@ void coreTaskOne(void *pvParameters)
         // Serial.print(temperature5);
         // Serial.println(" °C");
         // Fonctions.delay_Retard(100);
+<<<<<<< HEAD
         shiftRegister.Selecteur_CS(-1);
+=======
+        float temp_test = lm74_1.read(4); // Read from sensor 0
+>>>>>>> 7bee2aaff566a242db4296a6db6ff0196f7d8429
         float temp_1 = lm74_1.read(0); // Read from sensor 0
         Serial.print("Sensor 1: ");
         Serial.print(temp_1);

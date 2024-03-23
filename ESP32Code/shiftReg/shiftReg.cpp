@@ -28,10 +28,10 @@ void shiftReg::Selecteur_CS(int capteur)
   bool bitenvoyer[8];
 
   for (int i = 0; i < 8; i++)
-    bitenvoyer[i] = LOW;
+    bitenvoyer[i] = HIGH;
 
   if (capteur != -1)
-    bitenvoyer[capteur] = HIGH;
+    bitenvoyer[capteur] = LOW;
 
 
   for (i = 5; i >= 0; i--)
