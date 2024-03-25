@@ -45,6 +45,10 @@ class Ecran
     bool passage = true;
     bool force_start = false;
 
+    static void incrementDisplay();
+    static void incrementStart();
+    static void incrementReset();
+
   private:
 
 
@@ -97,10 +101,7 @@ unsigned long previousMillis_GO = 0;  //ECRAN 3 2 1 GO
     void MENU_2(bool display_chrono, float speed, float w, float x, float y, float z);
     void MENU_3(bool display_chrono, float speed);
     void MENU_CLASSEMENT();
-        static void incrementDisplay();
-    static void incrementStart();
-    static void incrementReset();
-   
+ 
     // +
 };
 

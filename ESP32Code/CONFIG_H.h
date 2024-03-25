@@ -50,15 +50,16 @@
 
 #define VITESSE_SERIAL_DEBUG 115200
 
-#define Activate_Serial 1
+#define Activate_Serial 0
 #define Activate_ESP32Core 1 // Activer Serial Debug pour comprendre
 #define Activate_GPS_IIC 0
 #define Activate_ShiftReg 0
 #define Activate_Temperature 0
 #define Activate_ACCEL_FREIN 0
 #define Activate_LoRa 0
-#define Activate_Ecran 0
-#define Activate_FREQ 0
+#define Activate_Ecran 1
+#define Activate_FREQ 1
+#define Activate_BUTT 0  //boutons
 
 ////////////////////////////////////////////////////////////////
 // Déclaration Pins //////////////
@@ -97,7 +98,12 @@
 #define RESET 35
 
 
+////////////////////////////////////////////////////////////////
+// Variables //////////////
+////////////////////////////////////////////////////////////////
 
+#define COEFACCEL 1.5
+#define COEFFREIN 1
 #define PI 3.14159265358979323846
 
 #endif // CONFIG_H

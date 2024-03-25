@@ -15,7 +15,7 @@ float longitude = 1.496218;
 #endif
 
 #if Activate_ACCEL_FREIN == 1
-Lecture_Frein_Accel frein_accel(FREIN, ACCEL);
+Lecture_Frein_Accel frein_accel(FREIN, ACCEL, COEFACCEL, COEFFREIN);
 #endif
 
 #if Activate_ShiftReg == 1
@@ -61,6 +61,31 @@ GPS_IIC gps;
 
     }
     //MFrequence MFrequence;
+#endif
+
+#if Activate_BUTT
+
+  boolean FlagStart = false;
+  boolean FlagMenu  = false;
+  boolean FlagRst   = false;
+
+  void IRAM_ATTR onStart() {
+
+    FlagStart = true;
+
+  }
+
+  void IRAM_ATTR onMenu() {
+
+    FlagMenu = true;
+
+  }
+
+  void IRAM_ATTR onReset() {
+
+    FlagRst = true;
+
+  }
 #endif
 
 #if Activate_Ecran == 1
@@ -158,6 +183,19 @@ void setup()
   attachInterrupt(SW, &onFallingEdge, FALLING);
 
 #endif
+
+#if Activate_BUTT
+
+  pinMode(START_STOP     , INPUT_PULLUP);
+  pinMode(BP_MENU        , INPUT_PULLUP);
+  pinMode(BP_RESET_CHRONO, INPUT_PULLUP);
+
+  attachInterrupt(START_STOP     , &onStart, FALLING);
+  attachInterrupt(BP_MENU        , &onMenu , FALLING);
+  attachInterrupt(BP_RESET_CHRONO, &onReset, FALLING);
+
+#endif
+
 pinMode(TensionPetiteBat,INPUT);
 pinMode(TensionGrandBat,INPUT);
 
@@ -338,6 +376,26 @@ void coreTaskTwo(void *pvParameters)
 #endif
         //Serial.println("taskTwo");
 #if Activate_Ecran == 1
+
+  #if Activate_BUTT
+    if (FlagMenu) {
+      ecran.incrementDisplay();
+      Serial.println("-Menu-");
+      FlagMenu = false;
+    }
+    if (FlagStart) {
+      ecran.incrementStart();
+      Serial.println("-Start-");
+      FlagStart= false;
+    }
+    if (FlagRst) {
+      ecran.incrementReset();
+      Serial.println("-Reset-");
+      FlagRst = false;
+    }
+  #else
+    cran.etat_menu=2;
+  #endif
         // ecran.etat_menu=1;
         ecran.speed=resultmoy;
         // ecran.speed=(((resultmoy/6)*3600)*(PI*0.000026));
