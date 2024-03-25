@@ -1,6 +1,5 @@
 #include "CONFIG_H.h"
 
-
 Fonctions Fonctions;
 
 double oldfreq, buffer ;
@@ -20,17 +19,11 @@ Lecture_Frein_Accel frein_accel(FREIN, ACCEL);
 #endif
 
 #if Activate_ShiftReg == 1
-
-shiftReg shiftReg(CS_DAT, CS_CLK, CS_STRB);
+    shiftReg shiftRegister(CS_DAT, CS_CLK, CS_STRB); 
 #endif
 
 #if Activate_Temperature == 1
-LectTemp temperatureSensor(SC_pin, CSN_pin, SIO_pin); //// Vérifier les PINs
-  float temperature5;
-  float temperature4;
-  float temperature3;
-  float temperature2;
-  float temperature1;
+    LM74 lm74_1(shiftRegister);  
 #endif
 
 #if Activate_GPS_IIC == 1
@@ -136,11 +129,11 @@ void setup()
 #endif
 
 #if Activate_ShiftReg == 1
-    shiftReg.setup();
+    shiftRegister.setup();
 #endif
 
 #if Activate_Temperature == 1
-    temperatureSensor.begin();
+    lm74_1.begin();
 #endif
 
 #if Activate_ACCEL_FREIN == 1
@@ -195,46 +188,68 @@ void coreTaskOne(void *pvParameters)
 #endif
 
 #if Activate_Temperature == 1
-        Fonctions.delay_Retard(100);
-        shiftReg.Selecteur_CS(0);
-        temperatureSensor.readTemperature();
-        temperature1 = temperatureSensor.temperature; // Lit la température du capteur
-        Serial.print("Temperature 1 : ");
-        Serial.print(temperature1);
-        Serial.println(" °C");
-        Fonctions.delay_Retard(10);
-        shiftReg.Selecteur_CS(1);
-        Fonctions.delay_Retard(100);
-        temperatureSensor.readTemperature();
-        temperature2 = temperatureSensor.temperature; // Lit la température du capteur
-        Serial.print("Temperature 2 : ");
-        Serial.print(temperature2);
-        Serial.println(" °C");
-        Fonctions.delay_Retard(10);
-        shiftReg.Selecteur_CS(2);
-        Fonctions.delay_Retard(100);
-        temperatureSensor.readTemperature();
-        temperature3 = temperatureSensor.temperature; // Lit la température du capteur
-        Serial.print("Temperature 3 : ");
-        Serial.print(temperature3);
-        Serial.println(" °C");
-        Fonctions.delay_Retard(10);
-        shiftReg.Selecteur_CS(3);
-        Fonctions.delay_Retard(100);
-        temperatureSensor.readTemperature();
-        temperature4 = temperatureSensor.temperature; // Lit la température du capteur
-        Serial.print("Temperature 4 : ");
-        Serial.print(temperature4);
-        Serial.println(" °C");
-        Fonctions.delay_Retard(10);
-        shiftReg.Selecteur_CS(4);
-        Fonctions.delay_Retard(100);
-        temperatureSensor.readTemperature();
-        temperature5 = temperatureSensor.temperature; // Lit la température du capteur
-        Serial.print("Temperature 5 : ");
-        Serial.print(temperature5);
-        Serial.println(" °C");
-        Fonctions.delay_Retard(100);
+        // Fonctions.delay_Retard(100);
+        // shiftReg.Selecteur_CS(0);
+        // temperatureSensor.readTemperature();
+        // temperature1 = temperatureSensor.temperature; // Lit la température du capteur
+        // Serial.print("Temperature 1 : ");
+        // Serial.print(temperature1);
+        // Serial.println(" °C");
+        // Fonctions.delay_Retard(10);
+        // shiftReg.Selecteur_CS(1);
+        // Fonctions.delay_Retard(100);
+        // temperatureSensor.readTemperature();
+        // temperature2 = temperatureSensor.temperature; // Lit la température du capteur
+        // Serial.print("Temperature 2 : ");
+        // Serial.print(temperature2);
+        // Serial.println(" °C");
+        // Fonctions.delay_Retard(10);
+        // shiftReg.Selecteur_CS(2);
+        // Fonctions.delay_Retard(100);
+        // temperatureSensor.readTemperature();
+        // temperature3 = temperatureSensor.temperature; // Lit la température du capteur
+        // Serial.print("Temperature 3 : ");
+        // Serial.print(temperature3);
+        // Serial.println(" °C");
+        // Fonctions.delay_Retard(10);
+        // shiftReg.Selecteur_CS(3);
+        // Fonctions.delay_Retard(100);
+        // temperatureSensor.readTemperature();
+        // temperature4 = temperatureSensor.temperature; // Lit la température du capteur
+        // Serial.print("Temperature 4 : ");
+        // Serial.print(temperature4);
+        // Serial.println(" °C");
+        // Fonctions.delay_Retard(10);
+        // shiftReg.Selecteur_CS(4);
+        // Fonctions.delay_Retard(100);
+        // temperatureSensor.readTemperature();
+        // temperature5 = temperatureSensor.temperature; // Lit la température du capteur
+        // Serial.print("Temperature 5 : ");
+        // Serial.print(temperature5);
+        // Serial.println(" °C");
+        // Fonctions.delay_Retard(100);
+        shiftRegister.Selecteur_CS(-1);
+        float temp_1 = lm74_1.read(0); // Read from sensor 0
+        float temp_2 = lm74_1.read(1); // Read from sensor 0
+        float temp_3 = lm74_1.read(2);
+        float temp_4 = lm74_1.read(3);
+        float temp_5 = lm74_1.read(4);
+        Serial.print("Sensor 1: ");
+        Serial.print(temp_1);
+        Serial.print("°C  /  ");
+        Serial.print("Sensor 2: ");
+        Serial.print(temp_2);
+        Serial.print("°C  /  ");
+        Serial.print("Sensor 3: ");
+        Serial.print(temp_3);
+        Serial.print("°C  /  ");
+        Serial.print("Sensor 4: ");
+        Serial.print(temp_4);
+        Serial.print("°C  /  ");
+        Serial.print("Sensor 5: ");
+        Serial.print(temp_5);
+        Serial.println("°C");
+        
         
 #endif
 
@@ -341,7 +356,6 @@ void coreTaskTwo(void *pvParameters)
 
 void loop()
 { // NE SERT A RIEN !!!!
-i=i;
 }
 
 
