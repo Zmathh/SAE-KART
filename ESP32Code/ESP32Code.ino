@@ -3,6 +3,9 @@
 
 Fonctions Fonctions;
 
+double oldfreq, buffer ;
+int caca = 0, pipi=50;
+
 #if Activate_LoRa == 1
 const uint8_t dataPacketSize = sizeof(float) * 13 + sizeof(float) * 2;
 uint8_t dataPacket[dataPacketSize];
@@ -36,25 +39,20 @@ GPS_IIC gps;
 
 #if Activate_FREQ == 1
 
+    #define SW 25
 
-#define SW 38
+    #define timerID 0
+    #define preScaler 8 //Timer 10MHz
 
-#define GEN 15
+    hw_timer_t *My_timer = NULL;
 
-#define timerID 0
-#define preScaler 8 //Timer 10MHz
+    boolean FlagPin = false;
 
-hw_timer_t *My_timer = NULL;
-TaskHandle_t Loop0;
+    uint16_t i = 0, temp = 0, temp2 = 0;
 
-boolean FlagPin = false;
+    int n = 20 , y = 0;
 
-uint16_t timrValue = 0;
-
-uint16_t i = 0, temp = 0, temp2 = 0;
-
-float temps = 0., freq = 0., moy = 0;
-int n = 20, l = 0;
+    float temps = 0., freq = 0., moy= 0., resultmoy = 0.;
 
     void IRAM_ATTR onTimer() {
 
@@ -159,7 +157,7 @@ void setup()
 
 #if Activate_FREQ == 1
     
-  pinMode(GEN, OUTPUT);
+
   pinMode(Vitesse, INPUT_PULLUP);
   
   initTimer(timerID, preScaler, 100);
@@ -265,35 +263,49 @@ void coreTaskOne(void *pvParameters)
 #endif
 
 #if Activate_FREQ == 1
-    if (FlagPin) {
-        enableAlarm();
-        attachInterrupt(Vitesse, &onFallingEdge, FALLING);
+if (FlagPin) {
+    enableAlarm();
+    attachInterrupt(SW, &onFallingEdge, FALLING);
+  } else {
+    detachInterrupt(SW);
+    for(int k = 0; k < 1000; k++){;;}
+    disableAlarm();
+    for(int k = 0; k < 1000; k++){;;}
+    temp = i;
+    i = 0;
+    if (temp != 0) {
+
+      temps = (temp * 100) + temp2 ; 
+
+      freq = 10000000. / temps; 
+      
+          }
+    attachInterrupt(SW, &onFallingEdge, FALLING);
+
+    if (temp > 0 && freq < 2000 ) {
+      
+      if (y != n){ 
+        // Serial.print(moy);
+        // Serial.print("+");
+        // Serial.print(freq);
+        // Serial.print("=");
+        moy += freq;
+        y++;
+      //  Serial.println(moy);
+     } else if (y == n){
+        resultmoy = moy/n;
+        moy=0;
+        y=0;
+        // Serial.println("mise a zero-------------------------------------------");
     }
-    else {
-        detachInterrupt(Vitesse);
-        for(int k = 0; k < 1000; k++){;;}
-        disableAlarm();
-        for(int k = 0; k < 1000; k++){;;}
-        temp = i;
-        i = 0;
-        if (temp != 0) {
-        if (l < n) {
-            moy += temp;
-            l++;
-        } else {
-            l = 0;
-            moy = moy/n;
-            temps = (temp * 100) + temp2 ; 
-            freq = 10000000. / temps; 
-        }
-        }
-        attachInterrupt(Vitesse, &onFallingEdge, FALLING);
-        #if Activate_Serial == 1  
-            if (temp > 0) {
-            Serial.println(freq);
-            }
-        #endif  
+    #if Activate_Serial == 1
+    Serial.print("Hz =");
+      Serial.println(resultmoy);
+      #endif 
     }
+ 
+  }
+    
 #endif
 }
     }
@@ -311,13 +323,14 @@ void coreTaskTwo(void *pvParameters)
 #endif
         //Serial.println("taskTwo");
 #if Activate_Ecran == 1
-        ecran.etat_menu=2;
-        ecran.speed=freq;
-        ecran.temp_moteur = temperature5;
-        ecran.temp_bat1 = temperature1;
-        ecran.temp_bat2 = temperature2;
-        ecran.temp_bat3 = temperature3;
-        ecran.temp_bat4 = temperature4;
+        // ecran.etat_menu=1;
+        ecran.speed=resultmoy;
+        // ecran.speed=(((resultmoy/6)*3600)*(PI*0.000026));
+        // ecran.temp_moteur = temperature5;
+        // ecran.temp_bat1 = temperature1;
+        // ecran.temp_bat2 = temperature2;
+        // ecran.temp_bat3 = temperature3;
+        // ecran.temp_bat4 = temperature4;
         ecran.BV12=(analogRead(TensionPetiteBat))*(5 / 1023.) ;
         ecran.BV48=(analogRead(TensionGrandBat))*(5 / 1023.);
         ecran.refresh();
