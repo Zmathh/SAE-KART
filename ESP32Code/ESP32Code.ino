@@ -4,6 +4,7 @@ Fonctions Fonctions;
 
 
 #if Activate_LoRa == 1
+SoftwareSerial SoftSerial(17, 16);
 const uint8_t dataPacketSize = (sizeof(float) * 13) + (sizeof(char) * 10 * 2) + (sizeof(int) * 2);
 uint8_t dataPacket[dataPacketSize];
 CModuleLoRa *pModuleLoRa = NULL;
@@ -185,8 +186,6 @@ void setup()
     pModuleLoRa = CModuleLoRa::GetInstance();
     pModuleLoRa->init(16, 17);
     pModuleLoRa->setConfig();
-    pModuleLoRa->getConfig();
-    pModuleLoRa->getInfo();
 #endif
 
 #if Activate_FREQ == 1
