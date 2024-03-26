@@ -3,12 +3,9 @@
 Fonctions Fonctions;
 
 #if Activate_LoRa == 1
-const uint8_t dataPacketSize = sizeof(float) * 13 + sizeof(float) * 2;
+const uint8_t dataPacketSize = (sizeof(float) * 13) + (sizeof(char) * 10 * 2) + (sizeof(int) * 2);
 uint8_t dataPacket[dataPacketSize];
 CModuleLoRa *pModuleLoRa = NULL;
-float data[] = {0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0};
-float latitude = 48.4423344;
-float longitude = 1.496218;
 #endif
 
 #if Activate_ACCEL_FREIN == 1
@@ -144,7 +141,7 @@ void setup()
 
 #if Activate_LoRa == 1
     pModuleLoRa = CModuleLoRa::GetInstance();
-    pModuleLoRa->init(9, 10);
+    pModuleLoRa->init(16, 17);
     pModuleLoRa->setConfig();
     pModuleLoRa->getConfig();
     pModuleLoRa->getInfo();
@@ -266,17 +263,32 @@ void coreTaskOne(void *pvParameters)
 #endif
 
 #if Activate_LoRa == 1
-        for (int i = 0; i < 13; i++)
-        {
-            data[i] += 1.0;
-        }
-        latitude = latitude + 0.00001;
-        longitude = longitude + 0.00001;
-        memcpy(dataPacket, data, sizeof(float) * 13);
-        memcpy(dataPacket + sizeof(float) * 13, &latitude, sizeof(float));
-        memcpy(dataPacket + sizeof(float) * 13 + sizeof(float), &longitude, sizeof(float));
-        pModuleLoRa->radioTX(dataPacket, dataPacketSize);
-        Fonctions.delay_Retard(250);
+        float floatsToSend[] = {
+      float(random(100, 8000) /100.0),
+      float(random(100, 8000) /100.0),
+      float(random(100, 8000) /100.0),
+      float(random(100, 8000) /100.0),
+      float(random(100, 8000) /100.0),
+      float(random(0.0, 9999)/100.0),
+      float(random(0.0, 9999)/100.0),
+      float(random(11.0, 1290)/100.0),
+      float(random(44.0, 4890)/100.0),
+      float(random(200.0, 39990)/100.0),
+      float(random(0, 99)),
+      float(random((-18000), 18000)/100.0),
+      float(random((-9000), 9000)/100.0),
+      
+  };
+
+  memcpy(dataPacket, floatsToSend, sizeof(float) * 13);
+  strcpy((char *)(dataPacket + sizeof(float) * 13), "2024-01-31");
+  strcpy((char *)(dataPacket + sizeof(float) * 13 + sizeof(char) * 10), "1706717755");
+  int integersToSend[] = {
+      random(0, 1),
+      random(0, 1)
+  };
+  memcpy(dataPacket + sizeof(float) * 13 + sizeof(char) * 10 * 2, integersToSend, sizeof(int) * 2);
+  pModuleLoRa->radioTX(dataPacket, dataPacketSize);
 #endif
 
 #if Activate_FREQ == 1
