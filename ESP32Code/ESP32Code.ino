@@ -20,7 +20,7 @@ Lecture_Frein_Accel frein_accel(FREIN, ACCEL, COEFACCEL, COEFFREIN);
 
 #if Activate_Temperature == 1
     LM74 lm74_1(shiftRegister);  
-    float temperature1 = 0. ,temperature2 = 2. ,temperature3 = 0. ,temperature4 = 0. ,temperature5 = 0. ;
+    float temperature1 = 0.0 ,temperature2 = 0.0 ,temperature3 = 0.0 ,temperature4 = 0.0 ,temperature5 = 0.0 ;
 #endif
 
 #if Activate_GPS_IIC == 1
@@ -268,7 +268,7 @@ void coreTaskTwo(void *pvParameters)
     //ecran.etat_menu=1;
   #endif
   //Serial.print("oui");
-        //ecran.etat_menu=1;
+        ecran.etat_menu=2;
         //ecran.speed=resultmoy;
         ecran.speed=(((resultmoy/6)*3600)*(PI*0.000026));
          
