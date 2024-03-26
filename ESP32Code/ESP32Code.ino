@@ -4,6 +4,7 @@ Fonctions Fonctions;
 
 
 #if Activate_LoRa == 1
+SoftwareSerial SoftSerial(17, 16);
 const uint8_t dataPacketSize = (sizeof(float) * 13) + (sizeof(char) * 10 * 2) + (sizeof(int) * 2);
 uint8_t dataPacket[dataPacketSize];
 CModuleLoRa *pModuleLoRa = NULL;
@@ -19,7 +20,7 @@ Lecture_Frein_Accel frein_accel(FREIN, ACCEL, COEFACCEL, COEFFREIN);
 
 #if Activate_Temperature == 1
     LM74 lm74_1(shiftRegister);  
-    float temperature1 = 0. ,temperature2 = 2. ,temperature3 = 0. ,temperature4 = 0. ,temperature5 = 0. ;
+    float temperature1 = 0.0 ,temperature2 = 0.0 ,temperature3 = 0.0 ,temperature4 = 0.0 ,temperature5 = 0.0 ;
 #endif
 
 #if Activate_GPS_IIC == 1
@@ -185,8 +186,6 @@ void setup()
     pModuleLoRa = CModuleLoRa::GetInstance();
     pModuleLoRa->init(16, 17);
     pModuleLoRa->setConfig();
-    pModuleLoRa->getConfig();
-    pModuleLoRa->getInfo();
 #endif
 
 #if Activate_FREQ == 1
@@ -269,7 +268,7 @@ void coreTaskTwo(void *pvParameters)
     //ecran.etat_menu=1;
   #endif
   //Serial.print("oui");
-        //ecran.etat_menu=1;
+        ecran.etat_menu=2;
         //ecran.speed=resultmoy;
         ecran.speed=(((resultmoy/6)*3600)*(PI*0.000026));
          
