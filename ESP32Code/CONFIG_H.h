@@ -50,13 +50,14 @@
 
 #define Activate_Serial 1
 #define Activate_ESP32Core 1 // Activer Serial Debug pour comprendre
-#define Activate_GPS_IIC 1
+#define Activate_GPS_IIC 0
 #define Activate_ShiftReg 1
 #define Activate_Temperature 1
-#define Activate_ACCEL_FREIN 1
-#define Activate_LoRa 1
+#define Activate_ACCEL_FREIN 0
+#define Activate_LoRa 0
 #define Activate_Ecran 1
 #define Activate_FREQ 1
+#define Activate_BUTT 0
 
 ////////////////////////////////////////////////////////////////
 // Déclaration Pins //////////////
@@ -72,9 +73,9 @@
 #define CS_CLK 2
 #define CS_DAT 4
 
-#define START_STOP 5
-#define BP_MENU 33
-#define BP_RESET_CHRONO 32
+// #define START_STOP 5
+// #define BP_MENU 33
+// #define BP_RESET_CHRONO 32
 
 #define uWire_CLK 18
 #define uWire_SI_O 19
@@ -95,6 +96,10 @@
 #define COEFACCEL 1.5
 #define COEFFREIN 1
 #define PI 3.14159265358979323846
+#define coeffpb 11.5/1.5
+#define coeffgb 0
+#define coeffvitesse 2 * PI * 0.15 * 3.6
+
 
 #define RESET 35
 
