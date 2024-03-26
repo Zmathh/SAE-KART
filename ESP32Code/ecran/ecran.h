@@ -41,7 +41,7 @@ class Ecran
     int average_time, best_time, last_time = 0;
     int etat_menu = 1;
     bool affichage_chrono = true;
-    static bool CPT ,counter_start , counter_stop , counter_reset , counter_passage  ; // pour interruptions
+    static bool CPT_display, CPT_start, CPT_reset ,counter_start , counter_stop , counter_reset , counter_passage  ; // pour interruptions
     bool passage = true;
     bool force_start = false;
 

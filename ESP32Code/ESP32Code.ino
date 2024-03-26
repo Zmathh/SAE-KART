@@ -54,13 +54,13 @@ GPS_IIC gps;
 
     float temps = 0., freq = 0., moy= 0., resultmoy = 0.;
 
-    void IRAM_ATTR onTimer() {
+    // void IRAM_ATTR onTimer() {
 
-    //digitalWrite(LED, !digitalRead(LED));
-    i++;
-    temp2 = timerRead(My_timer);
+    // //digitalWrite(LED, !digitalRead(LED));
+    // i++;
+    // temp2 = timerRead(My_timer);
 
-    }
+    // }
 
     void IRAM_ATTR onFallingEdge() {
     
@@ -70,47 +70,42 @@ GPS_IIC gps;
     //MFrequence MFrequence;
 #endif
 
-#if Activate_FREQ == 1
-void initTimer(uint8_t ID, uint16_t Prescaler, uint16_t alarm) {
-  My_timer = timerBegin(ID, Prescaler, true);
-  timerAttachInterrupt(My_timer, &onTimer, true);
-  timerAlarmWrite(My_timer, alarm, true);
-  timerAlarmEnable(My_timer);
-}
+// #if Activate_FREQ == 1
+// void initTimer(uint8_t ID, uint16_t Prescaler, uint16_t alarm) {
+//   My_timer = timerBegin(ID, Prescaler, true);
+//   timerAttachInterrupt(My_timer, &onTimer, true);
+//   timerAlarmWrite(My_timer, alarm, true);
+//   timerAlarmEnable(My_timer);
+// }
 
-void enableAlarm() {
-  timerAlarmEnable(My_timer);
-}
+// void enableAlarm() {
+//   timerAlarmEnable(My_timer);
+// }
 
-void disableAlarm() {
-  timerAlarmDisable(My_timer);
-}
-#endif
-
-// #if Activate_BUTT == 1
-
-//   boolean FlagStart = false;
-//   boolean FlagMenu  = false;
-//   boolean FlagRst   = false;
-
-//   void IRAM_ATTR onStart() {
-
-//     FlagStart = true;
-
-//   }
-
-//   void IRAM_ATTR onMenu() {
-
-//     FlagMenu = true;
-
-//   }
-
-//   void IRAM_ATTR onReset() {
-
-//     FlagRst = true;
-
-//   }
+// void disableAlarm() {
+//   timerAlarmDisable(My_timer);
+// }
 // #endif
+
+#if Activate_BUTT == 1
+
+  void IRAM_ATTR onStart() {
+
+    Ecran::CPT_start = true;
+  }
+
+  void IRAM_ATTR onMenu() {
+
+    Ecran::CPT_display = true;
+
+  }
+
+  void IRAM_ATTR onReset() {
+
+    Ecran::CPT_reset= true;
+
+  }
+#endif
 
 #if Activate_Ecran == 1
 Ecran ecran(I2C_SCL, I2C_SDA);
@@ -206,17 +201,17 @@ void setup()
 
 #endif
 
-// #if Activate_BUTT == 1
+#if Activate_BUTT == 1
 
-//   pinMode(START_STOP     , INPUT_PULLUP);
-//   pinMode(BP_MENU        , INPUT_PULLUP);
-//   pinMode(BP_RESET_CHRONO, INPUT_PULLUP);
+  pinMode(START_STOP     , INPUT);
+  pinMode(BP_MENU        , INPUT);
+  pinMode(BP_RESET_CHRONO, INPUT);
 
-//   attachInterrupt(START_STOP     , &onStart, FALLING);
-//   attachInterrupt(BP_MENU        , &onMenu , FALLING);
-//   attachInterrupt(BP_RESET_CHRONO, &onReset, FALLING);
+  attachInterrupt(START_STOP     , &onStart, FALLING);
+  attachInterrupt(BP_MENU        , &onMenu , FALLING);
+  attachInterrupt(BP_RESET_CHRONO, &onReset, FALLING);
 
-// #endif
+#endif
 
 #if Activate_pinMode == 1
   pinMode(TensionPetiteBat,INPUT);
@@ -246,8 +241,8 @@ void coreTaskOne(void *pvParameters)
                 // Serial.println(frequence);
             }
 
-}
     }
+}
         
 
 void coreTaskTwo(void *pvParameters)
