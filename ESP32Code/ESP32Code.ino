@@ -2,8 +2,6 @@
 
 Fonctions Fonctions;
 
-double oldfreq, buffer ;
-int caca = 0, pipi=50;
 
 #if Activate_LoRa == 1
 const uint8_t dataPacketSize = sizeof(float) * 13 + sizeof(float) * 2;
@@ -24,6 +22,7 @@ Lecture_Frein_Accel frein_accel(FREIN, ACCEL, COEFACCEL, COEFFREIN);
 
 #if Activate_Temperature == 1
     LM74 lm74_1(shiftRegister);  
+    float temperature1 = 0. ,temperature2 = 2. ,temperature3 = 0. ,temperature4 = 0. ,temperature5 = 0. ;
 #endif
 
 #if Activate_GPS_IIC == 1
@@ -37,13 +36,16 @@ GPS_IIC gps;
     #define timerID 0
     #define preScaler 8 //Timer 10MHz
 
+    double oldfreq, buffer ;
+    //int caca = 0, pipi=1;
+
     hw_timer_t *My_timer = NULL;
 
     boolean FlagPin = false;
 
     uint16_t i = 0, temp = 0, temp2 = 0;
 
-    int n = 20 , y = 0;
+    int n = 50 , y = 0;
 
     float temps = 0., freq = 0., moy= 0., resultmoy = 0.;
 
@@ -61,6 +63,23 @@ GPS_IIC gps;
 
     }
     //MFrequence MFrequence;
+#endif
+
+#if Activate_FREQ == 1
+void initTimer(uint8_t ID, uint16_t Prescaler, uint16_t alarm) {
+  My_timer = timerBegin(ID, Prescaler, true);
+  timerAttachInterrupt(My_timer, &onTimer, true);
+  timerAlarmWrite(My_timer, alarm, true);
+  timerAlarmEnable(My_timer);
+}
+
+void enableAlarm() {
+  timerAlarmEnable(My_timer);
+}
+
+void disableAlarm() {
+  timerAlarmDisable(My_timer);
+}
 #endif
 
 #if Activate_BUTT
@@ -122,17 +141,17 @@ void setup()
 #if Activate_Serial == 1
     Serial.println("Starting to create tasks...");
 #endif
-    xTaskCreatePinnedToCore(
-        coreTaskOne,   /* Function to implement the task */
-        "coreTaskOne", /* Name of the task */
-        10000,         /* Stack size in words */
-        NULL,          /* Task input parameter */
-        0,             /* Priority of the task */
-        NULL,          /* Task handle. */
-        taskCoreOne);  /* Core where the task should run */
-#if Activate_Serial == 1
-    Serial.println("TaskOne Created");
-#endif
+//     xTaskCreatePinnedToCore(
+//         coreTaskOne,   /* Function to implement the task */
+//         "coreTaskOne", /* Name of the task */
+//         10000,         /* Stack size in words */
+//         NULL,          /* Task input parameter */
+//         0,             /* Priority of the task */
+//         NULL,          /* Task handle. */
+//         taskCoreOne);  /* Core where the task should run */
+// #if Activate_Serial == 1
+//     Serial.println("TaskOne Created");
+// #endif
     xTaskCreatePinnedToCore(
         coreTaskTwo,   /* Function to implement the task */
         "coreTaskTwo", /* Name of the task */
@@ -184,7 +203,7 @@ void setup()
 
 #endif
 
-#if Activate_BUTT
+#if Activate_BUTT == 1
 
   pinMode(START_STOP     , INPUT_PULLUP);
   pinMode(BP_MENU        , INPUT_PULLUP);
@@ -196,109 +215,126 @@ void setup()
 
 #endif
 
-pinMode(TensionPetiteBat,INPUT);
-pinMode(TensionGrandBat,INPUT);
+#if Activate_pinMode == 1
+  pinMode(TensionPetiteBat,INPUT);
+  pinMode(TensionGrandBat,INPUT);
+#endif
 
 }
 
-void coreTaskOne(void *pvParameters)
-{ /////////////// LOOP main
+// void coreTaskOne(void *pvParameters)
+// { /////////////// LOOP main
 
+// #if Activate_Serial == 1
+//   //     String taskMessage = "running on core ";
+//     //     taskMessage = taskMessage + xPortGetCoreID();
+//     //     Serial.println(taskMessage);
+
+//     Serial.println("taskOne ON");
+// #endif
+//     while (true)
+//     {
+
+
+// }
+//     }
+        
+
+void coreTaskTwo(void *pvParameters)
+{ /////////////////////// LOOP écran
 #if Activate_Serial == 1
-  //     String taskMessage = "running on core ";
-    //     taskMessage = taskMessage + xPortGetCoreID();
-    //     Serial.println(taskMessage);
-
-    Serial.println("taskOne ON");
+    Serial.println("taskTwo ON");
 #endif
     while (true)
     {
+#if Activate_Ecran == 0
+        //Fonctions.delay_Retard(1000);
+#endif
+        //Serial.println("taskTwo");
+#if Activate_Ecran == 1
+ //Serial.print("ecran on");
+  #if Activate_BUTT
+    if (FlagMenu) {
+      ecran.incrementDisplay();
+      Serial.println("-Menu-");
+      FlagMenu = false;
+    }
+    if (FlagStart) {
+      ecran.incrementStart();
+      Serial.println("-Start-");
+      FlagStart= false;
+    }
+    if (FlagRst) {
+      ecran.incrementReset();
+      Serial.println("-Reset-");
+      FlagRst = false;
+    }
+    //ecran.etat_menu=1;
+  #endif
+  //Serial.print("oui");
+        //ecran.etat_menu=1;
+        //ecran.speed=resultmoy;
+        ecran.speed=(((resultmoy/6)*3600)*(PI*0.000026));
+         
+       
+        // ecran.BV12=(analogRead(TensionPetiteBat))*(5 / 1023.) ;
+        // ecran.BV48=(analogRead(TensionGrandBat))*(5 / 1023.);
+        ecran.refresh();
+
+#endif
+
          //Fonctions.delay_Retard(1000); // possible watchdog si retiré sans aucun programme
 #if Activate_Serial == 1
         //Serial.println("taskOne");
 #endif
 
 #if Activate_GPS_IIC == 1 
-        gps.getdata();
+        // gps.getdata();
+        //latitude_float;
 #endif
 
 #if Activate_ShiftReg == 1   
 #endif
 
 #if Activate_Temperature == 1
-        // Fonctions.delay_Retard(100);
-        // shiftReg.Selecteur_CS(0);
-        // temperatureSensor.readTemperature();
-        // temperature1 = temperatureSensor.temperature; // Lit la température du capteur
-        // Serial.print("Temperature 1 : ");
-        // Serial.print(temperature1);
-        // Serial.println(" °C");
-        // Fonctions.delay_Retard(10);
-        // shiftReg.Selecteur_CS(1);
-        // Fonctions.delay_Retard(100);
-        // temperatureSensor.readTemperature();
-        // temperature2 = temperatureSensor.temperature; // Lit la température du capteur
-        // Serial.print("Temperature 2 : ");
-        // Serial.print(temperature2);
-        // Serial.println(" °C");
-        // Fonctions.delay_Retard(10);
-        // shiftReg.Selecteur_CS(2);
-        // Fonctions.delay_Retard(100);
-        // temperatureSensor.readTemperature();
-        // temperature3 = temperatureSensor.temperature; // Lit la température du capteur
-        // Serial.print("Temperature 3 : ");
-        // Serial.print(temperature3);
-        // Serial.println(" °C");
-        // Fonctions.delay_Retard(10);
-        // shiftReg.Selecteur_CS(3);
-        // Fonctions.delay_Retard(100);
-        // temperatureSensor.readTemperature();
-        // temperature4 = temperatureSensor.temperature; // Lit la température du capteur
-        // Serial.print("Temperature 4 : ");
-        // Serial.print(temperature4);
-        // Serial.println(" °C");
-        // Fonctions.delay_Retard(10);
-        // shiftReg.Selecteur_CS(4);
-        // Fonctions.delay_Retard(100);
-        // temperatureSensor.readTemperature();
-        // temperature5 = temperatureSensor.temperature; // Lit la température du capteur
-        // Serial.print("Temperature 5 : ");
-        // Serial.print(temperature5);
-        // Serial.println(" °C");
-        // Fonctions.delay_Retard(100);
         shiftRegister.Selecteur_CS(-1);
-        float temp_1 = lm74_1.read(0); // Read from sensor 0
-        float temp_2 = lm74_1.read(1); // Read from sensor 0
-        float temp_3 = lm74_1.read(2);
-        float temp_4 = lm74_1.read(3);
-        float temp_5 = lm74_1.read(4);
-        Serial.print("Sensor 1: ");
-        Serial.print(temp_1);
-        Serial.print("°C  /  ");
-        Serial.print("Sensor 2: ");
-        Serial.print(temp_2);
-        Serial.print("°C  /  ");
-        Serial.print("Sensor 3: ");
-        Serial.print(temp_3);
-        Serial.print("°C  /  ");
-        Serial.print("Sensor 4: ");
-        Serial.print(temp_4);
-        Serial.print("°C  /  ");
-        Serial.print("Sensor 5: ");
-        Serial.print(temp_5);
-        Serial.println("°C");
+        temperature1 = lm74_1.read(0); // Read from sensor 0
+        temperature2 = lm74_1.read(1); // Read from sensor 0
+        temperature3 = lm74_1.read(2);
+        temperature4 = lm74_1.read(3);
+        temperature5 = lm74_1.read(4);
+        ecran.temp_moteur = temperature1;
+        ecran.temp_bat1 = temperature1;
+        ecran.temp_bat2 = temperature2;
+        ecran.temp_bat3 = temperature3;
+        ecran.temp_bat4 = temperature4;
+        // Serial.print("Sensor 1: ");
+        // Serial.print(temp_1);
+        // Serial.print("°C  /  ");
+        // Serial.print("Sensor 2: ");
+        // Serial.print(temp_2);
+        // Serial.print("°C  /  ");
+        // Serial.print("Sensor 3: ");
+        // Serial.print(temp_3);
+        // Serial.print("°C  /  ");
+        // Serial.print("Sensor 4: ");
+        // Serial.print(temp_4);
+        // Serial.print("°C  /  ");
+        // Serial.print("Sensor 5: ");
+        // Serial.print(temp_5);
+        // Serial.println("°C");
         
         
 #endif
 
 #if Activate_ACCEL_FREIN == 1
-        Serial.print("Frein : ");
-        Serial.println(frein_accel.readFrein());
-        Serial.print("Accel : ");
-        Serial.println(frein_accel.readAccel());
-        Fonctions.delay_Retard(500);
-        Serial.println(frein_accel.getFr_Prcent());
-        Serial.println(frein_accel.getAc_Prcent());
+        // Serial.print("Frein : ");
+        ecran.BV12=(frein_accel.readFrein());
+        // Serial.print("Accel : ");
+        ecran.BV48=(frein_accel.readAccel());
+        //Fonctions.delay_Retard(500);
+        //Serial.println(frein_accel.getFr_Prcent());
+        //Serial.println(frein_accel.getAc_Prcent());
 #endif
 
 #if Activate_LoRa == 1
@@ -315,6 +351,11 @@ void coreTaskOne(void *pvParameters)
         Fonctions.delay_Retard(250);
 #endif
 
+    }
+}
+
+void loop()
+{ // NE SERT A RIEN !!!!
 #if Activate_FREQ == 1
 if (FlagPin) {
     enableAlarm();
@@ -335,7 +376,7 @@ if (FlagPin) {
           }
     attachInterrupt(SW, &onFallingEdge, FALLING);
 
-    if (temp > 0 && freq < 2000 ) {
+    if (temp > 0 && freq < 2500 ) {
       
       if (y != n){ 
         // Serial.print(moy);
@@ -361,75 +402,5 @@ if (FlagPin) {
     
 #endif
 }
-    }
-        
-
-void coreTaskTwo(void *pvParameters)
-{ /////////////////////// LOOP écran
-#if Activate_Serial == 1
-    Serial.println("taskTwo ON");
-#endif
-    while (true)
-    {
-#if Activate_Ecran == 0
-        //Fonctions.delay_Retard(1000);
-#endif
-        //Serial.println("taskTwo");
-#if Activate_Ecran == 1
-
-  #if Activate_BUTT
-    if (FlagMenu) {
-      ecran.incrementDisplay();
-      Serial.println("-Menu-");
-      FlagMenu = false;
-    }
-    if (FlagStart) {
-      ecran.incrementStart();
-      Serial.println("-Start-");
-      FlagStart= false;
-    }
-    if (FlagRst) {
-      ecran.incrementReset();
-      Serial.println("-Reset-");
-      FlagRst = false;
-    }
-  #else
-    cran.etat_menu=2;
-  #endif
-        // ecran.etat_menu=1;
-        ecran.speed=resultmoy;
-        // ecran.speed=(((resultmoy/6)*3600)*(PI*0.000026));
-        // ecran.temp_moteur = temperature5;
-        // ecran.temp_bat1 = temperature1;
-        // ecran.temp_bat2 = temperature2;
-        // ecran.temp_bat3 = temperature3;
-        // ecran.temp_bat4 = temperature4;
-        ecran.BV12=(analogRead(TensionPetiteBat))*(5 / 1023.) ;
-        ecran.BV48=(analogRead(TensionGrandBat))*(5 / 1023.);
-        ecran.refresh();
-
-#endif
-    }
-}
-
-void loop()
-{ // NE SERT A RIEN !!!!
-}
 
 
-#if Activate_FREQ == 1
-void initTimer(uint8_t ID, uint16_t Prescaler, uint16_t alarm) {
-  My_timer = timerBegin(ID, Prescaler, true);
-  timerAttachInterrupt(My_timer, &onTimer, true);
-  timerAlarmWrite(My_timer, alarm, true);
-  timerAlarmEnable(My_timer);
-}
-
-void enableAlarm() {
-  timerAlarmEnable(My_timer);
-}
-
-void disableAlarm() {
-  timerAlarmDisable(My_timer);
-}
-#endif

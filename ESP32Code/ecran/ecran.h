@@ -8,9 +8,9 @@
 
 #include <Arduino.h>
 
-#define BPD 17
-#define BPS 18
-#define BPR 19
+#define BPD 33
+#define BPS 32
+#define BPR 5
 #define TAILLE_TABLEAU_MAX 100
 
 

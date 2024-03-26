@@ -7,7 +7,7 @@
 // LiquidCrystal_I2C lcd(0x27,20,4);
 
 
-bool Ecran::CPT = false;
+bool Ecran::Ecran::CPT = false;
 bool Ecran::counter_passage = false;
 bool Ecran::counter_reset = false;
 bool Ecran::counter_start = false;
@@ -20,7 +20,7 @@ Ecran::Ecran(int I2C_SCL, int I2C_SDA) : lcd(0x27, 20,4) {
 
 void Ecran::begin() {
   lcd.begin(I2C_SDA, I2C_SCL); lcd.backlight();
-  Serial.begin(9600);
+  //Serial.begin(9600);
   //I2Cone.begin(SDA, SCL,400000);
 
   //Interruption & Bouton
@@ -394,13 +394,13 @@ void Ecran::CLEAN_LCD() {//Permet de nettoyer l'ensemble de l'écran (optimisati
 
 void Ecran::CHRONOMETER(bool x) {
     if ((Serial.available() > 0) or (force_start) or (counter_passage)) {
-    String command = Serial.readStringUntil('\n');;
+    String command = Serial.readStringUntil('\n');
     if ((counter_start) or (force_start) or (command == "start")) {
       if (!running) {startTime = millis() - elapsedTime; running = true; force_start = false; counter_stop = false;}} 
-      else if ((counter_stop) or (command == "stop")) {
-        if (running) {last_time = elapsedTime; elapsedTime = millis() - startTime; running = false; counter_start = false;}}
-      else if ((counter_reset) or (command == "reset")) {
-        if (running) {last_time = elapsedTime; force_start = true;} elapsedTime = 0; running = false; counter_reset = false;}}
+    if ((counter_stop) or (command == "stop")) {
+      if (running) {last_time = elapsedTime; elapsedTime = millis() - startTime; running = false; counter_start = false;}}
+    if ((counter_reset) or (command == "reset")) {
+      if (running) {last_time = elapsedTime; force_start = true;} elapsedTime = 0; running = false; counter_reset = false;}}
   if (running) {unsigned long currentTime = millis(); elapsedTime = currentTime - startTime;}
   int minutes = elapsedTime / 60000;
   int seconds = (elapsedTime % 60000) / 1000;
@@ -652,20 +652,25 @@ void Ecran::MENU_CLASSEMENT() {
   lcd.setCursor(5, 3); lcd.print("3- "); lcd.print(chrono[2]);}
 
 void Ecran::refresh() {
-  if (CPT) {etat_menu++; CLEAN_LCD(); CPT = false;}
+  if (Ecran::CPT) {etat_menu++; CLEAN_LCD(); Ecran::CPT = false;}
   if (etat_menu > 3) {etat_menu = 1;}
   if (etat_menu == 1) {MENU_1(true, speed, BV48, BV12, temp_moteur);}
   if (etat_menu == 2) {MENU_2(false, speed, temp_bat1, temp_bat2, temp_bat3, temp_bat4);}
-  if (etat_menu == 3) {MENU_3(false, speed);}
+  if (etat_menu >= 3) {MENU_3(false, speed);}
+  // Serial.println(etat_menu);
+  // Serial.println(CPT);
+  Serial.println(counter_start);
+  Serial.println(counter_stop);
+  Serial.println(running);
 }
 
 
 void Ecran::incrementDisplay() { Ecran::CPT = true; Serial.println("PASSAGE DISPLAY");}
 void Ecran::incrementStart() {
   Serial.println("PASSAGE START/STOP"); 
-  Ecran::counter_passage = true;
-   Ecran::counter_start = true;
-  //if (counter_start) {counter_stop = true;}
-  //if (counter_stop) {counter_start = true;}
+   Ecran::counter_passage = true;
+   //Ecran::counter_start = true;
+  if (counter_start) {Ecran::counter_stop = true;}
+  if (counter_stop)  {Ecran::counter_start = true;}
 }
 void Ecran::incrementReset() {Serial.println("PASSAGE RESET"); Ecran::counter_reset = true;  Ecran::counter_passage = true;}

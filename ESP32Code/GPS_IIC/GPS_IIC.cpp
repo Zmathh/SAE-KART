@@ -39,10 +39,10 @@ void GPS_IIC::getdata() {
                 float latitude_float = atof(latitude) / 100;
                 float longitude_float = atof(longitude) / 100;
 
-                Serial.print("Latitude: ");
-                Serial.println(latitude_float, 6);
-                Serial.print("Longitude: ");
-                Serial.println(longitude_float, 6);
+                // Serial.print("Latitude: ");
+                // Serial.println(latitude_float, 6);
+                // Serial.print("Longitude: ");
+                // Serial.println(longitude_float, 6);
             }
             messageIndex = 0;
         }
