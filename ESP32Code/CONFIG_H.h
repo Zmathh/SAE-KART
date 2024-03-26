@@ -69,8 +69,8 @@
 #define I2C_SDA 21
 #define I2C_SCL 22
 
-#define LoRa_Tx 3
-#define LoRa_Rx 4
+#define LoRa_Tx 17
+#define LoRa_Rx 16
 
 #define CS_STRB 0
 #define CS_CLK 2
