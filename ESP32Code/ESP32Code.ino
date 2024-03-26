@@ -31,10 +31,10 @@ GPS_IIC gps;
 
     #define SW 25
 
-    #define timerID 0
-    #define preScaler 8 //Timer 10MHz
+    // #define timerID 0
+    // #define preScaler 8 //Timer 10MHz
 
-    double oldfreq, buffer ;
+    // double oldfreq, buffer ;
 
   int milli_freq = 0;
   int previous_milli_freq = 0;
@@ -44,13 +44,13 @@ GPS_IIC gps;
   float interval_sec_freq = interval_freq/1000;
   
 
-    hw_timer_t *My_timer = NULL;
+    // hw_timer_t *My_timer = NULL;
 
-    boolean FlagPin = false;
+    // boolean FlagPin = false;
 
-    uint16_t i = 0, temp = 0, temp2 = 0;
+    // uint16_t i = 0, temp = 0, temp2 = 0;
 
-    int n = 50 , y = 0;
+    // int n = 50 , y = 0;
 
     float temps = 0., freq = 0., moy= 0., resultmoy = 0.;
 
