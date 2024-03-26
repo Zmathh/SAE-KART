@@ -274,7 +274,7 @@ void coreTaskTwo(void *pvParameters)
         ecran.speed=(((resultmoy/6)*3600)*(PI*0.000026));
          
        
-        // ecran.BV12=(analogRead(TensionPetiteBat))*(5 / 1023.) ;
+        ecran.BV12=(((analogRead(TensionPetiteBat))/2234)*12);
         // ecran.BV48=(analogRead(TensionGrandBat))*(5 / 1023.);
         ecran.refresh();
 
