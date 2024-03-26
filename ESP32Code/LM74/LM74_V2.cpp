@@ -20,7 +20,7 @@ float LM74::read(int selecteur) {
     shiftRegister.Selecteur_CS(selecteur); 
     uint16_t regbits = (byte1 << 8) + byte2;
     regbits = (regbits >> 3);
-    float temp = regbits * 0.0625;
+    float temp = (regbits * 0.0625) - 2.1;
     return temp;
 }
 
