@@ -2,7 +2,7 @@
 
 Fonctions Fonctions;
 
-
+//caca
 #if Activate_LoRa == 1
 SoftwareSerial SoftSerial(17, 16);
 const uint8_t dataPacketSize = (sizeof(float) * 13) + (sizeof(char) * 10 * 2) + (sizeof(int) * 2);
