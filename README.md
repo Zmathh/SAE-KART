@@ -22,16 +22,16 @@ Supervision d'un Kart
 
 |    Module     |     Test      |     Notes     |
 | ------------- | ------------- |              -|
-| MAIN ESP32    | 🟨           |En cours...    |
+| MAIN ESP32    | ✅           |Terminé fonctionnel    |
 | Dual Core     | ✅           |Terminé fonctionnel (1 loop/coeurs (2) )   |
 | GPS           | ✅           |Terminé fonctionnel    |
 | Module Lora   | ✅           |Terminé fonctionnel    |
 | écran         | ✅           |Terminé fonctionnel    |
 | Accel/frein   | ✅           |Terminé fonctionnel    |
 | Shift register| ✅           |Terminé fonctionnel    |
-| Capteur temperature|✅       |Test unitaire OK, faire test avec les 5 capteurs |
+| Capteur temperature|🟨       |Manque capteur temp moteur |
 | I2C TO UART   | ✅           |Terminé fonctionnel    |
-| Capteur fréquence| ❌  |Demande la fin de tout les modules pour gérer les interruptions   |
+| Capteur fréquence| ✅  |Terminé fonctionnel   |
 
 
 # SAE-KART LoRa
