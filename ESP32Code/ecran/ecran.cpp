@@ -85,10 +85,10 @@ void Ecran::GO_GEII(){
   lcd.setCursor(15, 3); lcd.write(6);
   }
 
-  void Ecran::GO_LCD(){
+void Ecran::GO_LCD(){
   int x = 4;
   //unsigned long currentMillis = millis();
-
+  CLEAN_LCD();
   if(etat_clean == true) {CLEAN_LCD(); etat_clean = false;}
 
   //AFFICHAGE DE "3"
@@ -378,7 +378,6 @@ void Ecran::NUMBER(int x, int y) {//Permet l'affichage des chiffres 0 à 9
     lcd.setCursor((y+3),2); lcd.write(empty);
     break;}}
 
-
 void Ecran::CLEAN_COLUMN(int x) {//Permet de nettoyer une colonne pour optimiser l'affichage de la vitesse
   lcd.setCursor(x,0); lcd.write(empty);
   lcd.setCursor(x,1); lcd.write(empty);
@@ -396,7 +395,7 @@ void Ecran::CHRONOMETER(bool x) {
     if ((Serial.available() > 0) or (force_start) or (counter_passage)) {
     String command = Serial.readStringUntil('\n');
     if ((counter_start) or (force_start) or (command == "start")) {
-      if (!running) {startTime = millis() - elapsedTime; running = true; force_start = false; counter_stop = false;}} 
+      if (!running) {if(!force_start) {GO_LCD();} startTime = millis() - elapsedTime; running = true; force_start = false; counter_stop = false;}} 
     if ((counter_stop) or (command == "stop")) {
       if (running) {last_time = elapsedTime; elapsedTime = millis() - startTime; running = false; counter_start = false;}}
     if ((counter_reset) or (command == "reset")) {
@@ -419,10 +418,10 @@ void Ecran::TOPSPEED(int x) {//Permet d'afficher la vitesse max atteinte
   lcd.setCursor(2,2); lcd.write(0);
   if(x > speed_max) {speed_max = x;}
   if(speed_max >= 100) {lcd.setCursor(1,3); lcd.print(speed_max);}
-  else if(speed_max < 10) 
-          if(speed_max == 0) {lcd.setCursor(1,3); lcd.print("N-D");}
-          else {lcd.setCursor(1,3); lcd.print("00"); lcd.setCursor(3,3); lcd.print(speed_max);}
-       else {lcd.setCursor(1,3); lcd.print("0"); lcd.setCursor(2,3); lcd.print(speed_max);}} 
+  if(speed_max < 10) 
+    if(speed_max == 0) {lcd.setCursor(1,3); lcd.print("N-D");}
+    else {lcd.setCursor(1,3); lcd.print("00"); lcd.setCursor(3,3); lcd.print(speed_max);}
+  else {lcd.setCursor(1,3); lcd.print("0"); lcd.setCursor(2,3); lcd.print(speed_max);}} 
 
 void Ecran::SPEEDCOUNTER(int x) {//Permet la gestion de l'affichage de la vitesse (fonctionne avec la fonction Ecran::NUMBER)
   hundreds = x / 100; 
@@ -598,50 +597,44 @@ void Ecran::CHRONO_AVERAGE() {
   average_time = calculerMoyenne(chrono, tailleTableau);
   int minutes = average_time / 60000;
   int seconds = (average_time % 60000) / 1000;
-  //Serial.print("Moyenne : ");
-  //Serial.println(average_time);
   lcd.setCursor(16,0); lcd.write(1);
   lcd.setCursor(17,0); lcd.print("AT");
   lcd.setCursor(15,1);
-  //if((seconds == 0) and (minutes == 0)) {lcd.print("00:00");}
-  if(minutes < 10) {lcd.print("0"); lcd.print(minutes);}
-  else {lcd.print(minutes);}
-  lcd.print(":");
-  if(seconds < 10) {lcd.print("0"); lcd.print(seconds);}
-  else {lcd.print(seconds);}}
+  if(best_time == 0) {lcd.print("00:00");}
+  if(best_time != 0) {if(minutes < 10) {lcd.print("0"); lcd.print(minutes);}
+                      else {lcd.print(minutes);}
+                      lcd.print(":");
+                      if(seconds < 10) {lcd.print("0"); lcd.print(seconds);}
+                      else {lcd.print(seconds);}}}
 
 void Ecran::CHRONO_BEST() {
   best_time = trouverPlusPetite(chrono, tailleTableau);
   int minutes = best_time / 60000;
   int seconds = (best_time % 60000) / 1000;
-  Serial.print("Meilleur temps : ");
-  Serial.println(best_time);
   lcd.setCursor(1,0); lcd.write(1);
   lcd.setCursor(2,0); lcd.print("BT");
   lcd.setCursor(0,1);
-  //if((seconds == 0) and (minutes == 0)) {lcd.print("00:00");}
   if(minutes < 10) {lcd.print("0"); lcd.print(minutes);}
   else {lcd.print(minutes);}
   lcd.print(":");
   if(seconds < 10) {lcd.print("0"); lcd.print(seconds);}
   else {lcd.print(seconds);}}
 
-void Ecran::MENU_1(bool display_chrono, float speed, float x, float y, float z) {
+void Ecran::MENU_1(bool display_chrono, int speed, float x, float y) {
   CHRONOMETER(display_chrono);
   SPEEDCOUNTER(speed);
-  BATTERY(x, y);
-  TEMPERATURE_MOTOR(z);}
+  TOPSPEED(speed);
+  BATTERY(x, y);}
 
-void Ecran::MENU_2(bool display_chrono, float speed, float w, float x, float y, float z) {
+void Ecran::MENU_2(bool display_chrono, int speed, float w, float x, float y, float z) {
   CHRONOMETER(display_chrono);
   SPEEDCOUNTER(speed);
   TEMPERATURE_BATTERY(w, x, y, z);}
 
-void Ecran::MENU_3(bool display_chrono, float speed) {
+void Ecran::MENU_3(bool display_chrono, int speed) {
   CHRONOMETER(display_chrono);
   if (last_time > 0) {CLASSEMENT(last_time); last_time = 0;}
   SPEEDCOUNTER(speed);
-  TOPSPEED(speed);
   CHRONO_AVERAGE();
   CHRONO_BEST();}
 
@@ -654,7 +647,7 @@ void Ecran::MENU_CLASSEMENT() {
 void Ecran::refresh() {
   if (CPT) {etat_menu++; CLEAN_LCD(); CPT = true;}
   if (etat_menu > 3) {etat_menu = 1;}
-  if (etat_menu == 1) {MENU_1(true, speed, BV48, BV12, temp_moteur);}
+  if (etat_menu == 1) {MENU_1(true, speed, BV48, BV12);}
   if (etat_menu == 2) {MENU_2(false, speed, temp_bat1, temp_bat2, temp_bat3, temp_bat4);}
   if (etat_menu == 3) {MENU_3(false, speed);}
 }

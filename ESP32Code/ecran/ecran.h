@@ -26,7 +26,7 @@ class Ecran
     void refresh();
     void TEMPERATURE_MOTOR(float x);
 
-    int speed; //speed correspond à la vitesse du kart pour TOPSPEED et SPEEDCOUNTER
+    int speed = 0; //speed correspond à la vitesse du kart pour TOPSPEED et SPEEDCOUNTER
     float BV48 = 48, BV12 = 12;  //TBB et TSB correspond au tension des batteries pour BATTERY
     bool running; //CHRONOMETER
     // interrupt
@@ -68,7 +68,7 @@ unsigned long startTime = 0; //CHRONOMETER
 unsigned long elapsedTime = 0; ///CHRONOMETER
 unsigned long previousMillis_B = 0, previousMillis_L = 0; //BATTERY
 const long interval = 500; //BATTERY
-int speed_max; //TOPSPEED
+int speed_max=0; //TOPSPEED
 int etat_B = 1, etat_L = 1; //BATTERY
 unsigned long previousMillis_GO = 0;  //ECRAN 3 2 1 GO
 
@@ -97,9 +97,9 @@ unsigned long previousMillis_GO = 0;  //ECRAN 3 2 1 GO
     void CLASSEMENT(float x);
     void CHRONO_AVERAGE();
     void CHRONO_BEST();
-    void MENU_1(bool display_chrono, float speed, float x, float y, float z);
-    void MENU_2(bool display_chrono, float speed, float w, float x, float y, float z);
-    void MENU_3(bool display_chrono, float speed);
+    void MENU_1(bool display_chrono, int speed, float x, float y);
+    void MENU_2(bool display_chrono, int speed, float w, float x, float y, float z);
+    void MENU_3(bool display_chrono, int speed);
     void MENU_CLASSEMENT();
  
     // +
