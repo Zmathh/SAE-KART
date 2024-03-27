@@ -89,20 +89,22 @@ GPS_IIC gps;
 
 #if Activate_BUTT == 1
 
+  bool BP_Start, BP_Reset, BP_Display;
+
   void IRAM_ATTR onStart() {
 
-    Ecran::CPT_start = true;
+    BP_Start = true;
   }
 
   void IRAM_ATTR onMenu() {
 
-    Ecran::CPT_display = true;
+    BP_Display = true;
 
   }
 
   void IRAM_ATTR onReset() {
 
-    Ecran::CPT_reset= true;
+    BP_Reset = true;
 
   }
 #endif
@@ -207,6 +209,7 @@ void setup()
   pinMode(BP_MENU        , INPUT);
   pinMode(BP_RESET_CHRONO, INPUT);
 
+
   attachInterrupt(START_STOP     , &onStart, FALLING);
   attachInterrupt(BP_MENU        , &onMenu , FALLING);
   attachInterrupt(BP_RESET_CHRONO, &onReset, FALLING);
@@ -255,28 +258,13 @@ void coreTaskTwo(void *pvParameters)
 #if Activate_Ecran == 0
         //Fonctions.delay_Retard(1000);
 #endif
+#if Activate_BUTT == 1
+  if (BP_Display) {Ecran::CPT_display = true; BP_Display = false;}
+  if (BP_Start) {Ecran::CPT_start = true; BP_Start = false;}
+  if (BP_Reset) {Ecran::CPT_reset = true; BP_Reset = false;}
+#endif
         //Serial.println("taskTwo");
 #if Activate_Ecran == 1
- //Serial.print("ecran on");
-  // #if Activate_BUTT == 1
-  //   if (FlagMenu) {
-  //     ecran.incrementDisplay();
-  //     Serial.println("-Menu-");
-  //     FlagMenu = false;
-  //   }
-  //   if (FlagStart) {
-  //     ecran.incrementStart();
-  //     Serial.println("-Start-");
-  //     FlagStart= false;
-  //   }
-  //   if (FlagRst) {
-  //     ecran.incrementReset();
-  //     Serial.println("-Reset-");
-  //     FlagRst = false;
-  //   }
-  //   //ecran.etat_menu=1;
-  // #endif
-  //Serial.print("oui");
         ecran.etat_menu=1;
         //ecran.speed=resultmoy;
         #if Activate_FREQ == 1

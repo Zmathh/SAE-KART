@@ -45,9 +45,9 @@ class Ecran
     bool passage = true;
     bool force_start = false;
 
-    static void incrementDisplay();
-    static void incrementStart();
-    static void incrementReset();
+    // static void incrementDisplay();
+    // static void incrementStart();
+    // static void incrementReset();
 
   private:
 
