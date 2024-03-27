@@ -265,13 +265,13 @@ void coreTaskTwo(void *pvParameters)
 #endif
         //Serial.println("taskTwo");
 #if Activate_Ecran == 1
-        ecran.etat_menu=1;
+        // ecran.etat_menu=1;
         //ecran.speed=resultmoy;
         #if Activate_FREQ == 1
           ecran.speed=((frequence/6) * coeffvitesse);
           //ecran.speed = frequence; 
        #endif
-        ecran.BV12=(analogRead(TensionPetiteBat)*1.8/1975)*coeffpb; //14V max Au chargement de la batterie
+        ecran.BV12=(analogRead(TensionPetiteBat)*1.92/1975)*coeffpb; //14V max Au chargement de la batterie
         // ecran.BV48=(51-(51*((analogRead(TensionPetiteBat)*3.3)/4095.))*3.3);
         // (analogRead(TensionGrandBat)); //52 V max ?
         //ecran.BV48=2;

@@ -392,8 +392,8 @@ void Ecran::CLEAN_LCD() {//Permet de nettoyer l'ensemble de l'écran (optimisati
   
 
 void Ecran::CHRONOMETER(bool x) {
-  if (CPT_start && counter_stop && (!counter_start)) {counter_start = true; CPT_start = false;}
-  if (CPT_start && (!counter_stop) && counter_start) {counter_stop = true; CPT_start = false;}
+  if (CPT_start && counter_stop ) {counter_start = true; CPT_start = false;}
+  if (CPT_start && counter_start) {counter_stop = true; CPT_start = false;}
   if (CPT_reset) {counter_reset = true; CPT_reset = false;}
   ///////////////////////////////////////////////Définition du START/STOP/RESET  /////////////////////////////////////////////////////////////////
     if ((Serial.available() > 0) or (force_start) or (counter_passage)) {
