@@ -12,6 +12,7 @@ CModuleLoRa *pModuleLoRa = NULL;
 
 #if Activate_ACCEL_FREIN == 1
 Lecture_Frein_Accel frein_accel(FREIN, ACCEL, COEFACCEL, COEFFREIN);
+float accel = 0, frein = 0;
 #endif
 
 #if Activate_ShiftReg == 1
@@ -326,6 +327,8 @@ void coreTaskTwo(void *pvParameters)
 #if Activate_ACCEL_FREIN == 1
         // Serial.print("Frein : ");
         //ecran.BV12=(frein_accel.readFrein());
+        accel = frein_accel.readFrein();
+        frein = frein_accel.readAccel();
         // Serial.print("Accel : ");
         //ecran.BV48=(frein_accel.readAccel());
         //Fonctions.delay_Retard(500);
@@ -335,20 +338,19 @@ void coreTaskTwo(void *pvParameters)
 
 #if Activate_LoRa == 1
   float floatsToSend[] = {
-    float(random(100, 8000) /100.0),
-    float(random(100, 8000) /100.0),
-    float(random(100, 8000) /100.0),
-    float(random(100, 8000) /100.0),
-    float(random(100, 8000) /100.0),
-    float(random(0.0, 9999)/100.0),
-    float(random(0.0, 9999)/100.0),
-    float(random(11.0, 1290)/100.0),
+    temperature1,
+    temperature2,
+    temperature3,
+    temperature4,
+    temperature5,
+    accel,
+    frein,
+    float(random(4700, 4800)/100.0),
+    ecran.BV12,
     float(random(44.0, 4890)/100.0),
-    float(random(200.0, 39990)/100.0),
-    float(random(0, 99)),
-    float(random((-18000), 18000)/100.0),
-    float(random((-9000), 9000)/100.0),
-      
+    ecran.speed,
+    gps.latitude_float,
+    gps.longitude_float,
   };
 
   memcpy(dataPacket, floatsToSend, sizeof(float) * 13);
