@@ -392,8 +392,11 @@ void Ecran::CLEAN_LCD() {//Permet de nettoyer l'ensemble de l'écran (optimisati
   
 
 void Ecran::CHRONOMETER(bool x) {
-  if (CPT_start && counter_stop && (!counter_start)) {counter_start = true; CPT_start = false;}
-  if (CPT_start && (!counter_stop) && counter_start) {counter_stop = true; CPT_start = false;}
+  if (CPT_start)
+  {
+    if (counter_stop) {counter_start = true; CPT_start = false;}
+    if (counter_start) {counter_stop = true; CPT_start = false;}
+  }
   if (CPT_reset) {counter_reset = true; CPT_reset = false;}
   ///////////////////////////////////////////////Définition du START/STOP/RESET  /////////////////////////////////////////////////////////////////
     if ((Serial.available() > 0) or (force_start) or (counter_passage)) {
@@ -494,7 +497,7 @@ void Ecran::BATTERY(float x, float y) {//Permet d'afficher la tension des batter
     lcd.setCursor(17,2); lcd.print("VPB");
     lcd.setCursor(16,3); lcd.print(y, 1);}}
 
-void Ecran::TEMPERATURE_BATTERY(float w,float x, float y, float z) {//Permet l'affichage des température batteries
+void Ecran::TEMPERATURE_BATTERY(float w, float x, float y, float z) {//Permet l'affichage des température batteries
   //Température Haut Gauche
   lcd.setCursor(2,0); lcd.write(2);
   //lcd.setCursor(0,1); lcd.print("0");
@@ -655,6 +658,9 @@ void Ecran::refresh() {
   if (etat_menu == 1) {MENU_1(true, speed, BV48, BV12);}
   if (etat_menu == 2) {MENU_2(false, speed, temp_bat1, temp_bat2, temp_bat3, temp_bat4);}
   if (etat_menu == 3) {MENU_3(false, speed);}
+  lcd.setCursor(6,0); lcd.print(counter_start);
+  lcd.setCursor(7,0); lcd.print(counter_stop);
+  lcd.setCursor(8,0); lcd.print(counter_reset);
 }
 
 // void Ecran::incrementDisplay() {Ecran::CPT = true; Serial.println("PASSAGE DISPLAY");}
