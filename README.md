@@ -34,7 +34,7 @@ Supervision d'un Kart
 | Capteur fréquence| ✅  |Terminé fonctionnel   |
 
 
-# SAE-KART LoRa
+## SAE-KART LoRa
 Simple KiCad design for an Arduino compatible RN2483 (or RN2903) LoRaWA suited for our Project.
 
 Fork of the original [jpmeyers/RN2483shield](https://github.com/jpmeijers/RN2483shield).
@@ -51,18 +51,18 @@ Adjusted to:
  * ignore the 433MHz antenna trace (868MHz only),
  
 
-## Required Parts for PCB
+### Required Parts for PCB
 
  * 3× 10k resistors,
  * 1× SMA 868MHz antenna,
  * 1x RN2483 (or RN2903)
 
-## Setting up
+### Setting up
 
 WIP
 -debug possible
 
-## Schematic
+### Schematic
 
 ![Schematic](module_LoRa_Kicad/images/Schematic.png)
 ***Schematic***
@@ -71,11 +71,11 @@ WIP
 ***PCB***
 
 
-# Solidworks Case
+## Solidworks Case
 ![Solidworks](solidworks/images/Solidworks_view.png)
 ***Solidworks view***
 
-## RF Impedance Analyser Results
+### RF Impedance Analyser Results
 
 >(R +jX) - Calibrated with 50ohms
 
@@ -96,7 +96,7 @@ In the end after testing we are getting better results, better signal strenght a
 ![Final result](images/top_view.jpg)
 ![Final result](images/bot_view.jpg)
 ***Final result***
-# Processing 
+## Processing 
 
 Despite the use of an LCD arduino screen, we wanted to add a better gauge interface, more customizable so we tried to use processing.
 A first sketch code has been written, using an raspberry pi with a raspberry 7" screen.
