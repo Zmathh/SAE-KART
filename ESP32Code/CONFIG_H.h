@@ -57,6 +57,7 @@
 #define Activate_LoRa 1
 #define Activate_Ecran 1
 #define Activate_FREQ 1
+#define Activate_BUTT 1
 
 ////////////////////////////////////////////////////////////////
 // Déclaration Pins //////////////
@@ -92,9 +93,13 @@
 // #define CSN_pin 25
 // #define SIO_pin 33
 
-#define COEFACCEL 1.5
+#define COEFACCEL 1
 #define COEFFREIN 1
 #define PI 3.14159265358979323846
+#define coeffpb 11.5/1.5
+#define coeffgb 0
+#define coeffvitesse 2 * PI * 0.15 * 3.6
+
 
 #define RESET 35
 

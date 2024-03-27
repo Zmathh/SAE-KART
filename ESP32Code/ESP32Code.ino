@@ -2,7 +2,7 @@
 
 Fonctions Fonctions;
 
-
+//caca
 #if Activate_LoRa == 1
 SoftwareSerial SoftSerial(17, 16);
 const uint8_t dataPacketSize = (sizeof(float) * 13) + (sizeof(char) * 10 * 2) + (sizeof(int) * 2);
@@ -12,6 +12,7 @@ CModuleLoRa *pModuleLoRa = NULL;
 
 #if Activate_ACCEL_FREIN == 1
 Lecture_Frein_Accel frein_accel(FREIN, ACCEL, COEFACCEL, COEFFREIN);
+float accel = 0, frein = 0;
 #endif
 
 #if Activate_ShiftReg == 1
@@ -31,76 +32,80 @@ GPS_IIC gps;
 
     #define SW 25
 
-    #define timerID 0
-    #define preScaler 8 //Timer 10MHz
+    // #define timerID 0
+    // #define preScaler 8 //Timer 10MHz
 
-    double oldfreq, buffer ;
-    //int caca = 0, pipi=1;
+    // double oldfreq, buffer ;
 
-    hw_timer_t *My_timer = NULL;
+  int milli_freq = 0;
+  int previous_milli_freq = 0;
+  int comptage_freq = 0;
+  float frequence = 0;
+  int interval_freq = 1000;
+  float interval_sec_freq = interval_freq/1000;
+  
 
-    boolean FlagPin = false;
+    // hw_timer_t *My_timer = NULL;
 
-    uint16_t i = 0, temp = 0, temp2 = 0;
+    // boolean FlagPin = false;
 
-    int n = 50 , y = 0;
+    // uint16_t i = 0, temp = 0, temp2 = 0;
+
+    // int n = 50 , y = 0;
 
     float temps = 0., freq = 0., moy= 0., resultmoy = 0.;
 
-    void IRAM_ATTR onTimer() {
+    // void IRAM_ATTR onTimer() {
 
-    //digitalWrite(LED, !digitalRead(LED));
-    i++;
-    temp2 = timerRead(My_timer);
+    // //digitalWrite(LED, !digitalRead(LED));
+    // i++;
+    // temp2 = timerRead(My_timer);
 
-    }
+    // }
 
     void IRAM_ATTR onFallingEdge() {
     
-    FlagPin = !FlagPin;
+    comptage_freq++;
 
     }
     //MFrequence MFrequence;
 #endif
 
-#if Activate_FREQ == 1
-void initTimer(uint8_t ID, uint16_t Prescaler, uint16_t alarm) {
-  My_timer = timerBegin(ID, Prescaler, true);
-  timerAttachInterrupt(My_timer, &onTimer, true);
-  timerAlarmWrite(My_timer, alarm, true);
-  timerAlarmEnable(My_timer);
-}
+// #if Activate_FREQ == 1
+// void initTimer(uint8_t ID, uint16_t Prescaler, uint16_t alarm) {
+//   My_timer = timerBegin(ID, Prescaler, true);
+//   timerAttachInterrupt(My_timer, &onTimer, true);
+//   timerAlarmWrite(My_timer, alarm, true);
+//   timerAlarmEnable(My_timer);
+// }
 
-void enableAlarm() {
-  timerAlarmEnable(My_timer);
-}
+// void enableAlarm() {
+//   timerAlarmEnable(My_timer);
+// }
 
-void disableAlarm() {
-  timerAlarmDisable(My_timer);
-}
-#endif
+// void disableAlarm() {
+//   timerAlarmDisable(My_timer);
+// }
+// #endif
 
-#if Activate_BUTT
+#if Activate_BUTT == 1
 
-  boolean FlagStart = false;
-  boolean FlagMenu  = false;
-  boolean FlagRst   = false;
+  bool BP_Start, BP_Reset, BP_Display;
 
   void IRAM_ATTR onStart() {
 
-    FlagStart = true;
-
+    BP_Start = true;
   }
 
   void IRAM_ATTR onMenu() {
 
-    FlagMenu = true;
+    BP_Display = true;
 
   }
 
   void IRAM_ATTR onReset() {
 
-    FlagRst = true;
+    BP_Reset = true;
 
   }
 #endif
@@ -139,17 +144,17 @@ void setup()
 #if Activate_Serial == 1
     Serial.println("Starting to create tasks...");
 #endif
-//     xTaskCreatePinnedToCore(
-//         coreTaskOne,   /* Function to implement the task */
-//         "coreTaskOne", /* Name of the task */
-//         10000,         /* Stack size in words */
-//         NULL,          /* Task input parameter */
-//         0,             /* Priority of the task */
-//         NULL,          /* Task handle. */
-//         taskCoreOne);  /* Core where the task should run */
-// #if Activate_Serial == 1
-//     Serial.println("TaskOne Created");
-// #endif
+    xTaskCreatePinnedToCore(
+        coreTaskOne,   /* Function to implement the task */
+        "coreTaskOne", /* Name of the task */
+        10000,         /* Stack size in words */
+        NULL,          /* Task input parameter */
+        0,             /* Priority of the task */
+        NULL,          /* Task handle. */
+        taskCoreOne);  /* Core where the task should run */
+#if Activate_Serial == 1
+    Serial.println("TaskOne Created");
+#endif
     xTaskCreatePinnedToCore(
         coreTaskTwo,   /* Function to implement the task */
         "coreTaskTwo", /* Name of the task */
@@ -193,7 +198,7 @@ void setup()
 
   pinMode(Vitesse, INPUT_PULLUP);
   
-  initTimer(timerID, preScaler, 100);
+  //initTimer(timerID, preScaler, 100);
   
   attachInterrupt(SW, &onFallingEdge, FALLING);
 
@@ -201,9 +206,10 @@ void setup()
 
 #if Activate_BUTT == 1
 
-  pinMode(START_STOP     , INPUT_PULLUP);
-  pinMode(BP_MENU        , INPUT_PULLUP);
-  pinMode(BP_RESET_CHRONO, INPUT_PULLUP);
+  pinMode(START_STOP     , INPUT);
+  pinMode(BP_MENU        , INPUT);
+  pinMode(BP_RESET_CHRONO, INPUT);
+
 
   attachInterrupt(START_STOP     , &onStart, FALLING);
   attachInterrupt(BP_MENU        , &onMenu , FALLING);
@@ -218,22 +224,29 @@ void setup()
 
 }
 
-// void coreTaskOne(void *pvParameters)
-// { /////////////// LOOP main
+void coreTaskOne(void *pvParameters)
+{ /////////////// LOOP main
 
-// #if Activate_Serial == 1
-//   //     String taskMessage = "running on core ";
-//     //     taskMessage = taskMessage + xPortGetCoreID();
-//     //     Serial.println(taskMessage);
+#if Activate_Serial == 1
+  //     String taskMessage = "running on core ";
+    //     taskMessage = taskMessage + xPortGetCoreID();
+    //     Serial.println(taskMessage);
 
-//     Serial.println("taskOne ON");
-// #endif
-//     while (true)
-//     {
+    Serial.println("taskOne ON");
+#endif
+    while (true)
+    {
+        milli_freq = millis();
+            if (milli_freq - previous_milli_freq >= interval_freq)
+            {
+                previous_milli_freq = milli_freq;
+                frequence = comptage_freq/(interval_sec_freq);
+                comptage_freq = 0;
+                // Serial.println(frequence);
+            }
 
-
-// }
-//     }
+    }
+}
         
 
 void coreTaskTwo(void *pvParameters)
@@ -246,35 +259,23 @@ void coreTaskTwo(void *pvParameters)
 #if Activate_Ecran == 0
         //Fonctions.delay_Retard(1000);
 #endif
+#if Activate_BUTT == 1
+  if (BP_Display) {Ecran::CPT_display = true; BP_Display = false;}
+  if (BP_Start) {Ecran::CPT_start = true; BP_Start = false;}
+  if (BP_Reset) {Ecran::CPT_reset = true; BP_Reset = false;}
+#endif
         //Serial.println("taskTwo");
 #if Activate_Ecran == 1
- //Serial.print("ecran on");
-  #if Activate_BUTT
-    if (FlagMenu) {
-      ecran.incrementDisplay();
-      Serial.println("-Menu-");
-      FlagMenu = false;
-    }
-    if (FlagStart) {
-      ecran.incrementStart();
-      Serial.println("-Start-");
-      FlagStart= false;
-    }
-    if (FlagRst) {
-      ecran.incrementReset();
-      Serial.println("-Reset-");
-      FlagRst = false;
-    }
-    //ecran.etat_menu=1;
-  #endif
-  //Serial.print("oui");
-        ecran.etat_menu=2;
+        // ecran.etat_menu=1;
         //ecran.speed=resultmoy;
-        ecran.speed=(((resultmoy/6)*3600)*(PI*0.000026));
-         
-       
-        ecran.BV12=(((analogRead(TensionPetiteBat))/2234)*12);
-        // ecran.BV48=(analogRead(TensionGrandBat))*(5 / 1023.);
+        #if Activate_FREQ == 1
+          ecran.speed=((frequence/6) * coeffvitesse);
+          //ecran.speed = frequence; 
+       #endif
+        ecran.BV12=(analogRead(TensionPetiteBat)*1.92/1975)*coeffpb; //14V max Au chargement de la batterie
+        // ecran.BV48=(51-(51*((analogRead(TensionPetiteBat)*3.3)/4095.))*3.3);
+        // (analogRead(TensionGrandBat)); //52 V max ?
+        //ecran.BV48=2;
         ecran.refresh();
 
 #endif
@@ -300,10 +301,10 @@ void coreTaskTwo(void *pvParameters)
         temperature4 = lm74_1.read(3);
         temperature5 = lm74_1.read(4);
         ecran.temp_moteur = temperature1;
-        ecran.temp_bat1 = temperature1;
-        ecran.temp_bat2 = temperature2;
-        ecran.temp_bat3 = temperature3;
-        ecran.temp_bat4 = temperature4;
+        ecran.temp_bat1 = temperature2;
+        ecran.temp_bat2 = temperature3;
+        ecran.temp_bat3 = temperature4;
+        ecran.temp_bat4 = temperature5;
         // Serial.print("Sensor 1: ");
         // Serial.print(temp_1);
         // Serial.print("°C  /  ");
@@ -325,30 +326,31 @@ void coreTaskTwo(void *pvParameters)
 
 #if Activate_ACCEL_FREIN == 1
         // Serial.print("Frein : ");
-        ecran.BV12=(frein_accel.readFrein());
+        //ecran.BV12=(frein_accel.readFrein());
+        accel = frein_accel.readFrein();
+        frein = frein_accel.readAccel();
         // Serial.print("Accel : ");
-        ecran.BV48=(frein_accel.readAccel());
+        //ecran.BV48=(frein_accel.readAccel());
         //Fonctions.delay_Retard(500);
         //Serial.println(frein_accel.getFr_Prcent());
         //Serial.println(frein_accel.getAc_Prcent());
 #endif
 
 #if Activate_LoRa == 1
-        float floatsToSend[] = {
-      float(random(100, 8000) /100.0),
-      float(random(100, 8000) /100.0),
-      float(random(100, 8000) /100.0),
-      float(random(100, 8000) /100.0),
-      float(random(100, 8000) /100.0),
-      float(random(0.0, 9999)/100.0),
-      float(random(0.0, 9999)/100.0),
-      float(random(11.0, 1290)/100.0),
-      float(random(44.0, 4890)/100.0),
-      float(random(200.0, 39990)/100.0),
-      float(random(0, 99)),
-      float(random((-18000), 18000)/100.0),
-      float(random((-9000), 9000)/100.0),
-      
+  float floatsToSend[] = {
+    temperature1,
+    temperature2,
+    temperature3,
+    temperature4,
+    temperature5,
+    accel,
+    frein,
+    float(random(4700, 4800)/100.0),
+    ecran.BV12,
+    float(random(44.0, 4890)/100.0),
+    ecran.speed,
+    gps.latitude_float,
+    gps.longitude_float,
   };
 
   memcpy(dataPacket, floatsToSend, sizeof(float) * 13);
@@ -366,51 +368,59 @@ void coreTaskTwo(void *pvParameters)
 }
 
 void loop()
-{ // NE SERT A RIEN !!!!
+{ 
 #if Activate_FREQ == 1
-if (FlagPin) {
-    enableAlarm();
-    attachInterrupt(SW, &onFallingEdge, FALLING);
+/* if (FlagPin) {
+  enableAlarm();
+  attachInterrupt(SW, &onFallingEdge, FALLING);
   } else {
-    detachInterrupt(SW);
-    for(int k = 0; k < 1000; k++){;;}
-    disableAlarm();
-    for(int k = 0; k < 1000; k++){;;}
-    temp = i;
-    i = 0;
-    if (temp != 0) {
+  detachInterrupt(SW);
+  for(int k = 0; k < 1000; k++){;;}
+  disableAlarm();
+  for(int k = 0; k < 1000; k++){;;}
+  temp = i;
+  i = 0;
+  if (temp != 0) {
 
-      temps = (temp * 100) + temp2 ; 
+    temps = (temp * 100) + temp2 ; 
 
-      freq = 10000000. / temps; 
+    freq = 10000000. / temps; 
       
-          }
-    attachInterrupt(SW, &onFallingEdge, FALLING);
+  }
+  attachInterrupt(SW, &onFallingEdge, FALLING);
 
-    if (temp > 0 && freq < 2500 ) {
+  if (temp > 0 && freq < 2500 ) {
       
-      if (y != n){ 
+    if (y != n){ 
         // Serial.print(moy);
         // Serial.print("+");
         // Serial.print(freq);
         // Serial.print("=");
-        moy += freq;
-        y++;
-      //  Serial.println(moy);
-     } else if (y == n){
-        resultmoy = moy/n;
-        moy=0;
-        y=0;
+      moy += freq;
+      y++;
+    //  Serial.println(moy);
+   } else if (y == n){
+      resultmoy = moy/n;
+      moy=0;
+      y=0;
         // Serial.println("mise a zero-------------------------------------------");
     }
     #if Activate_Serial == 1
-    Serial.print("Hz =");
+      Serial.print("Hz =");
       Serial.println(resultmoy);
-      #endif 
+    #endif 
     }
  
-  }
+  } */
     
+    // milli_freq = millis();
+    // if (milli_freq - previous_milli_freq >= interval_freq)
+    // {
+    //     previous_milli_freq = milli_freq;
+    //     frequence = comptage_freq/(interval_sec_freq);
+    //     comptage_freq = 0;
+    //     //Serial.println(frequence);
+    // }
 #endif
 }
 
