@@ -2,7 +2,7 @@
 
 Fonctions Fonctions;
 
-
+//caca
 #if Activate_LoRa == 1
 SoftwareSerial SoftSerial(17, 16);
 const uint8_t dataPacketSize = (sizeof(float) * 13) + (sizeof(char) * 10 * 2) + (sizeof(int) * 2);
@@ -31,10 +31,10 @@ GPS_IIC gps;
 
     #define SW 25
 
-    #define timerID 0
-    #define preScaler 8 //Timer 10MHz
+    // #define timerID 0
+    // #define preScaler 8 //Timer 10MHz
 
-    double oldfreq, buffer ;
+    // double oldfreq, buffer ;
 
   int milli_freq = 0;
   int previous_milli_freq = 0;
@@ -44,23 +44,23 @@ GPS_IIC gps;
   float interval_sec_freq = interval_freq/1000;
   
 
-    hw_timer_t *My_timer = NULL;
+    // hw_timer_t *My_timer = NULL;
 
-    boolean FlagPin = false;
+    // boolean FlagPin = false;
 
-    uint16_t i = 0, temp = 0, temp2 = 0;
+    // uint16_t i = 0, temp = 0, temp2 = 0;
 
-    int n = 50 , y = 0;
+    // int n = 50 , y = 0;
 
     float temps = 0., freq = 0., moy= 0., resultmoy = 0.;
 
-    void IRAM_ATTR onTimer() {
+    // void IRAM_ATTR onTimer() {
 
-    //digitalWrite(LED, !digitalRead(LED));
-    i++;
-    temp2 = timerRead(My_timer);
+    // //digitalWrite(LED, !digitalRead(LED));
+    // i++;
+    // temp2 = timerRead(My_timer);
 
-    }
+    // }
 
     void IRAM_ATTR onFallingEdge() {
     
@@ -70,47 +70,44 @@ GPS_IIC gps;
     //MFrequence MFrequence;
 #endif
 
-#if Activate_FREQ == 1
-void initTimer(uint8_t ID, uint16_t Prescaler, uint16_t alarm) {
-  My_timer = timerBegin(ID, Prescaler, true);
-  timerAttachInterrupt(My_timer, &onTimer, true);
-  timerAlarmWrite(My_timer, alarm, true);
-  timerAlarmEnable(My_timer);
-}
+// #if Activate_FREQ == 1
+// void initTimer(uint8_t ID, uint16_t Prescaler, uint16_t alarm) {
+//   My_timer = timerBegin(ID, Prescaler, true);
+//   timerAttachInterrupt(My_timer, &onTimer, true);
+//   timerAlarmWrite(My_timer, alarm, true);
+//   timerAlarmEnable(My_timer);
+// }
 
-void enableAlarm() {
-  timerAlarmEnable(My_timer);
-}
+// void enableAlarm() {
+//   timerAlarmEnable(My_timer);
+// }
 
-void disableAlarm() {
-  timerAlarmDisable(My_timer);
-}
-#endif
-
-// #if Activate_BUTT == 1
-
-//   boolean FlagStart = false;
-//   boolean FlagMenu  = false;
-//   boolean FlagRst   = false;
-
-//   void IRAM_ATTR onStart() {
-
-//     FlagStart = true;
-
-//   }
-
-//   void IRAM_ATTR onMenu() {
-
-//     FlagMenu = true;
-
-//   }
-
-//   void IRAM_ATTR onReset() {
-
-//     FlagRst = true;
-
-//   }
+// void disableAlarm() {
+//   timerAlarmDisable(My_timer);
+// }
 // #endif
+
+#if Activate_BUTT == 1
+
+  bool BP_Start, BP_Reset, BP_Display;
+
+  void IRAM_ATTR onStart() {
+
+    BP_Start = true;
+  }
+
+  void IRAM_ATTR onMenu() {
+
+    BP_Display = true;
+
+  }
+
+  void IRAM_ATTR onReset() {
+
+    BP_Reset = true;
+
+  }
+#endif
 
 #if Activate_Ecran == 1
 Ecran ecran(I2C_SCL, I2C_SDA);
@@ -206,17 +203,18 @@ void setup()
 
 #endif
 
-// #if Activate_BUTT == 1
+#if Activate_BUTT == 1
 
-//   pinMode(START_STOP     , INPUT_PULLUP);
-//   pinMode(BP_MENU        , INPUT_PULLUP);
-//   pinMode(BP_RESET_CHRONO, INPUT_PULLUP);
+  pinMode(START_STOP     , INPUT);
+  pinMode(BP_MENU        , INPUT);
+  pinMode(BP_RESET_CHRONO, INPUT);
 
-//   attachInterrupt(START_STOP     , &onStart, FALLING);
-//   attachInterrupt(BP_MENU        , &onMenu , FALLING);
-//   attachInterrupt(BP_RESET_CHRONO, &onReset, FALLING);
 
-// #endif
+  attachInterrupt(START_STOP     , &onStart, FALLING);
+  attachInterrupt(BP_MENU        , &onMenu , FALLING);
+  attachInterrupt(BP_RESET_CHRONO, &onReset, FALLING);
+
+#endif
 
 #if Activate_pinMode == 1
   pinMode(TensionPetiteBat,INPUT);
@@ -246,8 +244,8 @@ void coreTaskOne(void *pvParameters)
                 // Serial.println(frequence);
             }
 
-}
     }
+}
         
 
 void coreTaskTwo(void *pvParameters)
@@ -260,28 +258,13 @@ void coreTaskTwo(void *pvParameters)
 #if Activate_Ecran == 0
         //Fonctions.delay_Retard(1000);
 #endif
+#if Activate_BUTT == 1
+  if (BP_Display) {Ecran::CPT_display = true; BP_Display = false;}
+  if (BP_Start) {Ecran::CPT_start = true; BP_Start = false;}
+  if (BP_Reset) {Ecran::CPT_reset = true; BP_Reset = false;}
+#endif
         //Serial.println("taskTwo");
 #if Activate_Ecran == 1
- //Serial.print("ecran on");
-  // #if Activate_BUTT == 1
-  //   if (FlagMenu) {
-  //     ecran.incrementDisplay();
-  //     Serial.println("-Menu-");
-  //     FlagMenu = false;
-  //   }
-  //   if (FlagStart) {
-  //     ecran.incrementStart();
-  //     Serial.println("-Start-");
-  //     FlagStart= false;
-  //   }
-  //   if (FlagRst) {
-  //     ecran.incrementReset();
-  //     Serial.println("-Reset-");
-  //     FlagRst = false;
-  //   }
-  //   //ecran.etat_menu=1;
-  // #endif
-  //Serial.print("oui");
         ecran.etat_menu=1;
         //ecran.speed=resultmoy;
         #if Activate_FREQ == 1

@@ -57,7 +57,7 @@
 #define Activate_LoRa 0
 #define Activate_Ecran 1
 #define Activate_FREQ 1
-#define Activate_BUTT 0
+#define Activate_BUTT 1
 
 ////////////////////////////////////////////////////////////////
 // Déclaration Pins //////////////
@@ -73,9 +73,9 @@
 #define CS_CLK 2
 #define CS_DAT 4
 
-// #define START_STOP 5
-// #define BP_MENU 33
-// #define BP_RESET_CHRONO 32
+#define START_STOP 5
+#define BP_MENU 33
+#define BP_RESET_CHRONO 32
 
 #define uWire_CLK 18
 #define uWire_SI_O 19
