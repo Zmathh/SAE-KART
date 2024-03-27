@@ -266,7 +266,7 @@ void coreTaskTwo(void *pvParameters)
 #endif
         //Serial.println("taskTwo");
 #if Activate_Ecran == 1
-        ecran.etat_menu=1;
+        //ecran.etat_menu=1;
         //ecran.speed=resultmoy;
         #if Activate_FREQ == 1
           ecran.speed=((frequence/6) * coeffvitesse);
