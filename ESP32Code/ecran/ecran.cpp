@@ -394,10 +394,12 @@ void Ecran::CLEAN_LCD() {//Permet de nettoyer l'ensemble de l'écran (optimisati
 void Ecran::CHRONOMETER(bool x) {
   if (CPT_start)
   {
-    if (counter_stop) {counter_start = true; CPT_start = false;}
-    if (counter_start) {counter_stop = true; CPT_start = false;}
+    if (counter_start) {counter_stop = true;}
+    else if (counter_stop) {counter_start = true;}
+    counter_passage = true;
+    CPT_start = false;
   }
-  if (CPT_reset) {counter_reset = true; CPT_reset = false;}
+  if (CPT_reset) {counter_reset = true; counter_passage = true; CPT_reset = false;}
   ///////////////////////////////////////////////Définition du START/STOP/RESET  /////////////////////////////////////////////////////////////////
     if ((Serial.available() > 0) or (force_start) or (counter_passage)) {
     String command = Serial.readStringUntil('\n');
@@ -658,9 +660,9 @@ void Ecran::refresh() {
   if (etat_menu == 1) {MENU_1(true, speed, BV48, BV12);}
   if (etat_menu == 2) {MENU_2(false, speed, temp_bat1, temp_bat2, temp_bat3, temp_bat4);}
   if (etat_menu == 3) {MENU_3(false, speed);}
-  lcd.setCursor(6,0); lcd.print(counter_start);
-  lcd.setCursor(7,0); lcd.print(counter_stop);
-  lcd.setCursor(8,0); lcd.print(counter_reset);
+  // lcd.setCursor(6,0); lcd.print(counter_start);
+  // lcd.setCursor(7,0); lcd.print(counter_stop);
+  // lcd.setCursor(8,0); lcd.print(counter_reset);
 }
 
 // void Ecran::incrementDisplay() {Ecran::CPT = true; Serial.println("PASSAGE DISPLAY");}
